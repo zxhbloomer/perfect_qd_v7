@@ -1,5 +1,4 @@
-import { asyncRoutes, asyncRoutes2, resetRouter, setRedirectRouter, convertToOneRouter, constantRoutes, setDefaultPageStatic, setAccessRouters, deepRecursiveLoadComponent } from '@/router'
-import deepcopy from 'deep-copy'
+import { constantRoutes } from '@/router'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -57,113 +56,62 @@ const mutations = {
 
 const actions = {
   setRoutes({ commit }, routers) {
-    debugger
-    setAccessRouters(routers)
     // 设置到vuex中是菜单树
     commit('SET_ROUTES', routers)
-  },
-  /**
-   * getTopNavAndRoutes，菜单设置入口点
-   * @param {*} param0
-   * @param {*} roles
-   */
-  getTopNavAndRoutes({ commit }, _data) {
-    return new Promise(resolve => {
-      // 定义菜单数组
-      const topNavData = []
-      // 此处修改，动态显示顶部导航栏
-      const _topNav = _data.permission_data.user_permission_menu
-      let i = 0
-      // 循环格式化菜单
-      for (const item of _topNav[0].children) {
-        // 递归循环，读取component
-        deepRecursiveLoadComponent(item)
-        /**
-         * R: 根节点
-         * T: 顶部导航栏
-         * P: page
-         */
-        if (item.type === 'T') {
-          i++
-          const tmpTopNav = {
-            index: i + '',
-            type: item.type,
-            meta: item.meta,
-            menus: null,
-            routers: [...item.children]
-          }
-          var _routers = deepcopy(tmpTopNav.routers)
-          // const convertData = convertToOneRouter(_routers)
-          tmpTopNav.menus = _routers
-          topNavData.push(tmpTopNav)
-        }
-      }
-      // 设置到vuex中是菜单树
-      commit('SET_TOP_NAV', topNavData)
-      commit('SET_ROUTES', topNavData[0].routers)
-      setRedirectRouter('/01/dashboard', topNavData[0].routers)
-      resetRouter()
-      debugger
-      // 返回的是一级路由，设置到router中
-      resolve(topNavData[0].menus)
-    })
   },
   /**
    * 以下为手工代码，调试使用
    * @param {*} param0
    * @param {*} _data
    */
-  getTopNavAndRoutes2({ commit }, _data) {
+  setTopNavAndGetRouters({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
-      const _topNav = [
+      const _topNavData = [
         {
+          nav_code: '01',
           index: '1',
           type: 'T',
           meta: {
             icon: '系统管理',
             name: '工作台'
-          },
-          menus: null,
-          routers: asyncRoutes
+          }
         },
         {
+          nav_code: '02',
           index: '2',
           type: 'T',
           meta: {
             icon: 'syscode',
             name: '业务管理'
-          },
-          menus: null,
-          routers: asyncRoutes2
+          }
         },
         {
+          nav_code: '03',
           index: '3',
           type: 'T',
           meta: {
             icon: 'syscode',
             name: '业务管理a'
-          },
-          menus: null,
-          routers: asyncRoutes
+          }
         }
       ]
 
-      // 循环格式化菜单
-      for (const item of _topNav) {
-        if (item.type === 'T') {
-          var _routers = deepcopy(item.routers)
-          const convertData = convertToOneRouter(_routers)
-          item.menus = convertData
-        }
+      // 根据to的path，解析激活哪一个顶部导航栏
+      const _topNav = {
+        data: _topNavData,
+        activeIndex: -1
       }
-      // 设置到vuex中是菜单树
+      const url = _data.to.path.split('/')[1]
+      debugger
+      const _activeIndex = _topNavData.filter(item => item.nav_code === url)[0]
+      if (_activeIndex) {
+        _topNav.activeIndex = _activeIndex
+      } else {
+        // todo:error??
+      }
+      // 把顶部导航栏，设置到vuex中去
       commit('SET_TOP_NAV', _topNav)
-      commit('SET_ROUTES', _topNav[0].routers)
-      // 设置默认菜单
-      setDefaultPageStatic(_data.permission_data.default_page)
-      // 返回的是一级路由，设置到router中
-      resolve(_topNav[0].menus)
     })
   }
 

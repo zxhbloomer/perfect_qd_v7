@@ -39,3 +39,11 @@ export function getUsrPsdStringApi(data) {
     data
   })
 }
+
+export function getTopNavApi(data) {
+  return request({
+    url: '/api/v1/user/topnav',
+    method: 'post',
+    data
+  })
+}

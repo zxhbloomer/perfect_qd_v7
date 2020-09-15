@@ -25,7 +25,7 @@ router.beforeEach(async(to, from, next) => {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       debugger
-      next({ path: '/' })
+      next({ path: '/01' })
       NProgress.done()
     } else {
       // determine whether the user has obtained his permission roles through getInfo
@@ -42,11 +42,11 @@ router.beforeEach(async(to, from, next) => {
           // 角色
           const { roles, permission_data } = await store.dispatch('user/getUserInfoAction')
 
-          // generate accessible routes map based on roles
-          // 获取路由处理
-          // const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
-          const accessRoutes = await store.dispatch('permission/getTopNavAndRoutes', { roles: roles, permission_data: permission_data })
           debugger
+          // 顶部导航栏处理
+          // 获取路由处理
+          const accessRoutes = await store.dispatch('permission/setTopNavAndGetRouters', { roles: roles, permission_data: permission_data, to })
+
           // 动态添加路由
           router.addRoutes(accessRoutes)
 
