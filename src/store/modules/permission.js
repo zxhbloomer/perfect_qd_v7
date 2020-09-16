@@ -111,6 +111,7 @@ const actions = {
       }
       // 把顶部导航栏，设置到vuex中去
       commit('SET_TOP_NAV', _topNav)
+      commit('SET_ROUTES', asyncRoutes2)
       // 设置菜单
       resolve(asyncRoutes2)
     })

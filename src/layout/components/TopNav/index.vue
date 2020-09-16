@@ -56,10 +56,7 @@ export default {
   watch: {
   },
   created() {
-    console.log(11111)
     this.activeIndex = this.permission_topNav.activeIndex === '-1' ? '1' : this.permission_topNav.activeIndex
-    console.log(this.activeIndex)
-    console.log(this.permission_topNav)
   },
   methods: {
     handleSelect(key, keyPath) {
