@@ -91,8 +91,6 @@ export default {
     }
   },
   created() {
-    console.log(1111)
-    console.log(this.permission_routes)
     this.routers_data = deepCopy(this.permission_routes)
   }
 }
