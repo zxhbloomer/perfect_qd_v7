@@ -24,8 +24,7 @@ router.beforeEach(async(to, from, next) => {
   if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
-      debugger
-      next({ path: '/01' })
+      next({ path: '/' })
       NProgress.done()
     } else {
       // determine whether the user has obtained his permission roles through getInfo
@@ -36,13 +35,11 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
-          debugger
 
           // 调用后台获取用户数据
           // 角色
-          const { roles, permission_data } = await store.dispatch('user/getUserInfoAction')
+          const { roles, permission_data } = await store.dispatch('user/getUserInfoAction', { path_to: to })
 
-          debugger
           // 顶部导航栏处理
           // 获取路由处理
           const accessRoutes = await store.dispatch('permission/setTopNavAndGetRouters', { roles: roles, permission_data: permission_data, to })

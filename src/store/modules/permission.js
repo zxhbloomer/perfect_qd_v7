@@ -1,4 +1,4 @@
-import { constantRoutes } from '@/router'
+import { constantRoutes, asyncRoutes2 } from '@/router'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -100,10 +100,9 @@ const actions = {
       // 根据to的path，解析激活哪一个顶部导航栏
       const _topNav = {
         data: _topNavData,
-        activeIndex: -1
+        activeIndex: '-1'
       }
       const url = _data.to.path.split('/')[1]
-      debugger
       const _activeIndex = _topNavData.filter(item => item.nav_code === url)[0]
       if (_activeIndex) {
         _topNav.activeIndex = _activeIndex
@@ -112,6 +111,8 @@ const actions = {
       }
       // 把顶部导航栏，设置到vuex中去
       commit('SET_TOP_NAV', _topNav)
+      // 设置菜单
+      resolve(asyncRoutes2)
     })
   }
 

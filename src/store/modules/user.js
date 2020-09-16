@@ -56,9 +56,9 @@ const actions = {
   },
 
   // get user info
-  getUserInfoAction({ commit, state }) {
+  getUserInfoAction({ commit, state }, _data) {
     return new Promise((resolve, reject) => {
-      getUserInfoApi(state.token).then(response => {
+      getUserInfoApi(state.token, _data.path_to.path).then(response => {
         const { data } = response
 
         if (!data) {

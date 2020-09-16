@@ -74,7 +74,7 @@ export const constantRoutes = [
     path: '/401',
     component: () => import('@/views/error-page/401'),
     hidden: true
-  }
+  },
   // {
   //   children: [
   //     {
@@ -127,20 +127,20 @@ export const constantRoutes = [
   //   type: 'T',
   //   component: Layout
   // }
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   redirect: '/dashboard',
-  //   name: 'P00000070', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
-  //   children: [
-  //     {
-  //       path: 'dashboard',
-  //       component: () => import('@/views/01_dashboard/index'),
-  //       name: 'Dashboard',
-  //       meta: { title: '首页', icon: 'dashboard', affix: true, fulltitle: ['首页'] }
-  //     }
-  //   ]
-  // }
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    name: 'P00000070', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/01_dashboard/index'),
+        name: 'Dashboard',
+        meta: { title: '首页', icon: 'dashboard', affix: true, fulltitle: ['首页'] }
+      }
+    ]
+  }
 ]
 
 export const asyncRoutes = [

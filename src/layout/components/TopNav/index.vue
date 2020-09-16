@@ -7,7 +7,7 @@
         :default-active="activeIndex"
         @select="handleSelect"
       >
-        <el-menu-item v-for="(item,index) in permission_topNav" :key="index" :index="item.index">
+        <el-menu-item v-for="(item,index) in permission_topNav.data" :key="index" :index="item.index">
           <svg-icon :icon-class="item.meta.icon" />
           <span slot="title" style="margin-left: 8px">{{ item.meta.name }}</span>
         </el-menu-item>
@@ -41,7 +41,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import store from '@/store'
 
 export default {
   data() {
@@ -57,15 +56,17 @@ export default {
   watch: {
   },
   created() {
-    this.activeIndex = this.permission_topNav[0].index
+    console.log(11111)
+    this.activeIndex = this.permission_topNav.activeIndex === '-1' ? '1' : this.permission_topNav.activeIndex
+    console.log(this.activeIndex)
+    console.log(this.permission_topNav)
   },
   methods: {
     handleSelect(key, keyPath) {
-      if (this.permission_topNav[key - 1].index === this.activeIndex) {
+      if (this.permission_topNav.data[key - 1].index === this.activeIndex) {
         return
       }
-      store.dispatch('permission/setRoutes', this.permission_topNav[key - 1].routers)
-      this.activeIndex = this.permission_topNav[key - 1].index
+      this.activeIndex = this.permission_topNav.data[key - 1].index
     }
   }
 }
