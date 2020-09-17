@@ -113,7 +113,8 @@ const actions = {
       // 把顶部导航栏，设置到vuex中去
       commit('SET_TOP_NAV', _topNav)
       /** 设置菜单
-       *  需要注意，此处把菜单格式化成自有一个节点的router
+       *  需要注意：菜单和router不是一一匹配的
+       *  此处把菜单格式化成自有一个节点的router
        *  把菜单返回给左侧sidebar显示，但是router是一个节点的
       */
       var _routers = deepcopy(asyncRoutes2)
