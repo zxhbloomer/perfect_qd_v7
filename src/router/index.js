@@ -314,7 +314,7 @@ export const asyncRoutes = [
 
 export const asyncRoutes2 = [
   {
-    path: '/sys',
+    path: '',
     component: Layout,
     redirect: 'noRedirect',
     name: 'M00000010', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
@@ -325,23 +325,23 @@ export const asyncRoutes2 = [
       noCache: true
     },
     children: [
-      { path: 'resource',
+      { path: '/sys/resource',
         component: () => import('@/views/10_system/resource/resource'),
         name: 'P00000020',
         meta: { title: '资源管理', icon: '资源管理' }
       },
-      { path: 'syscode',
+      { path: '/sys/syscode',
         component: () => import('@/views/00_platform/syscode/syscode'),
         name: 'P00000180',
         meta: { title: '系统编码', icon: 'syscode' }
       },
-      { path: 'icons',
+      { path: '/sys/icons',
         component: () => import('@/views/10_system/icons/icon'),
         name: 'P00000230',
         meta: { title: '系统icon', icon: 'icons' }
       },
       {
-        path: 'dic',
+        path: '',
         // component: subMenu,
         redirect: 'noRedirect',
         // name: 'M00000020', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
@@ -352,12 +352,12 @@ export const asyncRoutes2 = [
           noCache: true
         },
         children: [
-          { path: 'dicttype',
+          { path: '/dic/dicttype',
             component: () => import('@/views/10_system/dicttype/dicttype'),
             name: 'P00000030',
             meta: { title: '字典类型' }
           },
-          { path: 'dictdata',
+          { path: '/dic/dictdata',
             component: () => import('@/views/10_system/dictdata/dictdata'),
             name: 'P00000050',
             meta: { title: '字典数据' }
@@ -407,7 +407,7 @@ export const asyncRoutes2 = [
         ]
       },
       {
-        path: 'org',
+        path: '',
         // component: subMenu,
         redirect: 'noRedirect',
         name: 'M00000020', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
@@ -415,37 +415,37 @@ export const asyncRoutes2 = [
         meta: { title: '组织机构', icon: '组织机构', noCache: true },
         children: [
           {
-            path: 'group',
+            path: '/sys/org/group',
             component: () => import('@/views/20_master/group/group'),
             name: 'P00000100',
             meta: { title: '集团信息' }
           },
           {
-            path: 'company',
+            path: '/sys/org/company',
             component: () => import('@/views/20_master/company/company'),
             name: 'P00000110',
             meta: { title: '企业信息' }
           },
           {
-            path: 'address',
+            path: '/sys/org/address',
             component: () => import('@/views/20_master/address/address'),
             name: 'P00000130',
             meta: { title: '地址簿' }
           },
           {
-            path: 'staff',
+            path: '/sys/org/staff',
             component: () => import('@/views/20_master/staff/staff'),
             name: 'P00000140',
             meta: { title: '员工管理' }
           },
           {
-            path: 'dept',
+            path: '/sys/org/dept',
             component: () => import('@/views/20_master/dept/dept'),
             name: 'P00000150',
             meta: { title: '部门信息' }
           },
           {
-            path: 'position',
+            path: '/sys/org/position',
             component: () => import('@/views/20_master/position/position'),
             name: 'P00000160',
             meta: { title: '岗位信息' }
