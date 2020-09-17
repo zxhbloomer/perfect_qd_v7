@@ -1,4 +1,5 @@
-import { constantRoutes, asyncRoutes2 } from '@/router'
+import { constantRoutes, asyncRoutes2, convertToOneRouter } from '@/router'
+import deepcopy from 'deep-copy'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -38,15 +39,15 @@ const state = {
   // 顶部导航栏
   topNav: [],
   // 当前激活的菜单
-  routes: [],
+  menus: [],
   addRoutes: []
 }
 
 const mutations = {
   // 添加当前路由
-  SET_ROUTES: (state, routes) => {
-    state.addRoutes = routes
-    state.routes = constantRoutes.concat(routes)
+  SET_MENUS: (state, menus) => {
+    state.addRoutes = menus
+    state.menus = constantRoutes.concat(menus)
   },
   // 添加顶部导航栏
   SET_TOP_NAV: (state, topNav) => {
@@ -57,7 +58,7 @@ const mutations = {
 const actions = {
   setRoutes({ commit }, routers) {
     // 设置到vuex中是菜单树
-    commit('SET_ROUTES', routers)
+    commit('SET_MENUS', routers)
   },
   /**
    * 以下为手工代码，调试使用
@@ -111,9 +112,14 @@ const actions = {
       }
       // 把顶部导航栏，设置到vuex中去
       commit('SET_TOP_NAV', _topNav)
-      commit('SET_ROUTES', asyncRoutes2)
-      // 设置菜单
-      resolve(asyncRoutes2)
+      /** 设置菜单
+       *  需要注意，此处把菜单格式化成自有一个节点的router
+       *  把菜单返回给左侧sidebar显示，但是router是一个节点的
+      */
+      var _routers = deepcopy(asyncRoutes2)
+      const convertData = convertToOneRouter(_routers)
+      commit('SET_MENUS', asyncRoutes2)
+      resolve(convertData)
     })
   }
 

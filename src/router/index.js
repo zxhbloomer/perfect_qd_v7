@@ -342,9 +342,7 @@ export const asyncRoutes2 = [
       },
       {
         path: 'dic',
-        // component: subMenu,
         redirect: 'noRedirect',
-        // name: 'M00000020', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
         alwaysShow: true,
         meta: {
           title: '字典管理',
