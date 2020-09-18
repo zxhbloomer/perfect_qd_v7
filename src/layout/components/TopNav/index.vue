@@ -42,7 +42,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import store from '@/store'
-import router from '@/router'
+import router, { resetRouter } from '@/router'
 
 export default {
   data() {
@@ -68,13 +68,17 @@ export default {
       }
       this.activeIndex = this.permission_topNav.data[key - 1].index
 
-      // 顶部导航栏处理
-      // 获取路由处理
-      console.log(111111)
-      console.log(this.permission_topNav.data[key - 1])
-      const accessRoutes = store.dispatch('permission/setTopNavAndGetRouters', { permission_data: this.userPermissionData, nav_path: this.permission_topNav.data[key - 1].nav_path })
-      // 动态添加路由
-      router.addRoutes(accessRoutes)
+      return new Promise(async resolve => {
+        resetRouter()
+        // 顶部导航栏处理
+        // 获取路由处理
+        console.log(this.permission_topNav.data[key - 1])
+        const accessRoutes = await store.dispatch('permission/setTopNavAndGetRouters', { permission_data: this.userPermissionData, nav_path: this.permission_topNav.data[key - 1].nav_path })
+        // 动态添加路由
+        router.addRoutes(accessRoutes)
+
+        resolve()
+      })
     }
   }
 }
