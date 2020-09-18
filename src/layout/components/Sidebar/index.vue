@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'permission_menus',
+      'permission_menus_routers',
       'sidebar'
     ]),
     activeMenu() {
@@ -80,18 +80,18 @@ export default {
     }
   },
   watch: {
-    'permission_menus': {
+    'permission_menus_routers': {
       handler(newVal, oldVal) {
         this.visible = false
         setTimeout(() => {
-          this.routers_data = deepCopy(this.permission_menus)
+          this.routers_data = deepCopy(this.permission_menus_routers)
           this.visible = true
         }, 300)
       }
     }
   },
   created() {
-    this.routers_data = deepCopy(this.permission_menus)
+    this.routers_data = deepCopy(this.permission_menus_routers)
   }
 }
 </script>

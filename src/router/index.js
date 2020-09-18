@@ -75,58 +75,6 @@ export const constantRoutes = [
     component: () => import('@/views/error-page/401'),
     hidden: true
   },
-  // {
-  //   children: [
-  //     {
-  //       component: () => import('@/views/01_dashboard/index'),
-  //       default_open: true,
-  //       full_path: '/dashboard',
-  //       id: 91,
-  //       is_enable: true,
-  //       leaf: true,
-  //       level: 3,
-  //       menu_id: 91,
-  //       meta: {
-  //         affix: true,
-  //         breadcrumb: false,
-  //         icon: 'dashboard',
-  //         name: '首页',
-  //         noCache: false,
-  //         title: '首页'
-  //       },
-  //       page_code: 'P00000070',
-  //       page_id: 15,
-  //       parent_id: 90,
-  //       path: '/dashboard',
-  //       root_id: 89,
-  //       route_name: 'P0039',
-  //       sort: 0,
-  //       type: 'P'
-  //     }
-  //   ],
-  //   full_path: '/',
-  //   id: 90,
-  //   is_enable: true,
-  //   leaf: false,
-  //   level: 2,
-  //   menu_id: 90,
-  //   meta: {
-  //     affix: false,
-  //     breadcrumb: false,
-  //     icon: '工作台',
-  //     name: '工作台',
-  //     noCache: false,
-  //     title: '工作台'
-  //   },
-  //   parent_id: 89,
-  //   path: '/',
-  //   redirect: '/dashboard',
-  //   root_id: 89,
-  //   route_name: '',
-  //   sort: 0,
-  //   type: 'T',
-  //   component: Layout
-  // }
   {
     path: '/',
     component: Layout,
@@ -141,8 +89,28 @@ export const constantRoutes = [
       }
     ]
   }
-
 ]
+
+/**
+ * 重定向使用
+ * @param {*} redirect
+ */
+export const constant_redirect_router = (_data) => {
+  return {
+    path: '/',
+    component: Layout,
+    redirect: _data.redirect,
+    hidden: true,
+    children: [
+      {
+        path: _data.path,
+        component: loadView(_data.component),
+        name: _data.name,
+        meta: { title: _data.meta.title, icon: _data.meta.icon, affix: true }
+      }
+    ]
+  }
+}
 
 export const asyncRoutes = [
   {
@@ -313,6 +281,12 @@ export const asyncRoutes = [
 ]
 
 export const asyncRoutes2 = [
+  {
+    path: 'dashboard',
+    component: () => import('@/views/01_dashboard/index'),
+    name: 'Dashboard',
+    meta: { title: '首页', icon: 'dashboard', fulltitle: ['首页'] }
+  },
   {
     path: '',
     component: Layout,

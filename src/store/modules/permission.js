@@ -44,8 +44,8 @@ const state = {
 }
 
 const mutations = {
-  // 添加当前路由
-  SET_MENUS: (state, menus) => {
+  // 添加默认路由
+  SET_MENUS_ROUTERS: (state, menus) => {
     state.addRoutes = menus
     state.menus = constantRoutes.concat(menus)
   },
@@ -58,7 +58,7 @@ const mutations = {
 const actions = {
   setRoutes({ commit }, routers) {
     // 设置到vuex中是菜单树
-    commit('SET_MENUS', routers)
+    commit('SET_MENUS_ROUTERS', routers)
   },
   /**
    * 以下为手工代码，调试使用
@@ -112,14 +112,15 @@ const actions = {
       }
       // 把顶部导航栏，设置到vuex中去
       commit('SET_TOP_NAV', _topNav)
+
       /** 设置菜单
        *  需要注意：菜单和router不是一一匹配的
        *  此处把菜单格式化成自有一个节点的router
-       *  把菜单返回给左侧sidebar显示，但是router是一个节点的
+       *  把菜单返回给左侧sidebar显示，但是router是一个节点向下的
       */
       var _routers = deepcopy(asyncRoutes2)
       const convertData = convertToOneRouter(_routers)
-      commit('SET_MENUS', asyncRoutes2)
+      commit('SET_MENUS_ROUTERS', asyncRoutes2)
       resolve(convertData)
     })
   }
