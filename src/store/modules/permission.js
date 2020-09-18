@@ -70,7 +70,7 @@ const actions = {
       // TODO 此处修改，调试顶部导航栏
       const _topNavData = [
         {
-          nav_code: '01',
+          nav_path: '01',
           index: '1',
           type: 'T',
           meta: {
@@ -79,7 +79,7 @@ const actions = {
           }
         },
         {
-          nav_code: '02',
+          nav_path: '02',
           index: '2',
           type: 'T',
           meta: {
@@ -88,7 +88,7 @@ const actions = {
           }
         },
         {
-          nav_code: '03',
+          nav_path: '03',
           index: '3',
           type: 'T',
           meta: {
@@ -103,7 +103,7 @@ const actions = {
         data: _topNavData,
         activeIndex: '-1'
       }
-      const url = _data.to.path.split('/')[1]
+      const url = _data.nav_path.split('/')[1]
       const _activeIndex = _topNavData.filter(item => item.nav_code === url)[0]
       if (_activeIndex) {
         _topNav.activeIndex = _activeIndex

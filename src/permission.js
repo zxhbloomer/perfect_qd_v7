@@ -38,11 +38,12 @@ router.beforeEach(async(to, from, next) => {
 
           // 调用后台获取用户数据
           // 角色
-          const { roles, permission_data } = await store.dispatch('user/getUserInfoAction', { path_to: to })
+          // const { roles, permission_data } = await store.dispatch('user/getUserInfoAction', { path_to: to })
+          const { permission_data } = await store.dispatch('user/getUserInfoAction', { path_to: to })
 
           // 顶部导航栏处理
           // 获取路由处理
-          const accessRoutes = await store.dispatch('permission/setTopNavAndGetRouters', { roles: roles, permission_data: permission_data, to })
+          const accessRoutes = await store.dispatch('permission/setTopNavAndGetRouters', { permission_data: permission_data, nav_path: to.path })
 
           // 动态添加路由
           router.addRoutes(accessRoutes)

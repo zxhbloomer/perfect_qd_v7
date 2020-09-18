@@ -32,6 +32,9 @@ export default {
     // 初始页签数据
     initTabs() {
       // 固定标签
+      if (this.routes === undefined) {
+        return
+      }
       const affixTags = this.affixTags = this.filterAffixTags(this.routes)
       affixTags.forEach(tag => {
         const item = {
