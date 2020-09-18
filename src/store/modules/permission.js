@@ -1,4 +1,4 @@
-import { constantRoutes, asyncRoutes2, convertToOneRouter } from '@/router'
+import { constantRoutes, asyncRoutes2, convertToOneRouter, setRedirectRouter } from '@/router'
 import deepcopy from 'deep-copy'
 
 /**
@@ -44,7 +44,7 @@ const state = {
 }
 
 const mutations = {
-  // 添加默认路由
+  // 添加默认路由，需要包含url根目录redirect跳转
   SET_MENUS_ROUTERS: (state, menus) => {
     state.addRoutes = menus
     state.menus = constantRoutes.concat(menus)
@@ -117,9 +117,20 @@ const actions = {
        *  需要注意：菜单和router不是一一匹配的
        *  此处把菜单格式化成自有一个节点的router
        *  把菜单返回给左侧sidebar显示，但是router是一个节点向下的
+       *
+       *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
       */
       var _routers = deepcopy(asyncRoutes2)
       const convertData = convertToOneRouter(_routers)
+      const redirect_data = {
+        redirect: '/dashboard',
+        path: 'dashboard',
+        component: '/01_dashboard/index',
+        meta: {
+          title: '首页', icon: 'dashboard', affix: true
+        }
+      }
+      setRedirectRouter(redirect_data)
       commit('SET_MENUS_ROUTERS', asyncRoutes2)
       resolve(convertData)
     })

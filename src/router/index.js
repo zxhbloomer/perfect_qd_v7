@@ -74,43 +74,22 @@ export const constantRoutes = [
     path: '/401',
     component: () => import('@/views/error-page/401'),
     hidden: true
-  },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    name: 'P00000070', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/01_dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: '首页', icon: 'dashboard', affix: true, fulltitle: ['首页'] }
-      }
-    ]
   }
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   name: 'P00000070', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
+  //   children: [
+  //     {
+  //       path: 'dashboard',
+  //       component: () => import('@/views/01_dashboard/index'),
+  //       name: 'Dashboard',
+  //       meta: { title: '首页', icon: 'dashboard', affix: true, fulltitle: ['首页'] }
+  //     }
+  //   ]
+  // }
 ]
-
-/**
- * 重定向使用
- * @param {*} redirect
- */
-export const constant_redirect_router = (_data) => {
-  return {
-    path: '/',
-    component: Layout,
-    redirect: _data.redirect,
-    hidden: true,
-    children: [
-      {
-        path: _data.path,
-        component: loadView(_data.component),
-        name: _data.name,
-        meta: { title: _data.meta.title, icon: _data.meta.icon, affix: true }
-      }
-    ]
-  }
-}
 
 export const asyncRoutes = [
   {
@@ -455,7 +434,6 @@ function clearAsyncRoutesConvertToOneRouter() {
   ]
 }
 
-let customerRouter = []
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
@@ -464,40 +442,34 @@ const createRouter = () => new Router({
 
 const router = createRouter()
 
-export function setRedirectRouter(redirect_path, children) {
+let customerRouter = []
+/**
+ * 重定向使用
+ * @param {*} _data
+ */
+export function setRedirectRouter(_data) {
   const redirect_router = {
     path: '/',
     component: Layout,
-    redirect: `${redirect_path}`,
-    children: [...children]
-  }
-  constantRoutes.push(redirect_router)
-}
-
-export function setAccessRouters(_routers) {
-  customerRouter = _routers
-  resetRouter()
-}
-
-export function setDefaultPageStatic(page) {
-  const default_page = {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    name: 'P00000070', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
+    redirect: _data.redirect,
+    hidden: false,
     children: [
       {
-        path: 'dashboard',
-        component: () => import('@/views/01_dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: '首页', icon: 'dashboard', affix: true, fulltitle: ['首页'] }
+        path: _data.path,
+        component: loadView(_data.component),
+        name: _data.name,
+        meta: { title: _data.meta.title, icon: _data.meta.icon, affix: _data.meta.affix }
       }
     ]
   }
-  constantRoutes.push(default_page)
+  customerRouter = redirect_router
   resetRouter()
 }
 
+/**
+ * 递归对象，动态读取所有的component
+ * @param {*} obj
+ */
 export function deepRecursiveLoadComponent(obj) {
   for (var i in obj) {
     if (!obj.hasOwnProperty(i)) continue
@@ -516,28 +488,15 @@ export function deepRecursiveLoadComponent(obj) {
 export function convertToOneRouter(orignal, _path) {
   // 初始化
   clearAsyncRoutesConvertToOneRouter()
-  let path = _path === undefined ? '' : _path + '/'
   for (const item of orignal) {
+    let path = _path === undefined ? '' : _path + '/'
     path = path + item.path
     if (item.children && item.children.length > 0) {
-      // convertToOneRouter(item.children, path)
-      if (item.meta.fulltitle === undefined) {
-        item.meta.fulltitle = []
-      }
-      item.meta.fulltitle.push(item.meta.title)
       findChilds(item.children, path, item, asyncRoutesConvertToOneRouter)
     } else {
       // 删除对象中的children属性
       delete item.children
       item.path = path
-      if (item.meta.fulltitle === undefined) {
-        item.meta.fulltitle = []
-      }
-      item.meta.fulltitle.push(item.meta.title)
-      // 读取component
-      if (typeof item.component === 'string') {
-        item.component = loadView(item.component)
-      }
       asyncRoutesConvertToOneRouter[0].children.push(item)
     }
   }
@@ -550,11 +509,6 @@ function findChilds(children, _path, _parent, _childrens) {
   for (const _childItem of children) {
     if (_childItem.children && _childItem.children.length > 0) {
       path = _path + '/' + _childItem.path
-      if (_childItem.meta.fulltitle === undefined) {
-        _childItem.meta.fulltitle = []
-      }
-      _childItem.meta.fulltitle = [..._parent.meta.fulltitle, _childItem.meta.title]
-      // _childItem.meta.fulltitle.push(_childItem.meta.title)
       findChilds(_childItem.children, path, _childItem, _childrens)
     } else {
       // 删除对象中的children属性
@@ -562,21 +516,16 @@ function findChilds(children, _path, _parent, _childrens) {
       path = _path === undefined ? '' : _path + '/'
       path = path.replace('//', '/')
       _childItem.path = path.endsWith('/') ? (path + _childItem.path) : (path + '/' + _childItem.path)
-      if (_childItem.meta.fulltitle === undefined) {
-        _childItem.meta.fulltitle = []
-      }
-      // _childItem.meta.fulltitle.push(_childItem.meta.title)
-      _childItem.meta.fulltitle = [..._parent.meta.fulltitle, _childItem.meta.title]
-      // 读取component
-      if (typeof _childItem.component === 'string') {
-        _childItem.component = loadView(_childItem.component)
-      }
       _childItem.path = _childItem.path.replace('//', '/')
       _childrens[0].children.push(_childItem)
     }
   }
 }
 
+/**
+ * 懒加载页面
+ * @param {*} view
+ */
 export const loadView = (view) => { // 路由懒加载
   // return () => Promise.resolve(require(view).default)
   if (view === 'Layout') {
