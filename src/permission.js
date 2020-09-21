@@ -5,6 +5,7 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
+import constants_para from '@/common/constants/constants_para'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -39,11 +40,14 @@ router.beforeEach(async(to, from, next) => {
           // 调用后台获取用户数据
           // 角色
           // const { roles, permission_data } = await store.dispatch('user/getUserInfoAction', { path_to: to })
-          const { permission_data } = await store.dispatch('user/getUserInfoAction', { path_to: to })
+          await store.dispatch('user/getUserInfoAction')
 
           // 顶部导航栏处理
           // 获取路由处理
-          const accessRoutes = await store.dispatch('permission/setTopNavAndGetRouters', { permission_data: permission_data, nav_path: to.path })
+          console.log(constants_para.TOP_NAV_FIND_BY_PATH)
+          const accessRoutes = await store.dispatch('permission/setTopNavAndGetRoutersAction', {
+            nav_path: to.path,
+            nav_type: constants_para.TOP_NAV_FIND_BY_PATH })
 
           // 动态添加路由
           router.addRoutes(accessRoutes)

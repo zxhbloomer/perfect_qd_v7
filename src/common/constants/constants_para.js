@@ -42,6 +42,11 @@ const DIALOG_CLOSE_BY_ESC = false
 /** 设置弹窗：显示关闭按钮X */
 const DIALOG_SHOW_CLOSE = false
 
+/** 顶部导航栏类型 */
+/** 相对路径 */
+const TOP_NAV_FIND_BY_PATH = 'find_by_path'
+const TOP_NAV_FIND_BY_ORDER_NUM = 'find_by_order_num'
+
 export default {
   /** 查看类型 */
   MODEL_VIEW,
@@ -71,5 +76,9 @@ export default {
   /** 分页控件的json */
   PAGE_JSON,
   /** 分页控件的json */
-  SORT_PARA
+  SORT_PARA,
+  /** 顶部导航栏类型 */
+  /** 相对路径 */
+  TOP_NAV_FIND_BY_PATH,
+  TOP_NAV_FIND_BY_ORDER_NUM
 }

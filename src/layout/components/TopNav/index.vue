@@ -73,7 +73,11 @@ export default {
         // 顶部导航栏处理
         // 获取路由处理
         console.log(this.permission_topNav.data[key - 1])
-        const accessRoutes = await store.dispatch('permission/setTopNavAndGetRouters', { permission_data: this.userPermissionData, nav_path: this.permission_topNav.data[key - 1].nav_path })
+        const accessRoutes = await store.dispatch('permission/setTopNavAndGetRoutersAction', {
+          permission_data: this.userPermissionData,
+          nav_path: this.permission_topNav.data[key - 1].nav_path,
+          nav_type: this.PARAMETERS.TOP_NAV_FIND_BY_ORDER_NUM })
+
         // 动态添加路由
         router.addRoutes(accessRoutes)
 
