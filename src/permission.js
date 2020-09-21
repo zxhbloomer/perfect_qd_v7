@@ -44,8 +44,8 @@ router.beforeEach(async(to, from, next) => {
 
           // 顶部导航栏处理
           // 获取路由处理
-          console.log(constants_para.TOP_NAV_FIND_BY_PATH)
-          const accessRoutes = await store.dispatch('permission/setTopNavAndGetRoutersAction', {
+          debugger
+          const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
             nav_path: to.path,
             nav_type: constants_para.TOP_NAV_FIND_BY_PATH })
 

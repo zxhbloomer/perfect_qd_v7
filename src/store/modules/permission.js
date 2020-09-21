@@ -65,7 +65,7 @@ const actions = {
    * @param {*} param0
    * @param {*} _data
    */
-  setTopNavAndGetRoutersAction({ commit }, _data) {
+  getPermissionAndSetTopNavAction({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
       const _topNavData = [
@@ -97,7 +97,6 @@ const actions = {
           }
         }
       ]
-
       // 根据to的path，解析激活哪一个顶部导航栏
       const _topNav = {
         data: _topNavData,
