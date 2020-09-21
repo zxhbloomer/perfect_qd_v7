@@ -9,11 +9,11 @@ export function loginApi(data) {
   })
 }
 
-export function getUserInfoApi(token, path) {
+export function getUserInfoApi(token) {
   return request({
     url: '/api/v1/user/info',
     method: 'get',
-    params: { token, path }
+    params: { token }
   })
 }
 
@@ -40,10 +40,10 @@ export function getUsrPsdStringApi(data) {
   })
 }
 
-export function getTopNavApi(data) {
+export function getPermissionAndTopNavApi(pathOrIndex, type) {
   return request({
-    url: '/api/v1/user/topnav',
+    url: '/api/v1/user/permiss_topnav',
     method: 'post',
-    data
+    params: { pathOrIndex, type }
   })
 }

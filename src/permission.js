@@ -45,8 +45,8 @@ router.beforeEach(async(to, from, next) => {
           // 顶部导航栏处理
           // 获取路由处理
           const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
-            nav_path: to.path,
-            nav_type: constants_para.TOP_NAV_FIND_BY_PATH })
+            pathOrIndex: to.path,
+            type: constants_para.TOP_NAV_FIND_BY_PATH })
 
           // 动态添加路由
           router.addRoutes(accessRoutes)

@@ -1,4 +1,5 @@
 import { constantRoutes, asyncRoutes2, convertToOneRouter, setRedirectRouter } from '@/router'
+import { getPermissionAndTopNavApi } from '@/api/user'
 import deepcopy from 'deep-copy'
 
 /**
@@ -60,12 +61,70 @@ const actions = {
     // 设置到vuex中是菜单树
     commit('SET_MENUS_ROUTERS', routers)
   },
+
+  getPermissionAndSetTopNavAction({ commit }, _data) {
+    return new Promise(resolve => {
+      // 获取权限，顶部导航栏，操作权限数据
+      debugger
+      const _permissionAndTopNavData = new Promise((resolve, reject) => {
+        getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
+          const { data } = response
+
+          if (!data) {
+            reject('验证失败，请重新登录')
+          }
+
+          const { roles, name, avatar, introduction, user_session_bean, permission_data } = data
+
+          // roles must be a non-empty array
+          if (!roles || roles.length <= 0) {
+            reject('getInfo: roles must be a non-null array!')
+          }
+          commit('SET_ROLES', roles)
+          commit('SET_NAME', name)
+          commit('SET_AVATAR', avatar)
+          commit('SET_INTRODUCTION', introduction)
+          commit('SET_SESSION_BEAN', user_session_bean)
+          commit('SET_PERMISSION_DATA', permission_data)
+          resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+
+      // 根据to的path，解析激活哪一个顶部导航栏
+      // 把顶部导航栏，设置到vuex中去
+      commit('SET_TOP_NAV', _permissionAndTopNavData)
+
+      /** 设置菜单
+       *  需要注意：菜单和router不是一一匹配的
+       *  此处把菜单格式化成自有一个节点的router
+       *  把菜单返回给左侧sidebar显示，但是router是一个节点向下的
+       *
+       *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
+      */
+      var _routers = deepcopy(asyncRoutes2)
+      const convertData = convertToOneRouter(_routers)
+      const redirect_data = {
+        redirect: '/dashboard',
+        path: 'dashboard',
+        component: '/01_dashboard/index',
+        meta: {
+          title: '首页', icon: 'dashboard', affix: true
+        }
+      }
+      setRedirectRouter(redirect_data)
+      commit('SET_MENUS_ROUTERS', asyncRoutes2)
+      resolve(convertData)
+    })
+  },
+
   /**
    * 以下为手工代码，调试使用
    * @param {*} param0
    * @param {*} _data
    */
-  getPermissionAndSetTopNavAction({ commit }, _data) {
+  getPermissionAndSetTopNavAction2({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
       const _topNavData = [

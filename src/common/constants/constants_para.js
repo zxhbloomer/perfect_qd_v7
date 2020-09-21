@@ -45,7 +45,7 @@ const DIALOG_SHOW_CLOSE = false
 /** 顶部导航栏类型 */
 /** 相对路径 */
 const TOP_NAV_FIND_BY_PATH = 'find_by_path'
-const TOP_NAV_FIND_BY_ORDER_NUM = 'find_by_order_num'
+const TOP_NAV_FIND_BY_INDEX = 'find_by_index'
 
 export default {
   /** 查看类型 */
@@ -80,5 +80,5 @@ export default {
   /** 顶部导航栏类型 */
   /** 相对路径 */
   TOP_NAV_FIND_BY_PATH,
-  TOP_NAV_FIND_BY_ORDER_NUM
+  TOP_NAV_FIND_BY_INDEX
 }
