@@ -9,9 +9,7 @@ const state = {
   introduction: '',
   roles: [],
   // session信息
-  session_bean: {},
-  // 菜单权限和操作权限信息
-  permission_data: {}
+  session_bean: {}
 }
 
 const mutations = {
@@ -32,9 +30,6 @@ const mutations = {
   },
   SET_SESSION_BEAN: (state, session_bean) => {
     state.session_bean = session_bean
-  },
-  SET_PERMISSION_DATA: (state, permission_data) => {
-    state.permission_data = permission_data
   }
 }
 
@@ -65,7 +60,7 @@ const actions = {
           reject('验证失败，请重新登录')
         }
 
-        const { roles, name, avatar, introduction, user_session_bean, permission_data } = data
+        const { roles, name, avatar, introduction, user_session_bean } = data
 
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
@@ -76,7 +71,6 @@ const actions = {
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)
         commit('SET_SESSION_BEAN', user_session_bean)
-        commit('SET_PERMISSION_DATA', permission_data)
         resolve(data)
       }).catch(error => {
         reject(error)

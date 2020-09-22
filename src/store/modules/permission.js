@@ -41,7 +41,9 @@ const state = {
   topNav: [],
   // 当前激活的菜单
   menus: [],
-  addRoutes: []
+  addRoutes: [],
+  // 菜单权限和操作权限信息
+  permission_data: {}
 }
 
 const mutations = {
@@ -53,6 +55,9 @@ const mutations = {
   // 添加顶部导航栏
   SET_TOP_NAV: (state, topNav) => {
     state.topNav = topNav
+  },
+  SET_PERMISSION_DATA: (state, permission_data) => {
+    state.permission_data = permission_data
   }
 }
 
@@ -62,60 +67,46 @@ const actions = {
     commit('SET_MENUS_ROUTERS', routers)
   },
 
-  getPermissionAndSetTopNavAction({ commit }, _data) {
-    return new Promise(resolve => {
+  getPermissionAndSetTopNavAction2({ commit }, _data) {
+    return new Promise((resolve, reject) => {
       // 获取权限，顶部导航栏，操作权限数据
-      debugger
-      const _permissionAndTopNavData = new Promise((resolve, reject) => {
-        getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
-          const { data } = response
-
-          if (!data) {
-            reject('验证失败，请重新登录')
-          }
-
-          const { roles, name, avatar, introduction, user_session_bean, permission_data } = data
-
-          // roles must be a non-empty array
-          if (!roles || roles.length <= 0) {
-            reject('getInfo: roles must be a non-null array!')
-          }
-          commit('SET_ROLES', roles)
-          commit('SET_NAME', name)
-          commit('SET_AVATAR', avatar)
-          commit('SET_INTRODUCTION', introduction)
-          commit('SET_SESSION_BEAN', user_session_bean)
-          commit('SET_PERMISSION_DATA', permission_data)
-          resolve(data)
-        }).catch(error => {
-          reject(error)
-        })
-      })
-
-      // 根据to的path，解析激活哪一个顶部导航栏
-      // 把顶部导航栏，设置到vuex中去
-      commit('SET_TOP_NAV', _permissionAndTopNavData)
-
-      /** 设置菜单
-       *  需要注意：菜单和router不是一一匹配的
-       *  此处把菜单格式化成自有一个节点的router
-       *  把菜单返回给左侧sidebar显示，但是router是一个节点向下的
-       *
-       *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
-      */
-      var _routers = deepcopy(asyncRoutes2)
-      const convertData = convertToOneRouter(_routers)
-      const redirect_data = {
-        redirect: '/dashboard',
-        path: 'dashboard',
-        component: '/01_dashboard/index',
-        meta: {
-          title: '首页', icon: 'dashboard', affix: true
+      getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
+        const { data } = response
+        debugger
+        if (!data) {
+          reject('验证失败，请重新登录')
         }
-      }
-      setRedirectRouter(redirect_data)
-      commit('SET_MENUS_ROUTERS', asyncRoutes2)
-      resolve(convertData)
+
+        const { top_nav_data, user_permission_menu, user_permission_operation, redirect } = data
+
+        commit('SET_PERMISSION_DATA', { permission_top_nav: top_nav_data,
+          permission_menu: user_permission_menu,
+          permission_operation: user_permission_operation,
+          permission_redirect: redirect
+        })
+
+        // 根据to的path，解析激活哪一个顶部导航栏
+        // 把顶部导航栏，设置到vuex中去
+        commit('SET_TOP_NAV', top_nav_data)
+
+        /** 设置菜单
+         *  需要注意：菜单和router不是一一匹配的
+         *  此处把菜单格式化成自有一个节点的router
+         *  把菜单返回给左侧sidebar显示，但是router是一个节点向下的
+         *
+         *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
+         */
+        debugger
+        var _routers = deepcopy(user_permission_menu)
+        const convertData = convertToOneRouter(_routers)
+        setRedirectRouter(redirect)
+        commit('SET_MENUS_ROUTERS', user_permission_menu)
+        resolve(convertData)
+
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
     })
   },
 
@@ -124,7 +115,7 @@ const actions = {
    * @param {*} param0
    * @param {*} _data
    */
-  getPermissionAndSetTopNavAction2({ commit }, _data) {
+  getPermissionAndSetTopNavAction({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
       const _topNavData = [
@@ -156,12 +147,13 @@ const actions = {
           }
         }
       ]
+
       // 根据to的path，解析激活哪一个顶部导航栏
       const _topNav = {
         data: _topNavData,
         activeIndex: '-1'
       }
-      const url = _data.nav_path.split('/')[1]
+      const url = _data.pathOrIndex.split('/')[1]
       const _activeIndex = _topNavData.filter(item => item.nav_code === url)[0]
       if (_activeIndex) {
         _topNav.activeIndex = _activeIndex

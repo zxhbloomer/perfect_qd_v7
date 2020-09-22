@@ -41,13 +41,11 @@ router.beforeEach(async(to, from, next) => {
           // 角色
           // const { roles, permission_data } = await store.dispatch('user/getUserInfoAction', { path_to: to })
           await store.dispatch('user/getUserInfoAction')
-
           // 顶部导航栏处理
           // 获取路由处理
           const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
             pathOrIndex: to.path,
             type: constants_para.TOP_NAV_FIND_BY_PATH })
-
           // 动态添加路由
           router.addRoutes(accessRoutes)
 

@@ -52,8 +52,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'permission_topNav',
-      'userPermissionData'
+      'permission_topNav'
     ])
   },
   watch: {
@@ -74,7 +73,6 @@ export default {
         // 获取路由处理
         console.log(this.permission_topNav.data[key - 1])
         const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
-          permission_data: this.userPermissionData,
           pathOrIndex: this.permission_topNav.data[key - 1].nav_path,
           type: this.PARAMETERS.TOP_NAV_FIND_BY_INDEX })
 

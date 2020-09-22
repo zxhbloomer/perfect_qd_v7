@@ -13,14 +13,14 @@ const getters = {
   permission_menus_routers: state => state.permission.menus,
   // 顶部导航栏
   permission_topNav: state => state.permission.topNav,
+  /** 菜单权限和操作权限信息 */
+  userPermissionData: state => state.permission.permission_data,
   errorLogs: state => state.errorLog.logs,
   /** add by zxh */
   program: state => state.popUpSearchDialog.program,
   selectedDataJson: state => state.popUpSearchDialog.selectedDataJson,
   formatRouter: state => state.formatRouter.isdo,
   /** user session bean */
-  userSessionBean: state => state.user.session_bean,
-  /** 菜单权限和操作权限信息 */
-  userPermissionData: state => state.user.permission_data
+  userSessionBean: state => state.user.session_bean
 }
 export default getters
