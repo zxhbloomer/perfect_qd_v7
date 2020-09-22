@@ -71,9 +71,8 @@ export default {
         resetRouter()
         // 顶部导航栏处理
         // 获取路由处理
-        console.log(this.permission_topNav.data[key - 1])
         const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
-          pathOrIndex: this.permission_topNav.data[key - 1].nav_path,
+          pathOrIndex: this.permission_topNav.data[key - 1].index,
           type: this.PARAMETERS.TOP_NAV_FIND_BY_INDEX })
 
         // 动态添加路由
