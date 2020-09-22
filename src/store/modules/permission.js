@@ -1,4 +1,4 @@
-import { constantRoutes, asyncRoutes2, convertToOneRouter, setRedirectRouter } from '@/router'
+import { constantRoutes, asyncRoutes2, convertToOneRouter, setRedirectRouter, deepRecursiveLoadComponent } from '@/router'
 import { getPermissionAndTopNavApi } from '@/api/user'
 import deepcopy from 'deep-copy'
 
@@ -67,12 +67,11 @@ const actions = {
     commit('SET_MENUS_ROUTERS', routers)
   },
 
-  getPermissionAndSetTopNavAction2({ commit }, _data) {
+  getPermissionAndSetTopNavAction({ commit }, _data) {
     return new Promise((resolve, reject) => {
       // 获取权限，顶部导航栏，操作权限数据
       getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
         const { data } = response
-        debugger
         if (!data) {
           reject('验证失败，请重新登录')
         }
@@ -96,14 +95,13 @@ const actions = {
          *
          *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
          */
-        debugger
+        deepRecursiveLoadComponent(user_permission_menu)
         var _routers = deepcopy(user_permission_menu)
         const convertData = convertToOneRouter(_routers)
         setRedirectRouter(redirect)
         commit('SET_MENUS_ROUTERS', user_permission_menu)
+        debugger
         resolve(convertData)
-
-        resolve(data)
       }).catch(error => {
         reject(error)
       })
@@ -115,7 +113,7 @@ const actions = {
    * @param {*} param0
    * @param {*} _data
    */
-  getPermissionAndSetTopNavAction({ commit }, _data) {
+  getPermissionAndSetTopNavAction2({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
       const _topNavData = [
