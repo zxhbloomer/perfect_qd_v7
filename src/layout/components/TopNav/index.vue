@@ -58,7 +58,7 @@ export default {
   watch: {
   },
   created() {
-    this.activeIndex = this.permission_topNav.activeIndex === '-1' ? '1' : this.permission_topNav.activeIndex
+    this.activeIndex = this.permission_topNav.active_index === '-1' ? '1' : this.permission_topNav.active_index
   },
   methods: {
     handleSelect(key, keyPath) {

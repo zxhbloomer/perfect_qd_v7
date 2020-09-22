@@ -100,7 +100,6 @@ const actions = {
         const convertData = convertToOneRouter(_routers)
         setRedirectRouter(redirect)
         commit('SET_MENUS_ROUTERS', user_permission_menu)
-        debugger
         resolve(convertData)
       }).catch(error => {
         reject(error)
