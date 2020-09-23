@@ -66,7 +66,6 @@ export default {
         return
       }
       this.activeIndex = this.permission_topNav.data[key - 1].index
-
       return new Promise(async resolve => {
         resetRouter()
         // 顶部导航栏处理

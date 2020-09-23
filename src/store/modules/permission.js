@@ -1,4 +1,4 @@
-import { constantRoutes, asyncRoutes2, convertToOneRouter, setRedirectRouter, deepRecursiveLoadComponent } from '@/router'
+import { constantRoutes, asyncRoutes2, convertToOneRouter, setAsyncRouters, setRedirectRouter, deepRecursiveLoadComponent } from '@/router'
 import { getPermissionAndTopNavApi } from '@/api/user'
 import deepcopy from 'deep-copy'
 
@@ -76,7 +76,7 @@ const actions = {
           reject('验证失败，请重新登录')
         }
 
-        const { top_nav_data, user_permission_menu, user_permission_operation, redirect } = data
+        const { top_nav_data, user_permission_menu, all_routers, user_permission_operation, redirect } = data
 
         commit('SET_PERMISSION_DATA', { permission_top_nav: top_nav_data,
           permission_menu: user_permission_menu,
@@ -88,7 +88,8 @@ const actions = {
         // 把顶部导航栏，设置到vuex中去
         commit('SET_TOP_NAV', top_nav_data)
 
-        /** 设置菜单
+        /**
+         *  设置菜单
          *  需要注意：菜单和router不是一一匹配的
          *  此处把菜单格式化成自有一个节点的router
          *  把菜单返回给左侧sidebar显示，但是router是一个节点向下的
@@ -96,8 +97,8 @@ const actions = {
          *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
          */
         deepRecursiveLoadComponent(user_permission_menu)
-        var _routers = deepcopy(user_permission_menu)
-        const convertData = convertToOneRouter(_routers)
+        deepRecursiveLoadComponent(all_routers)
+        const convertData = setAsyncRouters(all_routers)
         setRedirectRouter(redirect)
         commit('SET_MENUS_ROUTERS', user_permission_menu)
         resolve(convertData)
@@ -177,6 +178,7 @@ const actions = {
           title: '首页', icon: 'dashboard', affix: true
         }
       }
+      debugger
       setRedirectRouter(redirect_data)
       commit('SET_MENUS_ROUTERS', asyncRoutes2)
       resolve(convertData)

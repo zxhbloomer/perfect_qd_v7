@@ -433,6 +433,12 @@ function clearAsyncRoutesConvertToOneRouter() {
     }
   ]
 }
+export function setAsyncRouters(_data) {
+  // 初始化
+  clearAsyncRoutesConvertToOneRouter()
+  asyncRoutesConvertToOneRouter[0].children = [..._data]
+  return asyncRoutesConvertToOneRouter
+}
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support

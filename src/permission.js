@@ -46,6 +46,7 @@ router.beforeEach(async(to, from, next) => {
           const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
             pathOrIndex: to.path,
             type: constants_para.TOP_NAV_FIND_BY_PATH })
+          debugger
           // 动态添加路由
           router.addRoutes(accessRoutes)
 
