@@ -91,16 +91,21 @@ const actions = {
         /**
          *  设置菜单
          *  需要注意：菜单和router不是一一匹配的
-         *  此处把菜单格式化成自有一个节点的router
+         *  此处把菜单格式化成自有一个节点的router,asyncRoutes
          *  把菜单返回给左侧sidebar显示，但是router是一个节点向下的
          *
          *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
          */
-        deepRecursiveLoadComponent(user_permission_menu)
+        // deepRecursiveLoadComponent(user_permission_menu)
+        // 动态读取所有路由中的component，成为对象
         deepRecursiveLoadComponent(all_routers)
+        // 设置到异步对象中去
         const convertData = setAsyncRouters(all_routers)
+        // 设置根节点跳转的url
         setRedirectRouter(redirect)
+        // 菜单设置到vuex中
         commit('SET_MENUS_ROUTERS', user_permission_menu)
+        // 返回格式化好的路由
         resolve(convertData)
       }).catch(error => {
         reject(error)

@@ -210,9 +210,9 @@ export default {
     // 从 route 中获取 tab 数据
     getRouteTab(route, matchRoutes = this.matchRoutes(route)) {
       const id = this.getAliveId(route)
-      const { title, icon, tips } = matchRoutes.pageRoute.meta
+      const { title, icon, tips, affix } = matchRoutes.pageRoute.meta
 
-      return { id, to: route.fullPath, title, icon, tips }
+      return { id, to: route.fullPath, title, icon, tips, affix }
     },
 
     // 解析过渡配置
