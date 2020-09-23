@@ -178,7 +178,6 @@ const actions = {
           title: '首页', icon: 'dashboard', affix: true
         }
       }
-      debugger
       setRedirectRouter(redirect_data)
       commit('SET_MENUS_ROUTERS', asyncRoutes2)
       resolve(convertData)
