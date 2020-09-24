@@ -43,11 +43,6 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="请求地址：" prop="parent_path">
-              {{ dataJson.tempJson.parent_path }}
-            </el-form-item>
-          </el-col>
         </el-row>
 
         <el-alert title="添加子菜单-页面信息" type="info" :closable="false" />
@@ -108,33 +103,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="默认打开页面：" prop="default_open">
-              <el-switch
-                v-model="dataJson.tempJson.default_open"
-                active-text="默认打开"
-                inactive-text="未设置"
-                :disabled="!isSelectedPage"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
             <el-form-item label="页面文件路径：" prop="component">
               <el-input v-model.trim="dataJson.tempJson.component" clearable show-word-limit disabled />
             </el-form-item>
           </el-col>
         </el-row>
-
-        <el-form-item label="URL：" prop="full_path">
-          <div v-if="dataJson.tempJson.parent_path !== '/'">
-            {{ dataJson.tempJson.parent_path + '/' + dataJson.tempJson.path }}
-          </div>
-          <div v-else>
-            {{ dataJson.tempJson.parent_path + dataJson.tempJson.path }}
-          </div>
-        </el-form-item>
 
         <el-row v-show="settings.dialogStatus === PARAMETERS.STATUS_UPDATE || isViewModel">
           <el-col :span="12">
@@ -370,7 +343,6 @@ export default {
       // 数据初始化
       this.initTempJsonOriginal()
       this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
-      this.dataJson.tempJson.parent_path = this.dataJson.tempJsonOriginal.full_path
       this.dataJson.tempJson.parent_id = this.dataJson.tempJson.id
       this.dataJson.tempJson.id = undefined
       this.dataJson.tempJson.template_id = undefined
@@ -424,11 +396,6 @@ export default {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
           const tempData = deepCopy(this.dataJson.tempJson)
-          if (tempData.parent_path !== '/') {
-            tempData.full_path = tempData.parent_path + '/' + tempData.path
-          } else {
-            tempData.full_path = tempData.parent_path + tempData.path
-          }
           this.settings.loading = true
           updateApi(tempData).then((_data) => {
             // this.dataJson.tempJson = Object.assign({}, _data.data)
@@ -496,11 +463,6 @@ export default {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
           const tempData = deepCopy(this.dataJson.tempJson)
-          if (tempData.parent_path !== '/') {
-            tempData.full_path = tempData.parent_path + '/' + tempData.path
-          } else {
-            tempData.full_path = tempData.parent_path + tempData.path
-          }
           this.settings.loading = true
           addSubMenuApi(tempData).then((_data) => {
             this.$emit('closeMeOk', { return_flag: true, data: _data })
@@ -536,7 +498,6 @@ export default {
       this.dataJson.tempJson.page_info = this.dataJson.tempJson.name + '(' + this.dataJson.tempJson.page_code + ')'
       this.dataJson.tempJson.type = this.CONSTANTS.DICT_SYS_MENU_TYPE_PAGE
       this.dataJson.tempJson.type_name = '页面'
-      this.dataJson.tempJson.full_path = ''
       this.popSettings.one.visible = false
     },
     handlePageCloseCancel() {

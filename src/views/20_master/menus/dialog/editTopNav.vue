@@ -42,11 +42,6 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="请求地址：" prop="parent_path">
-              {{ dataJson.tempJson.parent_path }}
-            </el-form-item>
-          </el-col>
         </el-row>
 
         <el-alert title="添加顶部导航栏信息" type="info" :closable="false" />
@@ -275,7 +270,6 @@ export default {
       // 数据初始化
       this.initTempJsonOriginal()
       this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
-      this.dataJson.tempJson.parent_path = this.dataJson.tempJsonOriginal.full_path
       this.dataJson.tempJson.parent_id = this.dataJson.tempJson.id
       this.dataJson.tempJson.id = undefined
       this.dataJson.tempJson.template_id = undefined
@@ -304,8 +298,6 @@ export default {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJsonOriginal = deepCopy(this.data)
-      this.dataJson.tempJson.parent_path = this.dataJson.tempJsonOriginal.parent_path
-      this.dataJson.tempJson.full_path = this.dataJson.tempJsonOriginal.full_path
       this.dataJson.tempJson.depth_id_array = this.dataJson.tempJson.parent_depth_id_array
       // 设置按钮
       this.settings.btnShowStatus.showUpdate = true
@@ -400,11 +392,6 @@ export default {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
           const tempData = deepCopy(this.dataJson.tempJson)
-          if (tempData.parent_path !== '/') {
-            tempData.full_path = tempData.parent_path + '/' + tempData.path
-          } else {
-            tempData.full_path = tempData.parent_path + tempData.path
-          }
           this.settings.loading = true
           addTopNavApi(tempData).then((_data) => {
             this.$emit('closeMeOk', { return_flag: true, data: _data })
