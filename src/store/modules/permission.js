@@ -76,14 +76,14 @@ const actions = {
           reject('验证失败，请重新登录')
         }
 
-        const { top_nav_data, user_permission_menu, all_routers, user_permission_operation, redirect } = data
+        const { top_nav_data, user_permission_menu, all_routers, user_permission_operation, redirect, nodes_id } = data
 
         commit('SET_PERMISSION_DATA', { permission_top_nav: top_nav_data,
           permission_menu: user_permission_menu,
           permission_operation: user_permission_operation,
-          permission_redirect: redirect
+          permission_redirect: redirect,
+          nodes_id: nodes_id
         })
-
         // 根据to的path，解析激活哪一个顶部导航栏
         // 把顶部导航栏，设置到vuex中去
         commit('SET_TOP_NAV', top_nav_data)

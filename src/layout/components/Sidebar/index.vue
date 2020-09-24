@@ -12,6 +12,7 @@
             :unique-opened="false"
             :active-text-color="variables.menuActiveText"
             :collapse-transition="false"
+            :default-openeds="openeds"
             mode="vertical"
           >
             <sidebar-item v-for="route in routers_data" :key="route.id" :item="route" :base-path="route.path" />
@@ -50,12 +51,14 @@ export default {
   data() {
     return {
       visible: true,
-      routers_data: []
+      routers_data: [],
+      openeds: []
     }
   },
   computed: {
     ...mapGetters([
       'permission_menus_routers',
+      'userPermissionData',
       'sidebar'
     ]),
     activeMenu() {
@@ -84,6 +87,7 @@ export default {
       handler(newVal, oldVal) {
         this.visible = false
         setTimeout(() => {
+          this.openeds = this.userPermissionData.nodes_id
           this.routers_data = deepCopy(this.permission_menus_routers)
           this.visible = true
         }, 300)
@@ -92,6 +96,7 @@ export default {
   },
   created() {
     this.routers_data = deepCopy(this.permission_menus_routers)
+    this.openeds = this.userPermissionData.nodes_id
   }
 }
 </script>
