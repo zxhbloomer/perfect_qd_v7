@@ -216,7 +216,6 @@ export default {
     getRouteTab(route, matchRoutes = this.matchRoutes(route)) {
       const id = this.getAliveId(route)
       const { title, icon, tips, affix, active_topnav_index } = matchRoutes.pageRoute.meta
-      debugger
       return { id, to: route.fullPath, title, icon, tips, affix, topNavIndex: active_topnav_index }
     },
 
