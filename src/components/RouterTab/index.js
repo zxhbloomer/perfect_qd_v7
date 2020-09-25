@@ -12,7 +12,6 @@ import pageLeave from './pageLeave'
 import rule from './rule'
 import scroll from './scroll'
 import restore from './restore'
-import deepCopy from 'deep-copy'
 import { mapGetters } from 'vuex'
 
 // RouterTab 组件
@@ -216,9 +215,9 @@ export default {
     // 从 route 中获取 tab 数据
     getRouteTab(route, matchRoutes = this.matchRoutes(route)) {
       const id = this.getAliveId(route)
-      const { title, icon, tips, affix } = matchRoutes.pageRoute.meta
+      const { title, icon, tips, affix, active_topnav_index } = matchRoutes.pageRoute.meta
       debugger
-      return { id, to: route.fullPath, title, icon, tips, affix, topNavIndex: deepCopy(this.permission_topNav_activeIndex) }
+      return { id, to: route.fullPath, title, icon, tips, affix, topNavIndex: active_topnav_index }
     },
 
     // 解析过渡配置
