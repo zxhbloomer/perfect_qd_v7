@@ -80,8 +80,10 @@ export default {
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_active_index = this.$watch('permission_topNav_activeIndex', (newVal, oldVal) => {
         this.activeIndex = newVal
-        console.log(newVal)
-        console.log(oldVal)
+        console.log(1111)
+        console.log(this.activeIndex)
+        console.log([this.activeIndex])
+        this.handleSelect(this.activeIndex, [this.activeIndex])
       },
       { deep: true }
       )
