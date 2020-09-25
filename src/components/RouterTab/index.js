@@ -12,6 +12,8 @@ import pageLeave from './pageLeave'
 import rule from './rule'
 import scroll from './scroll'
 import restore from './restore'
+import deepCopy from 'deep-copy'
+import { mapGetters } from 'vuex'
 
 // RouterTab 组件
 export default {
@@ -88,6 +90,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'permission_topNav_activeIndex'
+    ]),
+
     // 默认路径
     defaultPath() {
       return this.defaultPage || this.getBasePath()
@@ -211,8 +217,8 @@ export default {
     getRouteTab(route, matchRoutes = this.matchRoutes(route)) {
       const id = this.getAliveId(route)
       const { title, icon, tips, affix } = matchRoutes.pageRoute.meta
-
-      return { id, to: route.fullPath, title, icon, tips, affix }
+      debugger
+      return { id, to: route.fullPath, title, icon, tips, affix, topNavIndex: deepCopy(this.permission_topNav_activeIndex) }
     },
 
     // 解析过渡配置

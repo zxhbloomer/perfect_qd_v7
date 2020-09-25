@@ -1,4 +1,5 @@
 import { warn } from './util/warn'
+import store from '@/store'
 
 // 获取关闭参数
 function getCloseArgs(args) {
@@ -31,7 +32,14 @@ function getCloseArgs(args) {
 
 // 页签操作
 export default {
+  computed: {
+  },
   methods: {
+    clickRouter(obj) {
+      // 根据点击的页签，设置激活的顶部导航栏
+      store.dispatch('permission/setTopNavActiveIndex', obj.topNavIndex)
+    },
+
     /**
      * 打开页签（默认全新打开）
      * @param {location} path 页签路径

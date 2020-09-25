@@ -7,7 +7,7 @@
         :default-active="activeIndex"
         @select="handleSelect"
       >
-        <el-menu-item v-for="(item,index) in permission_topNav.data" :key="index" :index="item.index">
+        <el-menu-item v-for="(item,index) in permission_topNav" :key="index" :index="item.index">
           <svg-icon :icon-class="item.meta.icon" />
           <span slot="title" style="margin-left: 8px">{{ item.meta.name }}</span>
         </el-menu-item>
@@ -47,36 +47,66 @@ import router, { resetRouter } from '@/router'
 export default {
   data() {
     return {
+      // 监听器
+      watch: {
+        unwatch_active_index: null
+      },
       activeIndex: undefined
     }
   },
   computed: {
     ...mapGetters([
-      'permission_topNav'
+      'permission_topNav',
+      'permission_topNav_activeIndex'
     ])
   },
   watch: {
+    // 'permission_topNav_activeIndex': {
+    //   handler(newVal, oldVal) {
+    //     this.activeIndex = newVal
+    //     console.log(newVal)
+    //     console.log(oldVal)
+    //   },
+    //   deep: true
+    // }
   },
   created() {
-    this.activeIndex = this.permission_topNav.active_index === '-1' ? '1' : this.permission_topNav.active_index
+    this.activeIndex = this.permission_topNav_activeIndex === '-1' ? '1' : this.permission_topNav_activeIndex
   },
   methods: {
+    // 设置监听器
+    setWatch() {
+      this.unWatch()
+      // 监听页面上面是否有修改，有修改按钮高亮
+      this.watch.unwatch_active_index = this.$watch('permission_topNav_activeIndex', (newVal, oldVal) => {
+        this.activeIndex = newVal
+        console.log(newVal)
+        console.log(oldVal)
+      },
+      { deep: true }
+      )
+    },
+    unWatch() {
+      if (this.watch.unwatch_active_index) {
+        this.watch.unwatch_active_index()
+      }
+    },
     handleSelect(key, keyPath) {
-      if (this.permission_topNav.data[key - 1].index === this.activeIndex) {
+      this.unWatch()
+      if (this.permission_topNav[key - 1].index === this.activeIndex) {
         return
       }
-      this.activeIndex = this.permission_topNav.data[key - 1].index
+      this.activeIndex = this.permission_topNav[key - 1].index
       return new Promise(async resolve => {
         resetRouter()
         // 顶部导航栏处理
         // 获取路由处理
         const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
-          pathOrIndex: this.permission_topNav.data[key - 1].index,
+          pathOrIndex: this.permission_topNav[key - 1].index,
           type: this.PARAMETERS.TOP_NAV_FIND_BY_INDEX })
-
         // 动态添加路由
         router.addRoutes(accessRoutes)
-
+        this.setWatch()
         resolve()
       })
     }

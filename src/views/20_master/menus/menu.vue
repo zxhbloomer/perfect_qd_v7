@@ -67,7 +67,14 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column header-align="center" show-overflow-tooltip min-width="150" prop="path" label="请求地址" fixed />
+      <el-table-column header-align="center" show-overflow-tooltip min-width="150" prop="path" label="请求地址" fixed>
+        <template v-slot="scope">
+          <el-button-group style="float: right">
+            <el-button type="primary" icon="el-icon-edit" style="padding:4px 4px; " @click="handleEdit(scope.row)" />
+          </el-button-group>
+          {{ scope.row.path }}
+        </template>
+      </el-table-column>
       <!-- <el-table-column header-align="center" show-overflow-tooltip min-width="150" prop="code" label="菜单编号" /> -->
       <!-- <el-table-column header-align="center" show-overflow-tooltip min-width="80" prop="type_name" label="菜单类型" /> -->
       <el-table-column header-align="center" label="按钮">

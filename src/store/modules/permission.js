@@ -39,6 +39,7 @@ export function filterAsyncRoutes(routes, roles) {
 const state = {
   // 顶部导航栏
   topNav: [],
+  topNavActiveIndex: '',
   // 当前激活的菜单
   menus: [],
   addRoutes: [],
@@ -52,9 +53,12 @@ const mutations = {
     state.addRoutes = menus
     state.menus = constantRoutes.concat(menus)
   },
-  // 添加顶部导航栏
+  // 添加顶部导航栏数据
   SET_TOP_NAV: (state, topNav) => {
     state.topNav = topNav
+  },
+  SET_TOP_NAV_ACTIVE_INDEX: (state, topNavActiveIndex) => {
+    state.topNavActiveIndex = topNavActiveIndex
   },
   SET_PERMISSION_DATA: (state, permission_data) => {
     state.permission_data = permission_data
@@ -66,7 +70,10 @@ const actions = {
     // 设置到vuex中是菜单树
     commit('SET_MENUS_ROUTERS', routers)
   },
-
+  setTopNavActiveIndex({ commit }, topNavIndex) {
+    // 设置到vuex中是菜单树
+    commit('SET_TOP_NAV_ACTIVE_INDEX', topNavIndex)
+  },
   getPermissionAndSetTopNavAction({ commit }, _data) {
     return new Promise((resolve, reject) => {
       // 获取权限，顶部导航栏，操作权限数据
@@ -86,7 +93,8 @@ const actions = {
         })
         // 根据to的path，解析激活哪一个顶部导航栏
         // 把顶部导航栏，设置到vuex中去
-        commit('SET_TOP_NAV', top_nav_data)
+        commit('SET_TOP_NAV', top_nav_data.data)
+        commit('SET_TOP_NAV_ACTIVE_INDEX', top_nav_data.active_index)
 
         /**
          *  设置菜单

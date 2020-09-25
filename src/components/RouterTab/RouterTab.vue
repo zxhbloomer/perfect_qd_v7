@@ -20,10 +20,11 @@
             :title="i18nText(tips || title) || lang.tab.untitled"
             :to="to"
             @contextmenu.native.prevent="e => showContextmenu(id, index, e)"
+            @click.native="clickRouter(items[index])"
           >
             <slot v-bind="{ tab: items[index], tabs: items, index }">
               <i v-if="icon" class="tab-icon" :class="icon" />
-              <span class="tab-title">{{ i18nText(title) || lang.tab.untitled }}</span>
+              <span class="tab-title">11{{ items[index] }}11{{ i18nText(title) || lang.tab.untitled }}</span>
               <i
                 v-if="(closable !== false && !(keepLastTab && items.length < 2)) && (items[index].affix===false)"
                 class="el-icon-close"
