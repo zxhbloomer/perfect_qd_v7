@@ -43,7 +43,13 @@
               <svg-icon v-if="data.meta_icon" :icon-class="data.meta_icon" class="el-icon--right" />
               {{ data.label }}
             </span>
-            <span>[{{ data.type_name }}]</span>
+            <span class="menu_png">
+              <em v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_ROOT" class="root">根结点</em>
+              <em v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_TOPNAV" class="top_nav">顶部导航栏</em>
+              <em v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_NODE" class="node">结点</em>
+              <em v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_PAGE" class="page">页面</em>
+              <em v-if="data.is_default" class="default">默认菜单</em>
+            </span>
           </span>
         </el-tree>
       </div>
@@ -230,6 +236,7 @@ import { dragsaveApi } from '@/api/20_master/menus/menu'
 import elDragDialog from '@/directive/el-drag-dialog'
 import { isNotEmpty } from '@/utils/index.js'
 import constants_para from '@/common/constants/constants_para'
+import '@/styles/menu_png.scss'
 
 export default {
   components: { },
