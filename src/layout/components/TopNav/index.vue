@@ -80,10 +80,18 @@ export default {
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_active_index = this.$watch('permission_topNav_activeIndex', (newVal, oldVal) => {
         this.activeIndex = newVal
-        console.log(1111)
-        console.log(this.activeIndex)
-        console.log([this.activeIndex])
-        this.handleSelect(this.activeIndex, [this.activeIndex])
+        return new Promise(async resolve => {
+          resetRouter()
+          // 顶部导航栏处理
+          // 获取路由处理
+          const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
+            pathOrIndex: this.activeIndex,
+            type: this.PARAMETERS.TOP_NAV_FIND_BY_INDEX })
+          // 动态添加路由
+          router.addRoutes(accessRoutes)
+          this.setWatch()
+          resolve()
+        })
       },
       { deep: true }
       )
