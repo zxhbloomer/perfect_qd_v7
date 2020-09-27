@@ -61,14 +61,6 @@ export default {
     ])
   },
   watch: {
-    // 'permission_topNav_activeIndex': {
-    //   handler(newVal, oldVal) {
-    //     this.activeIndex = newVal
-    //     console.log(newVal)
-    //     console.log(oldVal)
-    //   },
-    //   deep: true
-    // }
   },
   created() {
     this.activeIndex = this.permission_topNav_activeIndex === '-1' ? '1' : this.permission_topNav_activeIndex
