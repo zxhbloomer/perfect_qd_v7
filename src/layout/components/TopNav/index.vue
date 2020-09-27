@@ -63,6 +63,8 @@ export default {
   watch: {
   },
   created() {
+    console.log(1111111)
+    console.log(this.permission_topNav)
     this.activeIndex = this.permission_topNav_activeIndex === '-1' ? '1' : this.permission_topNav_activeIndex
   },
   methods: {

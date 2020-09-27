@@ -74,7 +74,7 @@ const actions = {
     // 设置到vuex中是菜单树
     commit('SET_TOP_NAV_ACTIVE_INDEX', topNavIndex)
   },
-  getPermissionAndSetTopNavAction({ commit }, _data) {
+  getPermissionAndSetTopNavAction2({ commit }, _data) {
     return new Promise((resolve, reject) => {
       // 获取权限，顶部导航栏，操作权限数据
       getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
@@ -125,7 +125,7 @@ const actions = {
    * @param {*} param0
    * @param {*} _data
    */
-  getPermissionAndSetTopNavAction2({ commit }, _data) {
+  getPermissionAndSetTopNavAction({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
       const _topNavData = [
@@ -158,20 +158,9 @@ const actions = {
         }
       ]
 
-      // 根据to的path，解析激活哪一个顶部导航栏
-      const _topNav = {
-        data: _topNavData,
-        activeIndex: '-1'
-      }
-      const url = _data.pathOrIndex.split('/')[1]
-      const _activeIndex = _topNavData.filter(item => item.nav_code === url)[0]
-      if (_activeIndex) {
-        _topNav.activeIndex = _activeIndex
-      } else {
-        // todo:error??
-      }
+      commit('SET_TOP_NAV_ACTIVE_INDEX', '1')
       // 把顶部导航栏，设置到vuex中去
-      commit('SET_TOP_NAV', _topNav)
+      commit('SET_TOP_NAV', _topNavData)
 
       /** 设置菜单
        *  需要注意：菜单和router不是一一匹配的
