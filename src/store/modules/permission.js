@@ -103,7 +103,6 @@ const actions = {
          *
          *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
          */
-        // deepRecursiveLoadComponent(user_permission_menu)
         // 动态读取所有路由中的component，成为对象，没有层级
         deepRecursiveLoadComponent(all_routers)
         // 设置到异步对象中去
