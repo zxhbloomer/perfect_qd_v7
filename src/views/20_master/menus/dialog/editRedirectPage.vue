@@ -227,6 +227,7 @@
 import elDragDialog from '@/directive/el-drag-dialog'
 import constants_para from '@/common/constants/constants_para'
 import '@/styles/menu_png.scss'
+import deepCopy from 'deep-copy'
 
 export default {
   components: { },
@@ -280,15 +281,13 @@ export default {
         dialogStatus: '',
         // 按钮状态：是否可用
         btnDisabledStatus: {
-          disabledInsert: true,
-          disabledUpdate: true,
-          disabledDelete: true
+          disabledOk: true
         },
         defaultProps: {
           children: 'children',
           label: 'label'
         },
-        textMap: '拖动结点调整顺序'
+        textMap: '请选择要默认打开页面'
       }
     }
   },
@@ -323,30 +322,28 @@ export default {
       // 查询逻辑
       this.settings.loading = true
       this.dataJson.treeData = this.treeData
+      this.settings.btnDisabledStatus.disabledOk = true
       this.settings.loading = false
     },
     handleCurrentChange(row) {
-      this.dataJson.currentJson = Object.assign({}, row) // copy obj
-      this.dataJson.tempJsonOriginal = Object.assign({}, row) // copy obj
-      this.dataJson.tempJson = Object.assign({}, row) // copy obj
+      this.dataJson.currentJson = deepCopy(row)
+      this.dataJson.tempJsonOriginal = deepCopy(row)
+      this.dataJson.tempJson = deepCopy(row)
       this.dataJson.currentJson = this.$refs.treeObject.getCurrentNode()
       this.dataJson.currentJson.currentkey = this.$refs.treeObject.getCurrentKey()
-    },
-    handleButtonSearch() {
-      // 查询
-      this.getDataList()
-    },
-    // 查询后处理
-    getListAfterProcess() {
-      if (Object.keys(this.dataJson.filterText).length !== 0) {
-        this.$nextTick(() => {
-          this.$refs.treeObject.filter(this.dataJson.filterText)
-        })
+      if (row.type === this.CONSTANTS.DICT_SYS_MENU_TYPE_PAGE) {
+        this.settings.btnDisabledStatus.disabledOk = false
+      } else {
+        this.settings.btnDisabledStatus.disabledOk = true
       }
     },
     // 取消按钮
     handleCancel() {
       this.$emit('closeMeCancel')
+    },
+    // 关闭按钮
+    handleOk() {
+      this.$emit('closeMeOk', this.dataJson.currentJson)
     }
   }
 }

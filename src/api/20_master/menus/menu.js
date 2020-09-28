@@ -37,6 +37,18 @@ export function updateApi(data) {
 }
 
 /**
+ * 保存重定向数据
+ * @param {*} data
+ */
+export function saveRedirectApi(data) {
+  return request({
+    url: '/api/v1/menus/redirect/save',
+    method: 'post',
+    data
+  })
+}
+
+/**
  * 新增菜单组
  * @param {*} data
  */

@@ -72,7 +72,12 @@
           {{ scope.row.path }}
           <br>
           <el-link v-if="scope.row.path ==='/'" type="primary" @click="handleRedirect()">
-            设置重定向
+            <span v-if="dataJson.redirect.name === ''">
+              默认页面
+            </span>
+            <span v-else>
+              默认页面为：{{ dataJson.redirect.name }}
+            </span>
           </el-link>
         </template>
       </el-table-column>
@@ -164,6 +169,7 @@
       :visible="popSettings.seven.visible"
       :dialog-status="popSettings.seven.props.dialogStatus"
       :tree-data="popSettings.seven.props.data"
+      :height="setUIheight()-200"
       @closeMeOk="handleRedirectPageDialogCloseMeOk"
       @closeMeCancel="handleRedirectPageDialogCloseMeCancel"
     />
@@ -210,7 +216,7 @@
 
 <script>
 import constants_program from '@/common/constants/constants_program'
-import { getListApi, realDeleteSelectionApi } from '@/api/20_master/menus/menu'
+import { getListApi, realDeleteSelectionApi, saveRedirectApi } from '@/api/20_master/menus/menu'
 import resizeMixin from './menuResizeHandlerMixin'
 import elDragDialog from '@/directive/el-drag-dialog'
 // import SelectDict from '@/components/00_dict/select/SelectDict'
@@ -276,7 +282,11 @@ export default {
         // 当前表格中的索引，第几条
         rowIndex: 0,
         // 当前选中的行（checkbox）
-        multipleSelection: []
+        multipleSelection: [],
+        redirect: {
+          name: '',
+          data: undefined
+        }
       },
       // 页面设置json
       settings: {
@@ -858,6 +868,15 @@ export default {
       this.popSettings.seven.visible = true
     },
     handleRedirectPageDialogCloseMeOk(val) {
+      // 重定向数据更新至数据库中
+      saveRedirectApi({ root_id: val.root_id, page_id: val.page_id, menu_page_id: val.id }).then((_data) => {
+        this.dataJson.redirect.data = deepCopy(_data.data)
+        this.dataJson.redirect.name = this.dataJson.redirect.data.name
+      }, (_error) => {
+      }).finally(() => {
+        this.settings.loading = false
+      })
+
       this.popSettings.seven.visible = false
     },
     handleRedirectPageDialogCloseMeCancel() {
