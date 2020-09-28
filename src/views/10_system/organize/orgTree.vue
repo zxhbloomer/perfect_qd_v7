@@ -146,7 +146,7 @@ export default {
         total: 0,
         role_name: undefined
       },
-      listLoading: true,
+      loading: true,
       listData: null,
       // 单条数据 json
       temp: {

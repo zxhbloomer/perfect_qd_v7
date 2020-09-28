@@ -22,17 +22,17 @@
       </el-form-item>
     </el-form>
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.listLoading" @click="handleInsert">新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleUpdate">修改</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.listLoading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-circle-close" :loading="settings.listLoading" @click="handleRealyDelete">物理删除</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.listLoading" @click="handleExport">导出</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.listLoading" @click="handleView">查看</el-button>
+      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-circle-close" :loading="settings.loading" @click="handleRealyDelete">物理删除</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.loading" @click="handleExport">导出</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.loading" @click="handleView">查看</el-button>
     </el-button-group>
 
     <el-table
       ref="multipleTable"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
       element-loading-background="rgba(255, 255, 255, 0.5)"
@@ -135,12 +135,12 @@
       <div slot="footer" class="dialog-footer">
         <el-divider />
         <div class="floatLeft">
-          <el-button v-show="!isViewModel" type="danger" :disabled="settings.listLoading || popSettingsData.btnDisabledStatus.disabledReset" :loading="settings.listLoading" @click="doReset()">重置</el-button>
+          <el-button v-show="!isViewModel" type="danger" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledReset" :loading="settings.loading" @click="doReset()">重置</el-button>
         </div>
-        <el-button plain :disabled="settings.listLoading" @click="popSettingsData.dialogFormVisible = false">取消</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showInsert" v-no-more-click plain type="primary" :disabled="settings.listLoading || popSettingsData.btnDisabledStatus.disabledInsert " :loading="settings.listLoading" @click="doInsert()">确定</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showUpdate" v-no-more-click plain type="primary" :disabled="settings.listLoading || popSettingsData.btnDisabledStatus.disabledUpdate " :loading="settings.listLoading" @click="doUpdate()">确定</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showCopyInsert" v-no-more-click plain type="primary" :disabled="settings.listLoading || popSettingsData.btnDisabledStatus.disabledCopyInsert " :loading="settings.listLoading" @click="doCopyInsert()">确定</el-button>
+        <el-button plain :disabled="settings.loading" @click="popSettingsData.dialogFormVisible = false">取消</el-button>
+        <el-button v-show="popSettingsData.btnShowStatus.showInsert" v-no-more-click plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledInsert " :loading="settings.loading" @click="doInsert()">确定</el-button>
+        <el-button v-show="popSettingsData.btnShowStatus.showUpdate" v-no-more-click plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledUpdate " :loading="settings.loading" @click="doUpdate()">确定</el-button>
+        <el-button v-show="popSettingsData.btnShowStatus.showCopyInsert" v-no-more-click plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledCopyInsert " :loading="settings.loading" @click="doCopyInsert()">确定</el-button>
       </div>
     </el-dialog>
     <iframe id="refIframe" ref="refIframe" scrolling="no" frameborder="0" style="display:none" name="refIframe">x</iframe>
@@ -235,7 +235,7 @@ export default {
           showExport: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         tableHeight: this.setUIheight(),
         duration: 4000
       },
@@ -461,17 +461,17 @@ export default {
     // 全部数据导出
     handleExportAllData() {
       // loading
-      this.settings.listLoading = true
+      this.settings.loading = true
       // 开始导出
       exportAllApi(this.dataJson.searchForm).then(response => {
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 部分数据导出
     handleExportSelectionData() {
       // loading
-      this.settings.listLoading = true
+      this.settings.loading = true
       const selectionJson = []
       this.dataJson.multipleSelection.forEach(function(value, index, array) {
         selectionJson.push({ 'id': value.id })
@@ -479,7 +479,7 @@ export default {
       // 开始导出
       exportSelectionApi(selectionJson).then(response => {
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 点击按钮 复制新增
@@ -533,14 +533,14 @@ export default {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       getListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.listData = response.data.records
         this.dataJson.paging = response.data
         this.dataJson.paging.records = {}
       }, (_error) => {
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 更新逻辑
@@ -548,7 +548,7 @@ export default {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
-          this.settings.listLoading = true
+          this.settings.loading = true
           updateApi(tempData).then((_data) => {
             this.dataJson.tempJson = Object.assign({}, _data.data)
             // 设置到table中绑定的json数据源
@@ -570,7 +570,7 @@ export default {
             })
           }).finally(() => {
             this.popSettingsData.dialogFormVisible = false
-            this.settings.listLoading = false
+            this.settings.loading = false
           })
         }
       })
@@ -625,7 +625,7 @@ export default {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
-          this.settings.listLoading = true
+          this.settings.loading = true
           insertApi(tempData).then((_data) => {
             this.dataJson.listData.push(_data.data)
             this.$notify({
@@ -643,7 +643,7 @@ export default {
             })
           }).finally(() => {
             this.popSettingsData.dialogFormVisible = false
-            this.settings.listLoading = false
+            this.settings.loading = false
           })
         }
       })
@@ -653,7 +653,7 @@ export default {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
-          this.settings.listLoading = true
+          this.settings.loading = true
           insertApi(tempData).then((_data) => {
             this.dataJson.listData.push(_data.data)
             this.$notify({
@@ -664,7 +664,7 @@ export default {
             })
             this.popSettingsData.dialogFormVisible = false
             this.$nextTick(() => {
-              this.settings.listLoading = false
+              this.settings.loading = false
             })
           }, (_error) => {
             this.$notify({
@@ -675,7 +675,7 @@ export default {
             })
             // this.popSettingsData.dialogFormVisible = false
           }).finally(() => {
-            this.settings.listLoading = false
+            this.settings.loading = false
           })
         }
       })
@@ -743,7 +743,7 @@ export default {
     // 选中数据删除
     handleRealDeleteSelectionData() {
       // loading
-      this.settings.listLoading = true
+      this.settings.loading = true
       const selectionJson = []
       this.dataJson.multipleSelection.forEach(function(value, index, array) {
         selectionJson.push({ 'id': value.id })
@@ -766,7 +766,7 @@ export default {
           duration: this.settings.duration
         })
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // Placeholder设置
@@ -813,7 +813,7 @@ export default {
         cancelButtonText: '取消'
       }).then(() => {
         // loading
-        this.settings.listLoading = true
+        this.settings.loading = true
         enabledApi(selectionJson).then((_data) => {
           this.$notify({
             title: '更新处理成功',
@@ -831,7 +831,7 @@ export default {
           row.is_enable = !row.is_enable
         }).finally(() => {
           this.popSettingsData.dialogFormVisible = false
-          this.settings.listLoading = false
+          this.settings.loading = false
         })
       }).catch(action => {
         row.is_enable = !row.is_enable

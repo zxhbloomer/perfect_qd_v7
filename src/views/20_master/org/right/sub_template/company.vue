@@ -3,15 +3,15 @@
     <!-- <el-form>
       <el-form-item>
         <el-button-group>
-          <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.listLoading" @click="handleInsert">新增</el-button>
-          <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleUpdate">修改</el-button>
-          <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleCopyInsert">复制新增</el-button>
+          <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
+          <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
+          <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
         </el-button-group>
       </el-form-item>
     </el-form> -->
     <el-table
       ref="multipleTable"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       type="org_company"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
@@ -173,7 +173,7 @@ export default {
           showExport: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         duration: 4000
       },
       popSettings: {
@@ -273,7 +273,7 @@ export default {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       const condition = { ...this.dataJson.searchForm.condition, ...{ pageCondition: this.dataJson.searchForm.pageCondition }}
       getCompanyListApi(condition).then(response => {
         this.dataJson.listData = response.data.records
@@ -283,7 +283,7 @@ export default {
         this.$off(this.EMITS.EMIT_ORG_LOADING_OK)
         this.$emit(this.EMITS.EMIT_ORG_LOADING_OK)
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 获取row-key

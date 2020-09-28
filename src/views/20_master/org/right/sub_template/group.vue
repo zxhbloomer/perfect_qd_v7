@@ -2,7 +2,7 @@
   <div>
     <el-table
       ref="multipleTable"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       type="org_group"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
@@ -153,7 +153,7 @@ export default {
           showExport: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         duration: 4000
       },
       popSettings: {
@@ -256,7 +256,7 @@ export default {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       // this.dataJson.searchForm.condition = Object.assign({}, val)
       const condition = { ...this.dataJson.searchForm.condition, ...{ pageCondition: this.dataJson.searchForm.pageCondition }}
       getGroupsListApi(condition).then(response => {
@@ -267,7 +267,7 @@ export default {
         this.$off(this.EMITS.EMIT_ORG_LOADING_OK)
         this.$emit(this.EMITS.EMIT_ORG_LOADING_OK)
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 获取row-key

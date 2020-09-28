@@ -2,7 +2,7 @@
   <div>
     <el-table
       ref="dataSubmitForm"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       type="org"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
@@ -160,7 +160,7 @@ export default {
           showExport: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         duration: 4000
       },
       popSettingsData: {
@@ -457,7 +457,7 @@ export default {
       this.$off(this.EMITS.EMIT_ORG_LOADING)
       this.$emit(this.EMITS.EMIT_ORG_LOADING)
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       this.dataJson.searchForm = Object.assign({}, val)
       getListApi(this.dataJson.searchForm).then(response => {
         const recorders = response.data
@@ -469,7 +469,7 @@ export default {
         this.$off(this.EMITS.EMIT_ORG_LOADING_OK)
         this.$emit(this.EMITS.EMIT_ORG_LOADING_OK)
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 重置查询区域
@@ -588,7 +588,7 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消'
       }).then(() => {
-        this.settings.listLoading = true
+        this.settings.loading = true
         this.handleRealDeleteData()
       }).catch(action => {
         // 右上角X

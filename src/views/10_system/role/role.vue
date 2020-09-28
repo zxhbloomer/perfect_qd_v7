@@ -48,10 +48,10 @@
     </el-popover>
 
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.listLoading" @click="handleInsert">新增</el-button>
-      <el-button :disabled="!settings.btnStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleUpdate">修改</el-button>
-      <el-button :disabled="!settings.btnStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.listLoading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button :disabled="!settings.btnStatus.showExport" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleExport">导 出</el-button>
+      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
+      <el-button :disabled="!settings.btnStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
+      <el-button :disabled="!settings.btnStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
+      <el-button :disabled="!settings.btnStatus.showExport" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleExport">导 出</el-button>
     </el-button-group>
 
     <el-button-group>
@@ -72,7 +72,7 @@
     </el-dropdown>
     <el-table
       ref="multipleTable"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
       element-loading-background="rgba(255, 255, 255, 0.5)"
@@ -184,7 +184,7 @@
 
       <div slot="footer" class="dialog-footer">
         <el-divider />
-        <el-button plain :disabled="settings.listLoading" @click="handlCloseDialog">关 闭</el-button>
+        <el-button plain :disabled="settings.loading" @click="handlCloseDialog">关 闭</el-button>
       </div>
     </el-dialog>
 
@@ -250,10 +250,10 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-divider />
-        <el-button plain :disabled="settings.listLoading" @click="popSettingsData.dialogFormVisible = false">取 消</el-button>
-        <el-button v-show="popSettingsData.btnStatus.doInsert" plain type="primary" :disabled="settings.listLoading" @click="doInsert()">确定</el-button>
-        <el-button v-show="popSettingsData.btnStatus.doUpdate" plain type="primary" :disabled="settings.listLoading" @click="doUpdate()">确定</el-button>
-        <el-button v-show="popSettingsData.btnStatus.doCopyInsert" plain type="primary" :disabled="settings.listLoading" @click="doCopyInsert()">确定</el-button>
+        <el-button plain :disabled="settings.loading" @click="popSettingsData.dialogFormVisible = false">取 消</el-button>
+        <el-button v-show="popSettingsData.btnStatus.doInsert" plain type="primary" :disabled="settings.loading" @click="doInsert()">确定</el-button>
+        <el-button v-show="popSettingsData.btnStatus.doUpdate" plain type="primary" :disabled="settings.loading" @click="doUpdate()">确定</el-button>
+        <el-button v-show="popSettingsData.btnStatus.doCopyInsert" plain type="primary" :disabled="settings.loading" @click="doCopyInsert()">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -334,7 +334,7 @@ export default {
           showExport: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         tableHeight: this.setUIheight(),
         duration: 4000
       },
@@ -446,7 +446,7 @@ export default {
         cancelButtonText: '取消'
       }).then(() => {
         // loading
-        this.settings.listLoading = true
+        this.settings.loading = true
         deleteApi(selectionJson).then((_data) => {
           this.$notify({
             title: '更新处理成功',
@@ -455,7 +455,7 @@ export default {
             duration: this.settings.duration
           })
           this.popSettingsData.dialogFormVisible = false
-          this.settings.listLoading = false
+          this.settings.loading = false
         }, (_error) => {
           this.$notify({
             title: '更新处理失败',
@@ -465,7 +465,7 @@ export default {
           })
           row.is_del = !row.is_del
           this.popSettingsData.dialogFormVisible = false
-          this.settings.listLoading = false
+          this.settings.loading = false
         })
       }).catch(action => {
         row.isdel = !row.isdel
@@ -489,7 +489,7 @@ export default {
         cancelButtonText: '取消'
       }).then(() => {
         // loading
-        this.settings.listLoading = true
+        this.settings.loading = true
         enableApi(selectionJson).then((_data) => {
           this.$notify({
             title: '更新处理成功',
@@ -498,7 +498,7 @@ export default {
             duration: this.settings.duration
           })
           this.popSettingsData.dialogFormVisible = false
-          this.settings.listLoading = false
+          this.settings.loading = false
         }, (_error) => {
           this.$notify({
             title: '更新处理失败',
@@ -507,7 +507,7 @@ export default {
             duration: this.settings.duration
           })
           this.popSettingsData.dialogFormVisible = false
-          this.settings.listLoading = false
+          this.settings.loading = false
         })
       }).catch(action => {
         row.isenable = !row.isenable
@@ -578,23 +578,23 @@ export default {
     // 全部数据导出
     handleExportAllData() {
       // loading
-      this.settings.listLoading = true
+      this.settings.loading = true
       // 开始导出
       exportAllApi(this.dataJson.searchForm).then(response => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 部分数据导出
     handleExportSelectionData() {
       // loading
-      this.settings.listLoading = true
+      this.settings.loading = true
       const selectionJson = []
       this.dataJson.multipleSelection.forEach(function(value, index, array) {
         selectionJson.push({ 'id': value.id })
       })
       // 开始导出
       exportSelectionApi(selectionJson).then(response => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 点击按钮 复制新增
@@ -639,12 +639,12 @@ export default {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       getListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.listData = response.data.records
         this.dataJson.paging = response.data
         this.dataJson.paging.records = {}
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 更新逻辑
@@ -652,7 +652,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
-          this.settings.listLoading = true
+          this.settings.loading = true
           updateApi(tempData).then((_data) => {
             this.dataJson.tempJson = Object.assign({}, _data.data)
             this.dataJson.listData.splice(this.dataJson.rowIndex, 1, this.dataJson.tempJson)
@@ -663,7 +663,7 @@ export default {
               duration: this.settings.duration
             })
             this.popSettingsData.dialogFormVisible = false
-            this.settings.listLoading = false
+            this.settings.loading = false
           }, (_error) => {
             this.$notify({
               title: '更新处理失败',
@@ -672,7 +672,7 @@ export default {
               duration: this.settings.duration
             })
             this.popSettingsData.dialogFormVisible = false
-            this.settings.listLoading = false
+            this.settings.loading = false
           })
         }
       })
@@ -682,7 +682,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
-          this.settings.listLoading = true
+          this.settings.loading = true
           insertApi(tempData).then((_data) => {
             this.dataJson.listData.push(_data.data)
             this.$notify({
@@ -692,7 +692,7 @@ export default {
               duration: this.settings.duration
             })
             this.popSettingsData.dialogFormVisible = false
-            this.settings.listLoading = false
+            this.settings.loading = false
           }, (_error) => {
             this.$notify({
               title: '新增处理失败',
@@ -701,7 +701,7 @@ export default {
               duration: this.settings.duration
             })
             this.popSettingsData.dialogFormVisible = false
-            this.settings.listLoading = false
+            this.settings.loading = false
           })
         }
       })
@@ -711,7 +711,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
-          this.settings.listLoading = true
+          this.settings.loading = true
           insertApi(tempData).then((_data) => {
             this.dataJson.listData.push(_data.data)
             this.$notify({
@@ -721,7 +721,7 @@ export default {
               duration: this.settings.duration
             })
             this.popSettingsData.dialogFormVisible = false
-            this.settings.listLoading = false
+            this.settings.loading = false
           }, (_error) => {
             this.$notify({
               title: '复制新增处理失败',
@@ -730,7 +730,7 @@ export default {
               duration: this.settings.duration
             })
             this.popSettingsData.dialogFormVisible = false
-            this.settings.listLoading = false
+            this.settings.loading = false
           })
         }
       })
@@ -739,7 +739,7 @@ export default {
     handleUploadFileSuccess(res) {
       // 开始导出
       importExcelApi(res.response.data).then(response => {
-        this.settings.listLoading = false
+        this.settings.loading = false
         this.popSettingsImport.errorFileUrl = ''
         if (response.code !== 0) {
           this.popSettingsImport.errorFileUrl = response.data.fsType2Url

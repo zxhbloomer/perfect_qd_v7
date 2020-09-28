@@ -20,7 +20,7 @@
       <el-button :disabled="!btnStatus.doEdit" type="primary" icon="el-icon-edit-outline" @click="showDialogUpd">修改</el-button>
     </el-button-group>
     <el-table
-      v-loading="listLoading"
+      v-loading="loading"
       :data="listData"
       :element-loading-text="'正在拼命加载中...'"
       :size="getSize()"
@@ -93,7 +93,7 @@ export default {
         total: 0,
         role_name: undefined
       },
-      listLoading: true,
+      loading: true,
       listData: null,
       // 单条数据 json
       temp: {
@@ -176,11 +176,11 @@ export default {
     },
     getDataList() {
       // 查询逻辑
-      this.listLoading = true
+      this.loading = true
       getList(this.searchForm).then(response => {
         this.listData = response.data.datas
         // this.searchForm.total = response.data.total
-        this.listLoading = false
+        this.loading = false
       })
     }
 

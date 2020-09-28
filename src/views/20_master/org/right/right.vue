@@ -167,7 +167,7 @@ export default {
           showAdmin: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         duration: 4000
       },
       popSettingsData: {
@@ -341,7 +341,7 @@ export default {
       this.$off(this.EMITS.EMIT_ORG_LOADING)
       this.$emit(this.EMITS.EMIT_ORG_LOADING)
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       this.dataJson.searchForm = Object.assign({}, val)
       getAllOrgDataCountApi(this.dataJson.searchForm).then(response => {
         const recorders = response.data
@@ -350,7 +350,7 @@ export default {
         this.$off(this.EMITS.EMIT_ORG_LOADING_OK)
         this.$emit(this.EMITS.EMIT_ORG_LOADING_OK)
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 重置按钮

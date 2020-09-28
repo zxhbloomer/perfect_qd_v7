@@ -13,7 +13,7 @@
       </a>
     </div>
 
-    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading..." border fit highlight-current-row>
+    <el-table v-loading="loading" :data="list" element-loading-text="Loading..." border fit highlight-current-row>
       <el-table-column align="center" label="Id" width="95">
         <template slot-scope="scope">
           {{ scope.$index }}
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true,
+      loading: true,
       downloadLoading: false,
       filename: '',
       autoWidth: true,
@@ -70,10 +70,10 @@ export default {
   },
   methods: {
     fetchData() {
-      this.listLoading = true
+      this.loading = true
       fetchList().then(response => {
         this.list = response.data.items
-        this.listLoading = false
+        this.loading = false
       })
     },
     handleDownload() {

@@ -48,7 +48,7 @@ export default {
         settings: {
           // 页面设置json
           // loading 状态
-          listLoading: true
+          loading: true
         }
 
       }
@@ -68,7 +68,7 @@ export default {
     // 初始化
     init() {
       this.modelValue = this.initValue
-      this.dataJson.settings.listLoading = true
+      this.dataJson.settings.loading = true
       this.dataJson.searchForm.para = ''
       this.getRemoteData()
     },
@@ -77,7 +77,7 @@ export default {
       this.dataJson.searchForm.filter_para = this.filterPara
       getDictDataApi(this.dataJson.searchForm).then((_data) => {
         this.dataJson.selectOptions = _data.data
-        this.dataJson.settings.listLoading = false
+        this.dataJson.settings.loading = false
       }, (_error) => {
       })
     },

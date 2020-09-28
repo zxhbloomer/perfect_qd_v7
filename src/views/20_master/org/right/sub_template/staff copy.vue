@@ -30,7 +30,7 @@
     </el-tabs>
     <el-table
       ref="multipleTable"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
       element-loading-background="rgba(255, 255, 255, 0.5)"
@@ -411,7 +411,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-divider />
-        <el-button plain :disabled="settings.listLoading" @click="handleDialogClose">取消</el-button>
+        <el-button plain :disabled="settings.loading" @click="handleDialogClose">取消</el-button>
       </div>
     </el-dialog>
 
@@ -520,7 +520,7 @@ export default {
           showExport: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         duration: 4000,
         // 日期类型下拉选项json
         pickerOptions: {
@@ -808,7 +808,7 @@ export default {
     },
     getDataList() {
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       Object.assign(this.$data.dataJson.tabsCount, this.$options.data.call(this).dataJson.tabsCount)
       getStaffTabListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.tabsCount.currentOrgStaffCount = response.data.currentOrgStaffCount
@@ -822,7 +822,7 @@ export default {
         this.dataJson.paging = response.data
         this.dataJson.paging.records = {}
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 重置查询区域
@@ -916,7 +916,7 @@ export default {
       this.dataJson.searchForm.active_tabs_index = tab.index
     },
     async handleView(val) {
-      this.settings.listLoading = true
+      this.settings.loading = true
       var staffData = await this.getUserDataById(val)
       this.dataJson.tempJson = Object.assign({}, staffData)
       this.popSettingsData.searchDialogDataOne.selectedDataJson = {}
@@ -929,7 +929,7 @@ export default {
       this.popSettingsData.btnShowStatus.showInsert = false
       this.popSettingsData.btnShowStatus.showUpdate = true
       this.popSettingsData.btnShowStatus.showCopyInsert = false
-      this.settings.listLoading = false
+      this.settings.loading = false
     },
     // 根据user id查询用户数据
     async getUserDataById(val) {

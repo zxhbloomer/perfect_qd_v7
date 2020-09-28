@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- Note that row-key is necessary to get a correct row order. -->
-    <el-table ref="dragTable" v-loading="listLoading" :data="list" row-key="id" border fit highlight-current-row style="width: 100%">
+    <el-table ref="dragTable" v-loading="loading" :data="list" row-key="id" border fit highlight-current-row style="width: 100%">
       <el-table-column align="center" label="ID" width="65">
         <template slot-scope="{row}">
           <span>{{ row.id }}</span>
@@ -81,7 +81,7 @@ export default {
     return {
       list: null,
       total: null,
-      listLoading: true,
+      loading: true,
       listQuery: {
         page: 1,
         limit: 10
@@ -96,11 +96,11 @@ export default {
   },
   methods: {
     async getList() {
-      this.listLoading = true
+      this.loading = true
       const { data } = await fetchList(this.listQuery)
       this.list = data.items
       this.total = data.total
-      this.listLoading = false
+      this.loading = false
       this.oldList = this.list.map(v => v.id)
       this.newList = this.oldList.slice()
       this.$nextTick(() => {

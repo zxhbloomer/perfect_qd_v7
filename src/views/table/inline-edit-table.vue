@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
+    <el-table v-loading="loading" :data="list" border fit highlight-current-row style="width: 100%">
       <el-table-column align="center" label="ID" width="80">
         <template slot-scope="{row}">
           <span>{{ row.id }}</span>
@@ -95,7 +95,7 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true,
+      loading: true,
       listQuery: {
         page: 1,
         limit: 10
@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     async getList() {
-      this.listLoading = true
+      this.loading = true
       const { data } = await fetchList(this.listQuery)
       const items = data.items
       this.list = items.map(v => {
@@ -115,7 +115,7 @@ export default {
         v.originalTitle = v.title //  will be used when user click the cancel botton
         return v
       })
-      this.listLoading = false
+      this.loading = false
     },
     cancelEdit(row) {
       row.title = row.originalTitle

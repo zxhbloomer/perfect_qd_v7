@@ -4,7 +4,7 @@
     <el-button :loading="downloadLoading" style="margin-bottom:20px;" type="primary" icon="el-icon-document" @click="handleDownload">
       Export Zip
     </el-button>
-    <el-table v-loading="listLoading" :data="list" element-loading-text="拼命加载中" border fit highlight-current-row>
+    <el-table v-loading="loading" :data="list" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.$index }}
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true,
+      loading: true,
       downloadLoading: false,
       filename: ''
     }
@@ -53,10 +53,10 @@ export default {
   },
   methods: {
     async fetchData() {
-      this.listLoading = true
+      this.loading = true
       const { data } = await fetchList()
       this.list = data.items
-      this.listLoading = false
+      this.loading = false
     },
     handleDownload() {
       this.downloadLoading = true

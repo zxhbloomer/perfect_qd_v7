@@ -85,8 +85,8 @@
           <div class="floatLeft">
             <el-button type="danger" @click="doReset()">重置</el-button>
           </div>
-          <el-button plain :disabled="settings.listLoading" @click="settings.visible = false">取消</el-button>
-          <el-button plain :disabled="settings.listLoading || settings.btnDisabledStatus.disabledOk " type="primary" @click="handleOk()">确定</el-button>
+          <el-button plain :disabled="settings.loading" @click="settings.visible = false">取消</el-button>
+          <el-button plain :disabled="settings.loading || settings.btnDisabledStatus.disabledOk " type="primary" @click="handleOk()">确定</el-button>
         </el-footer>
       </el-container>
     </el-popover>
@@ -347,7 +347,7 @@ export default {
         visible: false,
         para: this.CONSTANTS.DICT_ORG_SETTING_TYPE,
         filterPara: [],
-        listLoading: true,
+        loading: true,
         // 按钮状态：是否可用
         btnDisabledStatus: {
           disabledOk: true
@@ -393,7 +393,7 @@ export default {
       },
       immediate: true
     },
-    'settings.listLoading': {
+    'settings.loading': {
       handler(newVal, oldVal) {
         switch (newVal) {
           case true:
@@ -469,11 +469,11 @@ export default {
         this.dataJson.searchForm.serial_id = this.parentId
       }
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       getTreeListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.treeData = response.data
         this.getListAfterProcess()
-        this.settings.listLoading = false
+        this.settings.loading = false
         this.$nextTick(() => {
           let current_node = null
           if (this.currentId === null) {

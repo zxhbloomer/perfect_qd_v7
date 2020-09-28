@@ -10,9 +10,9 @@
       <el-form-item label="">
         <el-input v-model.trim="dataJson.searchForm.name" clearable placeholder="名称" />
       </el-form-item>
-      <el-form-item label="">
+      <!-- <el-form-item label="">
         <select-dict v-model="dataJson.searchForm.visible" :para="CONSTANTS.DICT_SYS_VISIBLE_TYPE" init-placeholder="请选择菜单类型" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">查询</el-button>
       </el-form-item>
@@ -21,18 +21,18 @@
       </el-form-item>
     </el-form>
     <el-button-group v-show="!meDialogStatus.dialogStatus">
-      <el-button :disabled="!settings.btnShowStatus.showInsert" type="primary" icon="el-icon-circle-plus-outline" :loading="settings.listLoading" @click="handleInsert">新增菜单组</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showAddTopNav" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleAddTopNav">添加顶部导航栏</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showAddSubNode" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleAddSubNode">添加子菜单-结点</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showAddSubMenu" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleAddSubMenu">添加子菜单-页面</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleUpdate">修改</el-button>
-      <el-button type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleSort">调整菜单顺序</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showRealyDelete" type="primary" icon="el-icon-circle-close" :loading="settings.listLoading" @click="handleRealyDelete">物理删除</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showInsert" type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增菜单组</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showAddTopNav" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleAddTopNav">添加顶部导航栏</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showAddSubNode" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleAddSubNode">添加子菜单-结点</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showAddSubMenu" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleAddSubMenu">添加子菜单-页面</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
+      <el-button type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleSort">调整菜单顺序</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showRealyDelete" type="primary" icon="el-icon-circle-close" :loading="settings.loading" @click="handleRealyDelete">物理删除</el-button>
     </el-button-group>
     <el-table
       v-cloak
       ref="multipleTable"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
       element-loading-background="rgba(255, 255, 255, 0.5)"
@@ -69,10 +69,11 @@
       </el-table-column>
       <el-table-column header-align="center" show-overflow-tooltip min-width="150" prop="path" label="请求地址" fixed>
         <template v-slot="scope">
-          <el-button-group style="float: right">
-            <el-button type="primary" icon="el-icon-edit" style="padding:4px 4px; " @click="handleEdit(scope.row)" />
-          </el-button-group>
           {{ scope.row.path }}
+          <br>
+          <el-link v-if="scope.row.path ==='/'" type="primary" @click="handleRedirect()">
+            设置重定向
+          </el-link>
         </template>
       </el-table-column>
       <!-- <el-table-column header-align="center" show-overflow-tooltip min-width="150" prop="code" label="菜单编号" /> -->
@@ -157,6 +158,15 @@
       @closeMeOk="handleSelectRootNodeDialogCloseMeOk"
       @closeMeCancel="handleSelectRootNodeDialogCloseMeCancel"
     />
+
+    <edit-redirect-page-dialog
+      v-if="popSettings.seven.visible"
+      :visible="popSettings.seven.visible"
+      :dialog-status="popSettings.seven.props.dialogStatus"
+      :tree-data="popSettings.seven.props.data"
+      @closeMeOk="handleRedirectPageDialogCloseMeOk"
+      @closeMeCancel="handleRedirectPageDialogCloseMeCancel"
+    />
   </div>
 </template>
 
@@ -203,25 +213,27 @@ import constants_program from '@/common/constants/constants_program'
 import { getListApi, realDeleteSelectionApi } from '@/api/20_master/menus/menu'
 import resizeMixin from './menuResizeHandlerMixin'
 import elDragDialog from '@/directive/el-drag-dialog'
-import SelectDict from '@/components/00_dict/select/SelectDict'
+// import SelectDict from '@/components/00_dict/select/SelectDict'
 import editGroupDialog from '@/views/20_master/menus/dialog/editGroup'
 import editTopNavDialog from '@/views/20_master/menus/dialog/editTopNav'
 import editSubNodeDialog from '@/views/20_master/menus/dialog/editSubNode'
 import editSubMenuDialog from '@/views/20_master/menus/dialog/editSubMenu'
 import editSortDialog from '@/views/20_master/menus/dialog/editSort'
 import selectRootNodeDialog from '@/views/20_master/menus/dialog/selectRootNode'
+import editRedirectPageDialog from '@/views/20_master/menus/dialog/editRedirectPage'
 import deepCopy from 'deep-copy'
 import '@/styles/menu_png.scss'
 
 export default {
   name: constants_program.P_MENU, // 页面id，和router中的name需要一致，作为缓存
-  components: { SelectDict,
+  components: {
     editGroupDialog,
     editTopNavDialog,
     editSubNodeDialog,
     editSubMenuDialog,
     editSortDialog,
-    selectRootNodeDialog },
+    selectRootNodeDialog,
+    editRedirectPageDialog },
   directives: { elDragDialog },
   mixins: [resizeMixin],
   props: {
@@ -281,7 +293,7 @@ export default {
           showRealyDelete: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         tableHeight: this.setUIheight(),
         duration: 4000
       },
@@ -328,6 +340,14 @@ export default {
           }
         },
         six: {
+          visible: false,
+          props: {
+            id: undefined,
+            data: {},
+            dialogStatus: ''
+          }
+        },
+        seven: {
           visible: false,
           props: {
             id: undefined,
@@ -496,7 +516,7 @@ export default {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       getListApi(this.dataJson.searchForm).then(response => {
         // 增加对象属性，columnTypeShowIcon，columnNameShowIcon
         const recorders = response.data.menu_data
@@ -511,7 +531,7 @@ export default {
           this.settings.btnShowStatus.showInsert = false
         }
         this.dataJson.currentJson = undefined
-        this.settings.listLoading = false
+        this.settings.loading = false
         this.$refs.multipleTable.setCurrentRow()
       })
     },
@@ -543,7 +563,7 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消'
       }).then(() => {
-        this.settings.listLoading = true
+        this.settings.loading = true
         this.handleRealDeleteData()
       }).catch(action => {
         // 右上角X
@@ -555,7 +575,7 @@ export default {
     // 选中数据删除
     handleRealDeleteData() {
       // loading
-      this.settings.listLoading = true
+      this.settings.loading = true
       const tempData = Object.assign({}, this.dataJson.currentJson)
       // 开始删除
       realDeleteSelectionApi(tempData).then((_data) => {
@@ -568,7 +588,7 @@ export default {
         this.getDataList()
         this.dataJson.multipleSelection = []
         // loading
-        this.settings.listLoading = false
+        this.settings.loading = false
       }, (_error) => {
         this.$notify({
           title: '删除错误',
@@ -576,7 +596,7 @@ export default {
           type: 'error',
           duration: this.settings.duration
         })
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // -----------------新增菜单组 start------------------
@@ -830,9 +850,20 @@ export default {
     },
     handleSelectRootNodeDialogCloseMeCancel() {
       this.popSettings.five.visible = false
-    }
+    },
     // -----------------选择根目录 end------------------
-
+    // -----------------设置重定向 start------------------
+    handleRedirect() {
+      this.popSettings.seven.props.data = this.dataJson.listData
+      this.popSettings.seven.visible = true
+    },
+    handleRedirectPageDialogCloseMeOk(val) {
+      this.popSettings.seven.visible = false
+    },
+    handleRedirectPageDialogCloseMeCancel() {
+      this.popSettings.seven.visible = false
+    }
+    // -----------------设置重定向 end------------------
   }
 }
 </script>

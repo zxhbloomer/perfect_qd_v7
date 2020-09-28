@@ -12,15 +12,15 @@
       </el-form-item>
     </el-form>
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.listLoading" @click="handleInsert">新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.listLoading" @click="handleUpdate">修改</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.listLoading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-delete" :loading="settings.listLoading" @click="handleRealyDelete">删除</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.listLoading" @click="handleView">查看</el-button>
+      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-delete" :loading="settings.loading" @click="handleRealyDelete">删除</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.loading" @click="handleView">查看</el-button>
     </el-button-group>
     <el-table
       ref="multipleTable"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
       element-loading-background="rgba(255, 255, 255, 0.5)"
@@ -133,7 +133,7 @@ export default {
           showExport: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         tableHeight: this.setUIheight(),
         duration: 4000
       },
@@ -255,7 +255,7 @@ export default {
         }).then(() => {
           this.settings.btnShowStatus.showExport = false
         }).finally(() => {
-          this.settings.listLoading = false
+          this.settings.loading = false
         })
       } else if (this.dataJson.multipleSelection.length === this.dataJson.listData.length) {
         // 选择全部的时候
@@ -314,7 +314,7 @@ export default {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       getListApi(this.dataJson.searchForm).then(response => {
         // 增加对象属性，columnTypeShowIcon，columnNameShowIcon
         const recorders = response.data.records
@@ -325,7 +325,7 @@ export default {
         this.dataJson.paging = response.data
         this.dataJson.paging.records = {}
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 重置查询区域
@@ -369,7 +369,7 @@ export default {
     // 选中数据删除
     handleRealDeleteSelectionData() {
       // loading
-      this.settings.listLoading = true
+      this.settings.loading = true
       const selectionJson = []
       this.dataJson.multipleSelection.forEach(function(value, index, array) {
         selectionJson.push({ 'id': value.id })
@@ -384,7 +384,7 @@ export default {
         })
         this.getDataList()
         // loading
-        this.settings.listLoading = false
+        this.settings.loading = false
       }, (_error) => {
         this.$notify({
           title: '删除错误',
@@ -393,7 +393,7 @@ export default {
           duration: this.settings.duration
         })
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // ------------------编辑弹出框 start--------------------

@@ -2,7 +2,7 @@
 <template>
   <el-select
     :placeholder="initPlaceholder"
-    :loading="dataJson.settings.listLoading"
+    :loading="dataJson.settings.loading"
     loading-text="拼命加载..."
     clearable
     :value="value"
@@ -52,7 +52,7 @@ export default {
         settings: {
           // 页面设置json
           // loading 状态
-          listLoading: true
+          loading: true
         }
 
       }
@@ -71,7 +71,7 @@ export default {
   methods: {
     // 初始化
     init() {
-      this.dataJson.settings.listLoading = true
+      this.dataJson.settings.loading = true
       this.dataJson.searchForm.para = ''
       this.getRemoteData()
     },
@@ -79,7 +79,7 @@ export default {
       this.dataJson.searchForm.para = this.para
       getDictDataApi(this.dataJson.searchForm).then((_data) => {
         this.dataJson.selectOptions = _data.data
-        this.dataJson.settings.listLoading = false
+        this.dataJson.settings.loading = false
       }, (_error) => {
       })
     },

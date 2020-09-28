@@ -155,7 +155,7 @@ export default {
       },
       // 页面设置json
       settings: {
-        listLoading: true,
+        loading: true,
         defaultProps: {
           children: 'children',
           label: 'label'
@@ -192,12 +192,12 @@ export default {
     },
     getDataList() {
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       getTreeListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.treeData = response.data
         this.getListAfterProcess()
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 兄弟组件发过来的调用请求

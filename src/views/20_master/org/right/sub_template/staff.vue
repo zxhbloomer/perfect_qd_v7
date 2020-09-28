@@ -30,7 +30,7 @@
     </el-tabs>
     <el-table
       ref="multipleTable"
-      v-loading="settings.listLoading"
+      v-loading="settings.loading"
       type="org_staff"
       :data="dataJson.listData"
       :element-loading-text="'正在拼命加载中...'"
@@ -203,7 +203,7 @@ export default {
           showExport: false
         },
         // loading 状态
-        listLoading: true,
+        loading: true,
         duration: 4000
       },
       popSettings: {
@@ -293,7 +293,7 @@ export default {
     },
     getDataList() {
       // 查询逻辑
-      this.settings.listLoading = true
+      this.settings.loading = true
       Object.assign(this.$data.dataJson.tabsCount, this.$options.data.call(this).dataJson.tabsCount)
       getStaffTabListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.tabsCount.currentOrgStaffCount = response.data.currentOrgStaffCount
@@ -307,7 +307,7 @@ export default {
         this.dataJson.paging = response.data
         this.dataJson.paging.records = {}
       }).finally(() => {
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // 重置查询区域

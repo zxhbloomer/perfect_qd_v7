@@ -28,7 +28,7 @@
       <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
       <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
       <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-circle-close" :loading="settings.listLoading" @click="handleRealyDelete">物理删除</el-button>
+      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-circle-close" :loading="settings.loading" @click="handleRealyDelete">物理删除</el-button>
       <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.loading" @click="handleExport">导出</el-button>
       <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.loading" @click="handleView">查看</el-button>
     </el-button-group>
@@ -385,7 +385,7 @@ export default {
     // 选中数据删除
     handleRealDeleteSelectionData() {
       // loading
-      this.settings.listLoading = true
+      this.settings.loading = true
       const selectionJson = []
       this.dataJson.multipleSelection.forEach(function(value, index, array) {
         selectionJson.push({ 'id': value.id })
@@ -398,7 +398,7 @@ export default {
         cancelButtonText: '取消'
       }).then(() => {
         // loading
-        this.settings.listLoading = true
+        this.settings.loading = true
         // 开始删除
         realDeleteSelectionApi(selectionJson).then((_data) => {
           this.$notify({
@@ -409,7 +409,7 @@ export default {
           })
           this.getDataList()
           // loading
-          this.settings.listLoading = false
+          this.settings.loading = false
         }, (_error) => {
           this.$notify({
             title: '删除错误',
@@ -417,11 +417,11 @@ export default {
             type: 'error',
             duration: this.settings.duration
           })
-          this.settings.listLoading = false
+          this.settings.loading = false
         })
       }).catch(action => {
         // 右上角X
-        this.settings.listLoading = false
+        this.settings.loading = false
       })
     },
     // ------------------编辑弹出框 start--------------------
