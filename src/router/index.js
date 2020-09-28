@@ -464,7 +464,7 @@ export function setRedirectRouter(_data) {
         path: _data.path,
         component: loadView(_data.component),
         name: _data.name,
-        meta: { title: _data.meta.title, icon: _data.meta.icon, affix: _data.meta.affix }
+        meta: { title: _data.meta.title, icon: _data.meta.icon, affix: _data.meta.affix, active_topnav_index: _data.meta.active_topnav_index }
       }
     ]
   }
