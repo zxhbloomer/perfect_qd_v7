@@ -53,6 +53,7 @@
                 :inactive-value="false"
                 active-text="是"
                 inactive-text="否"
+                :disabled="isViewModel"
               />
             </div>
           </el-form-item>
@@ -68,6 +69,7 @@
                 :inactive-value="false"
                 active-text="是"
                 inactive-text="否"
+                :disabled="isViewModel"
               />
             </div>
           </el-form-item>
