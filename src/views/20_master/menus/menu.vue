@@ -73,10 +73,10 @@
           <br>
           <el-link v-if="scope.row.path ==='/'" type="primary" @click="handleRedirect()">
             <span v-if="dataJson.redirect.name === ''">
-              默认页面
+              设置跳转页面
             </span>
             <span v-else>
-              默认页面为：{{ dataJson.redirect.name }}
+              跳转页面为：{{ dataJson.redirect.name }}
             </span>
           </el-link>
         </template>
@@ -535,6 +535,9 @@ export default {
         this.dataJson.menu_buttons = response.data.menu_buttons
         this.dataJson.paging = response.data.menu_data
         this.dataJson.paging.records = {}
+        // 设置重定向
+        this.dataJson.redirect.data = deepCopy(response.data.menu_redirect)
+        this.dataJson.redirect.name = this.dataJson.redirect.data.name
       }).finally(() => {
         if (this.dataJson.listData && this.dataJson.listData.length) {
           // 考虑当且仅当每个租户只能有一个系统菜单
@@ -869,7 +872,8 @@ export default {
     },
     handleRedirectPageDialogCloseMeOk(val) {
       // 重定向数据更新至数据库中
-      saveRedirectApi({ root_id: val.root_id, page_id: val.page_id, menu_page_id: val.id }).then((_data) => {
+      const redirect_id = this.dataJson.redirect.data === undefined ? undefined : this.dataJson.redirect.data.id
+      saveRedirectApi({ id: redirect_id, root_id: val.root_id, page_id: val.page_id, menu_page_id: val.id }).then((_data) => {
         this.dataJson.redirect.data = deepCopy(_data.data)
         this.dataJson.redirect.name = this.dataJson.redirect.data.name
       }, (_error) => {
