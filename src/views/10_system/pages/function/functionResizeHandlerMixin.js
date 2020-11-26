@@ -3,7 +3,7 @@ import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/re
 export default {
   beforeCreate() {
     // 设置页面的name 页面id，和router中的name需要一致，作为缓存
-    this.$options.name = this.$route.name
+    this.$options.name = this.$route.meta.page_code
   },
   beforeMount() {
   },

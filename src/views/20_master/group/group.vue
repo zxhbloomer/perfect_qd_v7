@@ -48,7 +48,7 @@
     </el-popover>
 
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
+      <el-button v-permission="'P_GROUP:ADD'" type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
       <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
       <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
       <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.loading" @click="handleExport">导出</el-button>
@@ -160,6 +160,7 @@
 
 <script>
 // import constants_program from '@/common/constants/constants_program'
+import permission from '@/directive/permission/index.js' // 权限判断指令
 import { getListApi, exportAllApi, exportSelectionApi, deleteApi } from '@/api/20_master/group/group'
 import resizeMixin from './groupResizeHandlerMixin'
 import Pagination from '@/components/Pagination'
@@ -171,7 +172,7 @@ import deepCopy from 'deep-copy'
 export default {
   // name: constants_program.P_GROUP, // 页面id，和router中的name需要一致，作为缓存
   components: { Pagination, DeleteTypeNormal, SelectDict, editDialog },
-  directives: { },
+  directives: { permission },
   mixins: [resizeMixin],
   props: {
     // 自己作为弹出框时的参数

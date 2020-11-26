@@ -3,7 +3,7 @@ import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/re
 export default {
   created() {
     // 作为独立页面，通过route路由打开时
-    this.$options.name = this.$route.name
+    this.$options.name = this.$route.meta.page_code
   },
   beforeMount() {
   },

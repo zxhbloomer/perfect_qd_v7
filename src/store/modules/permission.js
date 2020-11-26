@@ -84,6 +84,7 @@ const actions = {
         }
 
         const { top_nav_data, user_permission_menu, all_routers, user_permission_operation, redirect, nodes_id } = data
+        debugger
         commit('SET_PERMISSION_DATA', { permission_top_nav: top_nav_data,
           permission_menu: user_permission_menu,
           permission_operation: user_permission_operation,
