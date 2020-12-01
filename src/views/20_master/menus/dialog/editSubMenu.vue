@@ -485,7 +485,8 @@ export default {
     },
     handlePageCloseOk(val) {
       this.popSettings.one.selectedDataJson = val
-      this.dataJson.tempJson.id = val.id
+      // 此id不能覆盖
+      // this.dataJson.tempJson.id = val.id
       this.dataJson.tempJson.name = val.name
       this.dataJson.tempJson.path = ''
       // this.dataJson.tempJson.route_name = val.code
