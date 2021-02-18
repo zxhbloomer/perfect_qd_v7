@@ -386,7 +386,7 @@ export default {
     handleUpdate() {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
-        this.showErrorMsg('请选择一条数据')
+        this.showErrorMsgAlert('请选择一条数据')
         return
       }
       // 更新

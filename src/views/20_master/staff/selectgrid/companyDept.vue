@@ -280,6 +280,7 @@
 <script>
 import { getTreeListApi } from '@/api/20_master/org/org'
 import { isNotEmpty } from '@/utils/index.js'
+import deepCopy from 'deep-copy'
 
 export default {
   name: 'SelectGrid', // 页面id，和router中的name需要一致，作为缓存
@@ -470,6 +471,7 @@ export default {
       }
       // 查询逻辑
       this.settings.loading = true
+      this.showErrorMsg('请选择一条数据')
       getTreeListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.treeData = response.data
         this.getListAfterProcess()
@@ -545,9 +547,9 @@ export default {
     },
     // 当前选中结点变化时触发的事件
     handleCurrentChange(row) {
-      this.dataJson.currentJson = Object.assign({}, row) // copy obj
-      this.dataJson.tempJsonOriginal = Object.assign({}, row) // copy obj
-      this.dataJson.tempJson = Object.assign({}, row) // copy obj
+      this.dataJson.currentJson = deepCopy(row) // copy obj
+      this.dataJson.tempJsonOriginal = deepCopy(row) // copy obj
+      this.dataJson.tempJson = deepCopy(row) // copy obj
       this.dataJson.tempJson.inputData = this.value
       this.dataJson.currentJson = this.$refs.treeObject.getCurrentNode()
       this.dataJson.currentJson.currentkey = this.$refs.treeObject.getCurrentKey()

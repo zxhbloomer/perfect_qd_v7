@@ -1,6 +1,7 @@
 'use strict'
 
 import { Loading } from 'element-ui'
+import { isNotEmpty } from '@/utils/index.js'
 
 // exports.install = function(Vue, options) {
 
@@ -33,8 +34,9 @@ export default {
    * 显示错误的信息
    */
     Vue.prototype.showErrorMsg = function(message, error) {
+      debugger
       let showMsg = message
-      if (JSON.stringify(error) !== '{}') {
+      if (isNotEmpty(error)) {
         showMsg = showMsg + ' : ' + error
       }
       new Vue().$msgbox({
