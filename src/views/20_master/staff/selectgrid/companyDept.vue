@@ -471,7 +471,7 @@ export default {
       }
       // 查询逻辑
       this.settings.loading = true
-      this.showErrorMsg('请选择一条数据')
+      this.showErrorMsg('请先选择所属公司！')
       getTreeListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.treeData = response.data
         this.getListAfterProcess()
