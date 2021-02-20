@@ -34,7 +34,6 @@ export default {
    * 显示错误的信息
    */
     Vue.prototype.showErrorMsg = function (message, error) {
-      debugger
       let showMsg = message
       if (isNotEmpty(error)) {
         showMsg = showMsg + ' : ' + error

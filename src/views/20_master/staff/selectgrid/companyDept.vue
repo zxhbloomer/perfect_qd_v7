@@ -493,7 +493,8 @@ export default {
     },
     // 页面初始化
     initCreated () {
-      Object.assign(this.$data.dataJson, this.$options.data.call(this).dataJson)
+      // Object.assign(this.$data.dataJson, this.$options.data.call(this).dataJson)
+      this.$data.dataJson = deepCopy(this.$options.data.call(this).dataJson)
       this.settings.btnDisabledStatus.disabledOk = true
       // 展开时，调用查询
       this.getDataList()
@@ -523,13 +524,20 @@ export default {
         return
       }
       if (this.CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT === this.type) {
+        // 若没有选择所属公司，则报提示：请选择所属公司
+        if (!isNotEmpty(this.searchForm)) {
+          this.settings.visible = false
+          this.showErrorMsg('请先选择所属公司！')
+          return
+        }
+
         // 部门
         this.dataJson.searchForm.serial_type = 'm_company'
         this.dataJson.searchForm.serial_id = this.parentId
       }
       // 查询逻辑
       this.settings.loading = true
-      this.showErrorMsg('请先选择所属公司！')
+
       getTreeListApi(this.dataJson.searchForm).then(response => {
         this.dataJson.treeData = response.data
         this.getListAfterProcess()
@@ -578,7 +586,7 @@ export default {
           default:
             return null
         }
-        if (element.children.length > 0) {
+        if (isNotEmpty(element.children)) {
           this.getCurrentElement(element.children, val)
         }
       }
