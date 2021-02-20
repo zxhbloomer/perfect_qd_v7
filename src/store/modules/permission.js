@@ -7,7 +7,7 @@ import deepcopy from 'deep-copy'
  * @param roles
  * @param route
  */
-function hasPermission(roles, route) {
+function hasPermission (roles, route) {
   if (route.meta && route.meta.roles) {
     return roles.some(role => route.meta.roles.includes(role))
   } else {
@@ -20,7 +20,7 @@ function hasPermission(roles, route) {
  * @param routes asyncRoutes
  * @param roles
  */
-export function filterAsyncRoutes(routes, roles) {
+export function filterAsyncRoutes (routes, roles) {
   const res = []
 
   routes.forEach(route => {
@@ -66,15 +66,15 @@ const mutations = {
 }
 
 const actions = {
-  setRoutes({ commit }, routers) {
+  setRoutes ({ commit }, routers) {
     // 设置到vuex中是菜单树
     commit('SET_MENUS_ROUTERS', routers)
   },
-  setTopNavActiveIndex({ commit }, topNavIndex) {
+  setTopNavActiveIndex ({ commit }, topNavIndex) {
     // 设置到vuex中是菜单树
     commit('SET_TOP_NAV_ACTIVE_INDEX', topNavIndex)
   },
-  getPermissionAndSetTopNavAction2({ commit }, _data) {
+  getPermissionAndSetTopNavAction2 ({ commit }, _data) {
     return new Promise((resolve, reject) => {
       // 获取权限，顶部导航栏，操作权限数据
       getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
@@ -85,7 +85,8 @@ const actions = {
 
         const { top_nav_data, user_permission_menu, all_routers, user_permission_operation, redirect, nodes_id } = data
         debugger
-        commit('SET_PERMISSION_DATA', { permission_top_nav: top_nav_data,
+        commit('SET_PERMISSION_DATA', {
+          permission_top_nav: top_nav_data,
           permission_menu: user_permission_menu,
           permission_operation: user_permission_operation,
           permission_redirect: redirect,
@@ -125,7 +126,7 @@ const actions = {
    * @param {*} param0
    * @param {*} _data
    */
-  getPermissionAndSetTopNavAction({ commit }, _data) {
+  getPermissionAndSetTopNavAction ({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
       const _topNavData = [

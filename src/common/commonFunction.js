@@ -6,13 +6,13 @@ import { isNotEmpty } from '@/utils/index.js'
 // exports.install = function(Vue, options) {
 
 export default {
-  install(Vue, options) {
-  /** 获取页面的size */
-    Vue.prototype.getSize = function() {
+  install (Vue, options) {
+    /** 获取页面的size */
+    Vue.prototype.getSize = function () {
       return this.$store.getters.size
     }
     /** 对齐 */
-    Vue.prototype.getLabelPosition = function() {
+    Vue.prototype.getLabelPosition = function () {
       return 'right'
     }
     /** 弹出错误框
@@ -33,7 +33,7 @@ export default {
     /**
    * 显示错误的信息
    */
-    Vue.prototype.showErrorMsg = function(message, error) {
+    Vue.prototype.showErrorMsg = function (message, error) {
       debugger
       let showMsg = message
       if (isNotEmpty(error)) {
@@ -45,14 +45,14 @@ export default {
         showCancelButton: false,
         confirmButtonText: '确定',
         type: 'error'
-      }).then(function() {
+      }).then(function () {
         return
-      }).catch(function() {
+      }).catch(function () {
         return
       })
     }
     /** 弹出Alert 警告 */
-    Vue.prototype.showErrorMsgAlert = function(message) {
+    Vue.prototype.showErrorMsgAlert = function (message) {
       new Vue().$message({
         message: message,
         type: 'error',
@@ -61,22 +61,22 @@ export default {
     }
 
     /** 截取字符串 */
-    Vue.prototype.truncateString = function(str, num) {
+    Vue.prototype.truncateString = function (str, num) {
       return str.length > num ? str.slice(0, num > 3 ? num - 3 : num) + '...' : str
     }
 
     /** loading打开 */
-    Vue.prototype.showLoading = function(msg) {
+    Vue.prototype.showLoading = function (msg) {
       Loading.service({ fullscreen: true, text: msg, lock: true, background: 'rgba(255, 255, 255, 0.7)' })
     }
 
     /** loading关闭 */
-    Vue.prototype.closeLoading = function() {
+    Vue.prototype.closeLoading = function () {
       Loading.service().close()
     }
 
     /** format currency：货币格式化----https://www.icode9.com/content-4-187747.html */
-    Vue.prototype.formatCurrency = function(data, decimal = false, decimalDigits = 2, currency = 'CNY') {
+    Vue.prototype.formatCurrency = function (data, decimal = false, decimalDigits = 2, currency = 'CNY') {
       return data.toLocaleString('zh-CN', {
         style: 'currency',
         currency,
@@ -85,14 +85,14 @@ export default {
     }
 
     /** 数字格式化 */
-    Vue.prototype.formatNumber = function(data, decimal = false, decimalDigits = 2) {
+    Vue.prototype.formatNumber = function (data, decimal = false, decimalDigits = 2) {
       return data.toLocaleString('zh-CN', {
         style: 'decimal',
         minimumFractionDigits: decimalDigits ? 2 : 0
       })
     }
     /** 百分比格式化 */
-    Vue.prototype.formatPercent = function(data, decimal = false, decimalDigits = 2) {
+    Vue.prototype.formatPercent = function (data, decimal = false, decimalDigits = 2) {
       return data.toLocaleString('zh-CN', {
         style: 'percent',
         minimumFractionDigits: decimalDigits ? 2 : 0
@@ -102,7 +102,7 @@ export default {
    * date.toLocaleString('zh-CN', { dateStyle: 'long' })  // "2019年12月6日"
    * date.toLocaleString('zh-CN', { hour12: false }) // "2019/12/6 11:35:00"
    */
-    Vue.prototype.formatDate = function(data, type = 1) {
+    Vue.prototype.formatDate = function (data, type = 1) {
       let rtn
       const _date = new Date(Date.parse(data))
       switch (type) {
@@ -122,11 +122,11 @@ export default {
       }
       return rtn
     }
-    Vue.prototype.formatTime = function(data) {
+    Vue.prototype.formatTime = function (data) {
       const _date = new Date(Date.parse(data))
       return _date.toLocaleTimeString('en-US', { hour12: false })
     }
-    Vue.prototype.formatDateTime = function(data, type = 1) {
+    Vue.prototype.formatDateTime = function (data, type = 1) {
       return this.formatDate(data, type) + ' ' + this.formatTime(data)
     }
 
@@ -137,7 +137,7 @@ export default {
      * @param {*} val json中的value
      * @param {*} ignoreSubObject 忽略json中子对象object，暂且支持子对象忽略
      */
-    Vue.prototype.getJsonObjects = function(obj, key, val, ignoreSubObject) {
+    Vue.prototype.getJsonObjects = function (obj, key, val, ignoreSubObject) {
       var objects = []
       for (var i in obj) {
         if (!obj.hasOwnProperty(i)) {
@@ -158,7 +158,7 @@ export default {
           if (i === key && obj[i] === val || i === key && val === '') { //
             objects.push(obj)
           } else if (obj[i] === val && key === '') {
-          // only add if the object is not already in the array
+            // only add if the object is not already in the array
             if (objects.lastIndexOf(obj) === -1) {
               objects.push(obj)
             }
@@ -177,7 +177,7 @@ export default {
      * @param {*} valueField 查询的ValueField
      * @param {*} ignoreSubObject 忽略json中子对象object，暂且支持子对象忽略
      */
-    Vue.prototype.getJsonObjectsKeyFiledAndValueField = function(obj, keyField, valueField, ignoreSubObject) {
+    Vue.prototype.getJsonObjectsKeyFiledAndValueField = function (obj, keyField, valueField, ignoreSubObject) {
       var objects = []
       for (var i in obj) {
         if (!obj.hasOwnProperty(i)) {
@@ -209,7 +209,7 @@ export default {
      * @param {*} val json中的value
      * @param {*} ignoreSubObject 忽略json中子对象object，暂且支持子对象忽略
      */
-    Vue.prototype.setFieldValue2JsonObjects = function(obj, key, val, ignoreSubObject) {
+    Vue.prototype.setFieldValue2JsonObjects = function (obj, key, val, ignoreSubObject) {
       for (var i in obj) {
         if (!obj.hasOwnProperty(i)) {
           continue
@@ -239,7 +239,7 @@ export default {
      * @param {*} parentNodes
      * @param {*} index
      */
-    Vue.prototype.findAllParent = function(idField, parentIdField, node, tree, parentNodes = [], index = 0) {
+    Vue.prototype.findAllParent = function (idField, parentIdField, node, tree, parentNodes = [], index = 0) {
       if (!node || node.parent_id === 0) {
         return
       }
@@ -258,7 +258,7 @@ export default {
      * @param {*} parentNodes    父节点数据
      * @param {*} tree           树数据
      */
-    Vue.prototype.findParent = function(idField, parentIdField, node, parentNodes, tree) {
+    Vue.prototype.findParent = function (idField, parentIdField, node, parentNodes, tree) {
       for (let i = 0; i < tree.length; i++) {
         const item = tree[i]
         if (item[idField] === node[parentIdField]) {
@@ -285,7 +285,7 @@ export default {
      * @param {*} jsonData         整体结点数据
      * @param {*} ignoreSubObject  忽略的对象
      */
-    Vue.prototype.setParentNodeIsEnable = function(checked_value, idField, parentIdField, isEnableField, node, jsonData, ignoreSubObject) {
+    Vue.prototype.setParentNodeIsEnable = function (checked_value, idField, parentIdField, isEnableField, node, jsonData, ignoreSubObject) {
       // 如果选中状态为true，查找所有父节点数据，设置为true
       if (checked_value) {
         this.findAllParentAndSetData(idField, parentIdField, isEnableField, checked_value, node, jsonData)
@@ -319,7 +319,7 @@ export default {
      * @param {*} parentNodes
      * @param {*} index
      */
-    Vue.prototype.findAllParentAndSetData = function(idField, parentIdField, setDataField, setDataValue, node, tree, parentNodes = [], index = 0) {
+    Vue.prototype.findAllParentAndSetData = function (idField, parentIdField, setDataField, setDataValue, node, tree, parentNodes = [], index = 0) {
       if (!node || node.parent_id === 0) {
         return
       }
@@ -338,7 +338,7 @@ export default {
      * @param {*} parentNodes    父节点数据
      * @param {*} tree           树数据
      */
-    Vue.prototype.findParentAndSetData = function(idField, parentIdField, setDataField, setDataValue, node, parentNodes, tree) {
+    Vue.prototype.findParentAndSetData = function (idField, parentIdField, setDataField, setDataValue, node, parentNodes, tree) {
       for (let i = 0; i < tree.length; i++) {
         const item = tree[i]
         if (item[idField] === node[parentIdField]) {
