@@ -23,10 +23,14 @@
             @click.native="clickRouter(items[index])"
           >
             <slot v-bind="{ tab: items[index], tabs: items, index }">
-              <i v-if="icon" class="tab-icon" :class="icon" />
-              <span class="tab-title">{{ i18nText(title) || lang.tab.untitled }}</span>
               <i
-                v-if="(closable !== false && !(keepLastTab && items.length < 2)) && (items[index].affix===false)"
+                v-if="icon"
+                class="tab-icon"
+                :class="icon"
+              />
+              11{{ isEmptyAndRtnDefaultValue(items[index].affix,false)===false }}1<span class="tab-title">{{ i18nText(title) || lang.tab.untitled }}</span>111
+              <i
+                v-if="(closable !== false && !(keepLastTab && items.length < 2)) && (isEmptyAndRtnDefaultValue(items[index].affix,false)===false)"
                 class="el-icon-close"
                 :title="lang.contextmenu.close"
                 @click.prevent="closeTab(id)"
@@ -37,14 +41,27 @@
       </div>
 
       <!-- 页签滚动 -->
-      <a class="nav-prev" @click="tabScroll('left')" />
-      <a class="nav-next" @click="tabScroll('right')" />
+      <a
+        class="nav-prev"
+        @click="tabScroll('left')"
+      />
+      <a
+        class="nav-next"
+        @click="tabScroll('right')"
+      />
     </header>
 
     <!-- 页面容器 -->
-    <div class="router-tab-container" :class="{ loading }">
+    <div
+      class="router-tab-container"
+      :class="{ loading }"
+    >
       <!-- 路由页面 -->
-      <router-alive ref="routerAlive" :alive-id="aliveId" @update="updateTab">
+      <router-alive
+        ref="routerAlive"
+        :alive-id="aliveId"
+        @update="updateTab"
+      >
         <transition
           v-bind="getTransOpt(pageTransition)"
           appear
@@ -153,10 +170,10 @@
       vertical-align: 2px;
       border-radius: 50%;
       text-align: center;
-      transition: all .3s cubic-bezier(.645, .045, .355, 1);
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
       transform-origin: 100% 50%;
       &:before {
-        transform: scale(.6);
+        transform: scale(0.6);
         display: inline-block;
         vertical-align: -3px;
       }

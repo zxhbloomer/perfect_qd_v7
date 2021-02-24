@@ -13,7 +13,7 @@ import Layout from '@/layout'
  * 解决Vue-Router升级导致的Uncaught (in promise)问题
  */
 const originalPush = Router.prototype.push
-Router.prototype.push = function push(location, onResolve, onReject) {
+Router.prototype.push = function push (location, onResolve, onReject) {
   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
   return originalPush.call(this, location).catch(err => err)
 }
@@ -104,22 +104,26 @@ export const asyncRoutes = [
       noCache: true
     },
     children: [
-      { path: '/sys/role',
+      {
+        path: '/sys/role',
         component: () => import('@/views/10_system/role/role'),
         name: 'P00000000',
         meta: { title: '角色管理', icon: '角色' }
       },
-      { path: '/sys/resource',
+      {
+        path: '/sys/resource',
         component: () => import('@/views/10_system/resource/resource'),
         name: 'P00000020',
         meta: { title: '资源管理', icon: '资源管理' }
       },
-      { path: '/sys/syscode',
+      {
+        path: '/sys/syscode',
         component: () => import('@/views/00_platform/syscode/syscode'),
         name: 'P00000180',
         meta: { title: '系统编码', icon: 'syscode' }
       },
-      { path: '/sys/icons',
+      {
+        path: '/sys/icons',
         component: () => import('@/views/10_system/icons/icon'),
         name: 'P00000230',
         meta: { title: '系统icon', icon: 'icons' }
@@ -136,24 +140,28 @@ export const asyncRoutes = [
           noCache: true
         },
         children: [
-          { path: '/dic/dicttype',
+          {
+            path: '/dic/dicttype',
             component: () => import('@/views/10_system/dicttype/dicttype'),
             name: 'P00000030',
-            meta: { title: '字典类型' }
+            meta: { title: '字典类型', closable: false }
           },
-          { path: '/dic/dictdata',
+          {
+            path: '/dic/dictdata',
             component: () => import('@/views/10_system/dictdata/dictdata'),
             name: 'P00000050',
-            meta: { title: '字典数据' }
+            meta: { title: '字典数据', closable: true }
           }
         ]
       },
-      { path: 'config',
+      {
+        path: 'config',
         component: () => import('@/views/10_system/config/config'),
         name: 'P00000060',
         meta: { title: '系统参数', icon: '系统参数' }
       },
-      { path: 'tenant',
+      {
+        path: 'tenant',
         component: () => import('@/views/10_system/tenant/tenant'),
         name: 'P00000080',
         meta: { title: '租户管理', icon: 'tenant' }
@@ -197,7 +205,8 @@ export const asyncRoutes = [
             name: 'P00000210',
             meta: { title: '页面按钮维护' }
           },
-          { path: 'menus',
+          {
+            path: 'menus',
             component: () => import('@/views/20_master/menus/menu'),
             name: 'P00000240',
             meta: { title: '菜单维护' }
@@ -248,7 +257,8 @@ export const asyncRoutes = [
             name: 'P00000160',
             meta: { title: '岗位信息' }
           },
-          { path: 'orginfo',
+          {
+            path: 'orginfo',
             component: () => import('@/views/20_master/org/org'),
             name: 'P00000170',
             meta: { title: '组织机构管理' }
@@ -278,17 +288,20 @@ export const asyncRoutes2 = [
       noCache: true
     },
     children: [
-      { path: '/sys/resource',
+      {
+        path: '/sys/resource',
         component: () => import('@/views/10_system/resource/resource'),
         name: 'P00000020',
         meta: { title: '资源管理', icon: '资源管理' }
       },
-      { path: '/sys/syscode',
+      {
+        path: '/sys/syscode',
         component: () => import('@/views/00_platform/syscode/syscode'),
         name: 'P00000180',
         meta: { title: '系统编码', icon: 'syscode' }
       },
-      { path: '/sys/icons',
+      {
+        path: '/sys/icons',
         component: () => import('@/views/10_system/icons/icon'),
         name: 'P00000230',
         meta: { title: '系统icon', icon: 'icons' }
@@ -305,24 +318,28 @@ export const asyncRoutes2 = [
           noCache: true
         },
         children: [
-          { path: '/dic/dicttype',
+          {
+            path: '/dic/dicttype',
             component: () => import('@/views/10_system/dicttype/dicttype'),
             name: 'P00000030',
             meta: { title: '字典类型' }
           },
-          { path: '/dic/dictdata',
+          {
+            path: '/dic/dictdata',
             component: () => import('@/views/10_system/dictdata/dictdata'),
             name: 'P00000050',
             meta: { title: '字典数据' }
           }
         ]
       },
-      { path: 'config',
+      {
+        path: 'config',
         component: () => import('@/views/10_system/config/config'),
         name: 'P00000060',
         meta: { title: '系统参数', icon: '系统参数' }
       },
-      { path: 'tenant',
+      {
+        path: 'tenant',
         component: () => import('@/views/10_system/tenant/tenant'),
         name: 'P00000080',
         meta: { title: '租户管理', icon: 'tenant' }
@@ -352,7 +369,8 @@ export const asyncRoutes2 = [
             name: 'P00000210',
             meta: { title: '页面按钮维护' }
           },
-          { path: 'menus',
+          {
+            path: 'menus',
             component: () => import('@/views/20_master/menus/menu'),
             name: 'P00000220',
             meta: { title: '菜单维护' }
@@ -403,7 +421,8 @@ export const asyncRoutes2 = [
             name: 'P00000160',
             meta: { title: '岗位信息' }
           },
-          { path: 'orginfo',
+          {
+            path: 'orginfo',
             component: () => import('@/views/20_master/org/org'),
             name: 'P00000170',
             meta: { title: '组织机构管理' }
@@ -423,7 +442,7 @@ let asyncRoutesConvertToOneRouter = [
   }
 ]
 
-function clearAsyncRoutesConvertToOneRouter() {
+function clearAsyncRoutesConvertToOneRouter () {
   asyncRoutesConvertToOneRouter = [
     {
       path: '/async',
@@ -433,7 +452,7 @@ function clearAsyncRoutesConvertToOneRouter() {
     }
   ]
 }
-export function setAsyncRouters(_data) {
+export function setAsyncRouters (_data) {
   // 初始化
   clearAsyncRoutesConvertToOneRouter()
   asyncRoutesConvertToOneRouter[0].children = [..._data]
@@ -453,7 +472,7 @@ let customerRouter = []
  * 重定向使用
  * @param {*} _data
  */
-export function setRedirectRouter(_data) {
+export function setRedirectRouter (_data) {
   const redirect_router = {
     path: '/',
     component: Layout,
@@ -476,7 +495,7 @@ export function setRedirectRouter(_data) {
  * 递归对象，动态读取所有的component
  * @param {*} obj
  */
-export function deepRecursiveLoadComponent(obj) {
+export function deepRecursiveLoadComponent (obj) {
   for (var i in obj) {
     if (!obj.hasOwnProperty(i)) continue
     if (typeof obj[i] === 'object') {
@@ -491,7 +510,7 @@ export function deepRecursiveLoadComponent(obj) {
 }
 
 // 按一级路由的方式来设置，并返回
-export function convertToOneRouter(orignal, _path) {
+export function convertToOneRouter (orignal, _path) {
   // 初始化
   clearAsyncRoutesConvertToOneRouter()
   for (const item of orignal) {
@@ -510,7 +529,7 @@ export function convertToOneRouter(orignal, _path) {
 }
 
 // 查找子结点
-function findChilds(children, _path, _parent, _childrens) {
+function findChilds (children, _path, _parent, _childrens) {
   let path = _path === undefined ? '' : _path + '/'
   for (const _childItem of children) {
     if (_childItem.children && _childItem.children.length > 0) {
@@ -543,7 +562,7 @@ export const loadView = (view) => { // 路由懒加载
 }
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
-export function resetRouter() {
+export function resetRouter () {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }

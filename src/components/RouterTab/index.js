@@ -13,6 +13,7 @@ import rule from './rule'
 import scroll from './scroll'
 import restore from './restore'
 import { mapGetters } from 'vuex'
+import { isNotEmpty } from '@/utils/index.js'
 
 // RouterTab 组件
 export default {
@@ -78,7 +79,7 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return {
       loading: false, // 路由页面 loading
       items: [], // 页签项
@@ -94,31 +95,31 @@ export default {
     ]),
 
     // 默认路径
-    defaultPath() {
+    defaultPath () {
       return this.defaultPage || this.getBasePath()
     },
 
     // routerAlive
-    $alive() {
+    $alive () {
       return this.isMounted ? this.$refs.routerAlive : null
     },
 
     // 当前激活的页签
-    activeTab() {
+    activeTab () {
       return this.items.find(item => item.id === this.activeTabId)
     }
   },
 
   watch: {
     // 路由切换更新激活的页签
-    $route($route) {
+    $route ($route) {
       this.loading = false
       this.updateActiveTab()
       this.fixCommentPage()
     }
   },
 
-  created() {
+  created () {
     // 添加到原型链
     Vue.prototype.$routerTab = this
 
@@ -126,11 +127,11 @@ export default {
     this.updateActiveTab()
   },
 
-  mounted() {
+  mounted () {
     this.isMounted = true
   },
 
-  destroyed() {
+  destroyed () {
     // 取消原型挂载
     if (Vue.prototype.$routerTab === this) {
       Vue.prototype.$routerTab = null
@@ -139,14 +140,14 @@ export default {
 
   methods: {
     // 初始页签数据
-    initTabs() {
+    initTabs () {
       if (this.restoreTabs()) return
 
       this.presetTabs()
     },
 
     // 预设页签
-    presetTabs() {
+    presetTabs () {
       const { tabs, $router } = this
       const ids = {}
       this.items = tabs.map((item, index) => {
@@ -173,12 +174,12 @@ export default {
     },
 
     // 更新激活的页签
-    updateActiveTab() {
+    updateActiveTab () {
       this.activeTabId = this.getAliveId()
     },
 
     // 更新 tab 数据
-    updateTab(key, { route, tab }) {
+    updateTab (key, { route, tab }) {
       const { items } = this
       const matchIdx = items.findIndex(({ id }) => id === key)
 
@@ -194,7 +195,7 @@ export default {
     },
 
     // 从路由地址获取 aliveId
-    getIdByPath(path, match = true) {
+    getIdByPath (path, match = true) {
       if (!path) return
 
       const route = this.$router.match(path, this.$router.currentRoute)
@@ -213,19 +214,19 @@ export default {
     },
 
     // 从 route 中获取 tab 数据
-    getRouteTab(route, matchRoutes = this.matchRoutes(route)) {
+    getRouteTab (route, matchRoutes = this.matchRoutes(route)) {
       const id = this.getAliveId(route)
       const { title, icon, tips, affix, active_topnav_index, page_code } = matchRoutes.pageRoute.meta
       return { id, to: route.fullPath, title, icon, tips, affix, topNavIndex: active_topnav_index, pageCode: page_code }
     },
 
     // 解析过渡配置
-    getTransOpt(trans) {
+    getTransOpt (trans) {
       // return typeof trans === 'string' ? { name: trans } : trans
     },
 
     // 重载路由视图
-    async reloadView(ignoreTransition = true) {
+    async reloadView (ignoreTransition = true) {
       this.isViewAlive = false
 
       // 默认在页面过渡结束后会设置 isViewAlive 为 true
@@ -237,19 +238,27 @@ export default {
     },
 
     // 页签过渡结束
-    onTabTransitionEnd() {
+    onTabTransitionEnd () {
       // this.adjust()
     },
 
     // 页面过渡结束
-    onPageTransitionEnd() {
+    onPageTransitionEnd () {
       // if (!this.isViewAlive) this.isViewAlive = true
     },
 
     // 修复：当快速频繁切换页签时，旧页面离开过渡效果尚未完成，新页面内容无法正常 mount，内容结点为 comment 类型
-    fixCommentPage() {
+    fixCommentPage () {
       if (this.$alive.$el.nodeType === 8) {
         this.reloadView(true)
+      }
+    },
+
+    isEmptyAndRtnDefaultValue (val, defaultVal) {
+      if (!isNotEmpty(val)) {
+        return defaultVal
+      } else {
+        return val
       }
     }
   }
