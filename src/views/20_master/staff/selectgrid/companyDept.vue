@@ -525,7 +525,7 @@ export default {
       }
       if (this.CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT === this.type) {
         // 若没有选择所属公司，则报提示：请选择所属公司
-        if (!isNotEmpty(this.searchForm)) {
+        if (!isNotEmpty(this.parentId)) {
           this.settings.visible = false
           this.showErrorMsg('请先选择所属公司！')
           return

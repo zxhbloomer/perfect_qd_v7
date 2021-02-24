@@ -27,14 +27,14 @@
         :validate-on-rule-change="false"
       >
         <el-tabs
-          style="height: 500px;"
+          style="height: 500px"
           @tab-click="handleTabsClick"
         >
           <br>
           <el-tab-pane>
             <template slot="label">基本信息
               <el-badge
-                v-show="settings.badge.countOne>0"
+                v-show="settings.badge.countOne > 0"
                 :value="settings.badge.countOne"
                 type="danger"
               />
@@ -245,11 +245,9 @@
                 :disabled="isViewModel"
               />
             </el-form-item>
-
           </el-tab-pane>
 
           <el-tab-pane label="联系方式">
-
             <el-row>
               <el-col :span="12">
                 <el-form-item
@@ -308,7 +306,9 @@
                     v-model.trim="dataJson.tempJson.mobile_phone_backup"
                     clearable
                     show-word-limit
-                    :maxlength="dataJson.inputSettings.maxLength.mobile_phone_backup"
+                    :maxlength="
+                      dataJson.inputSettings.maxLength.mobile_phone_backup
+                    "
                     :placeholder="isPlaceholderShow('请输入')"
                     :disabled="isViewModel"
                   />
@@ -373,7 +373,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
           </el-tab-pane>
 
           <el-tab-pane>
@@ -426,7 +425,9 @@
                     v-model.trim="dataJson.tempJson.user.login_name"
                     clearable
                     show-word-limit
-                    :maxlength="dataJson.inputSettings.user.maxLength.login_name"
+                    :maxlength="
+                      dataJson.inputSettings.user.maxLength.login_name
+                    "
                     :placeholder="isPlaceholderShow('请输入')"
                     :disabled="!isAccountLoginType || isViewModel"
                   />
@@ -444,12 +445,22 @@
                     @click="handelSetPassword"
                   >设置密码</el-button>
                   <el-tag
-                    v-show="!(dataJson.tempJson.user.pwd === '' || dataJson.tempJson.user.pwd === null || dataJson.tempJson.user.pwd === undefined)"
+                    v-show="
+                      !(
+                        dataJson.tempJson.user.pwd === '' ||
+                        dataJson.tempJson.user.pwd === null ||
+                        dataJson.tempJson.user.pwd === undefined
+                      )
+                    "
                     type="success"
                     effect="dark"
                   >已设置密码</el-tag>
                   <el-tag
-                    v-show="(dataJson.tempJson.user.pwd === '' || dataJson.tempJson.user.pwd === null || dataJson.tempJson.user.pwd === undefined)"
+                    v-show="
+                      dataJson.tempJson.user.pwd === '' ||
+                        dataJson.tempJson.user.pwd === null ||
+                        dataJson.tempJson.user.pwd === undefined
+                    "
                     type="danger"
                     effect="dark"
                   >未设置密码</el-tag>
@@ -578,7 +589,6 @@
                   prop="last_login_date"
                 >
                   <el-input
-                    v-model.trim="dataJson.tempJson.user.last_login_date"
                     disabled
                     placeholder="[无]"
                   />
@@ -601,7 +611,6 @@
                 :disabled="isViewModel"
               />
             </el-form-item>
-
           </el-tab-pane>
 
           <el-tab-pane>
@@ -664,12 +673,14 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
             <el-row>
               <el-col :span="12">
                 <el-form-item label="岗位信息：">
                   <template>
-                    <div class="el-input-tag input-tag-wrapper ">
+                    <div
+                      v-show="positionIsShow()"
+                      class="el-input-tag input-tag-wrapper"
+                    >
                       <el-popconfirm
                         v-for="item in dataJson.tempJson.positions"
                         :key="item.position_id"
@@ -688,20 +699,22 @@
                         </el-tag>
                       </el-popconfirm>
                     </div>
+                    <div v-show="!positionIsShow()">
+                      <el-input
+                        v-model.trim="dataJson.tempJson.user.last_login_date"
+                        disabled
+                        placeholder="[无]"
+                      />
+                    </div>
                   </template>
                 </el-form-item>
               </el-col>
               <el-col :span="12" />
             </el-row>
-
           </el-tab-pane>
 
-          <el-tab-pane label="权限信息">
-            权限信息
-          </el-tab-pane>
-
+          <el-tab-pane label="权限信息"> 权限信息 </el-tab-pane>
         </el-tabs>
-
       </el-form>
       <div
         slot="footer"
@@ -712,7 +725,9 @@
           <el-button
             v-show="!isViewModel"
             type="danger"
-            :disabled="settings.loading || settings.btnDisabledStatus.disabledReset"
+            :disabled="
+              settings.loading || settings.btnDisabledStatus.disabledReset
+            "
             @click="doReset()"
           >重置</el-button>
         </div>
@@ -725,21 +740,27 @@
           v-show="settings.btnShowStatus.showInsert"
           plain
           type="primary"
-          :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert "
+          :disabled="
+            settings.loading || settings.btnDisabledStatus.disabledInsert
+          "
           @click="doInsert()"
         >确定</el-button>
         <el-button
           v-show="settings.btnShowStatus.showUpdate && !isViewModel"
           plain
           type="primary"
-          :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate "
+          :disabled="
+            settings.loading || settings.btnDisabledStatus.disabledUpdate
+          "
           @click="doUpdate()"
         >确定</el-button>
         <el-button
           v-show="settings.btnShowStatus.showCopyInsert"
           plain
           type="primary"
-          :disabled="settings.loading || settings.btnDisabledStatus.disabledCopyInsert "
+          :disabled="
+            settings.loading || settings.btnDisabledStatus.disabledCopyInsert
+          "
           @click="doCopyInsert()"
         >确定</el-button>
       </div>
@@ -750,7 +771,6 @@
       @closeMeOk="handlePsdDialogCloseOk"
       @closeMeCancel="handlePsdDialogCloseCancel"
     />
-
   </div>
 </template>
 
@@ -1297,6 +1317,7 @@ export default {
       this.dataJson.tempJson.dept_simple_name = val.simple_name
     },
     handlePositionClick (val) {
+      debugger
       // 通知路由，打开岗位页面
       this.$router.push({
         name: this.PROGRAMS.P_POSITION, query: { name: val }
@@ -1345,6 +1366,10 @@ export default {
 
       this.$refs['dataSubmitForm'].rules = this.settings.rules
       this.$refs['dataSubmitForm'].clearValidate()
+    },
+    // 判断岗位信息是否已经设置
+    positionIsShow () {
+      return isNotEmpty(this.dataJson.tempJson.positions)
     }
   }
 }
