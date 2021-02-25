@@ -12,7 +12,7 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 const whiteList = ['/login', '/auth-redirect', '/signup', '/assets/', '/api/v1/sms/code'] // no redirect whitelist
 
 // 路由守卫
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // start progress bar
   NProgress.start()
 
@@ -45,7 +45,8 @@ router.beforeEach(async(to, from, next) => {
           // 获取路由处理
           const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
             pathOrIndex: to.path,
-            type: constants_para.TOP_NAV_FIND_BY_PATH })
+            type: constants_para.TOP_NAV_FIND_BY_PATH
+          })
           // 动态添加路由
           router.addRoutes(accessRoutes)
 
