@@ -25,13 +25,12 @@ export default {
    * @param {*} binding
    * @param {*} vnode
    */
-  inserted(el, binding, vnode) {
+  inserted (el, binding, vnode) {
     const { value } = binding
 
     const userPermissionDataOperations = store.getters && store.getters.userPermissionData.permission_operation
     const hasPermission = userPermissionDataOperations.find(item => item.operation_perms === value)
     // 查找权限是否在操作数据中存在
-    debugger
     if (!hasPermission) {
       el.parentNode && el.parentNode.removeChild(el)
     }

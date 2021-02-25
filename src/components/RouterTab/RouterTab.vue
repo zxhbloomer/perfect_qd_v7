@@ -28,7 +28,6 @@
                 class="tab-icon"
                 :class="icon"
               />
-              11{{ isEmptyAndRtnDefaultValue(items[index].affix,false)===false }}1<span class="tab-title">{{ i18nText(title) || lang.tab.untitled }}</span>111
               <i
                 v-if="(closable !== false && !(keepLastTab && items.length < 2)) && (isEmptyAndRtnDefaultValue(items[index].affix,false)===false)"
                 class="el-icon-close"

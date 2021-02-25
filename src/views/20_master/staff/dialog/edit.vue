@@ -1317,7 +1317,6 @@ export default {
       this.dataJson.tempJson.dept_simple_name = val.simple_name
     },
     handlePositionClick (val) {
-      debugger
       // 通知路由，打开岗位页面
       this.$router.push({
         name: this.PROGRAMS.P_POSITION, query: { name: val }
