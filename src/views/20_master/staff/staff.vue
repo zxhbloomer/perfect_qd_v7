@@ -171,7 +171,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -212,7 +212,7 @@ export default {
         pickerOptions: {
           shortcuts: [{
             text: '未来一周',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 7)
@@ -220,7 +220,7 @@ export default {
             }
           }, {
             text: '未来一个月',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 30)
@@ -228,7 +228,7 @@ export default {
             }
           }, {
             text: '未来三个月',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 90)
@@ -236,7 +236,7 @@ export default {
             }
           }, {
             text: '未来六个月',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 180)
@@ -244,7 +244,7 @@ export default {
             }
           }, {
             text: '未来一年',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 365)
@@ -280,7 +280,7 @@ export default {
   watch: {
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -289,44 +289,44 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.initShow()
     if (this.$route.params.name !== undefined) {
       this.dataJson.searchForm.name = this.$route.params.name
     }
   },
-  mounted() {
+  mounted () {
     // 描绘完成
   },
   methods: {
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
     },
     // 弹出框设置初始化
-    initDialogStatus() {
+    initDialogStatus () {
     },
     // 下拉选项控件事件
-    handleSelectChange(val) {
+    handleSelectChange (val) {
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
     // 行双点击，仅在dialog中有效
-    handleRowDbClick(row) {
+    handleRowDbClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
       var _data = deepCopy(row)
       if (this.meDialogStatus) {
         this.$emit('rowDbClick', _data)
       }
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -336,7 +336,7 @@ export default {
       this.$refs.multipleTable.clearSelection()
     },
     // 删除操作
-    handleDel(row) {
+    handleDel (row) {
       let _message = ''
       const _value = row.is_del
       const selectionJson = []
@@ -377,13 +377,13 @@ export default {
       })
     },
     // 点击按钮 新增
-    handleInsert() {
+    handleInsert () {
       // 新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_INSERT
       this.popSettings.one.visible = true
     },
     // 点击按钮 更新
-    handleUpdate() {
+    handleUpdate () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
         this.showErrorMsgAlert('请选择一条数据')
@@ -393,7 +393,7 @@ export default {
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_UPDATE
       this.popSettings.one.visible = true
     },
-    handleView() {
+    handleView () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -403,7 +403,7 @@ export default {
       this.popSettings.one.visible = true
     },
     // 导出按钮
-    handleExport() {
+    handleExport () {
       // 没有选择任何数据的情况
       if (this.dataJson.multipleSelection.length <= 0) {
         this.$alert('请在表格中选择数据进行导出', '未选择数据错误', {
@@ -433,7 +433,7 @@ export default {
       }
     },
     // 全部数据导出
-    handleExportAllData() {
+    handleExportAllData () {
       // loading
       this.settings.loading = true
       // 开始导出
@@ -443,11 +443,11 @@ export default {
       })
     },
     // 部分数据导出
-    handleExportSelectionData() {
+    handleExportSelectionData () {
       // loading
       this.settings.loading = true
       const selectionJson = []
-      this.dataJson.multipleSelection.forEach(function(value, index, array) {
+      this.dataJson.multipleSelection.forEach(function (value, index, array) {
         selectionJson.push({ 'id': value.id })
       })
       // 开始导出
@@ -457,13 +457,13 @@ export default {
       })
     },
     // 点击按钮 复制新增
-    handleCopyInsert() {
+    handleCopyInsert () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       // 复制新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_COPY_INSERT
       this.popSettings.one.visible = true
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
 
@@ -479,7 +479,7 @@ export default {
       // 设置dialog的返回
       this.$store.dispatch('popUpSearchDialog/selectedDataJson', Object.assign({}, row))
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.dataJson.searchForm.pageCondition.sort = column.prop
@@ -488,7 +488,7 @@ export default {
       }
       this.getDataList()
     },
-    getDataList() {
+    getDataList () {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
@@ -507,19 +507,19 @@ export default {
       })
     },
     // 重置查询区域
-    doResetSearch() {
+    doResetSearch () {
       this.dataJson.searchForm = this.$options.data.call(this).dataJson.searchForm
     },
     // 获取row-key
-    getRowKeys(row) {
+    getRowKeys (row) {
       return row.id
     },
     // table选择框
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.dataJson.multipleSelection = val
     },
     // ------------------编辑弹出框 start--------------------
-    handleCloseDialogOneOk(val) {
+    handleCloseDialogOneOk (val) {
       switch (this.popSettings.one.props.dialogStatus) {
         case this.PARAMETERS.STATUS_INSERT:
           this.doInsertModelCallBack(val)
@@ -534,11 +534,11 @@ export default {
           break
       }
     },
-    handleCloseDialogOneCancel() {
+    handleCloseDialogOneCancel () {
       this.popSettings.one.visible = false
     },
     // 处理插入回调
-    doInsertModelCallBack(val) {
+    doInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -560,7 +560,7 @@ export default {
       }
     },
     // 处理复制新增回调
-    doCopyInsertModelCallBack(val) {
+    doCopyInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
         // 设置到table中绑定的json数据源
@@ -583,7 +583,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateModelCallBack(val) {
+    doUpdateModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -607,7 +607,7 @@ export default {
       }
     },
     // ------------------编辑弹出框 end--------------------
-    handlePositionClick(val) {
+    handlePositionClick (val) {
       if (this.meDialogStatus) {
         return
       }
@@ -615,7 +615,7 @@ export default {
       this.$router.push({ name: this.PROGRAMS.P_POSITION, query: { name: val }})
     },
     // -------------------岗位调整 弹出框 start-----
-    handleSetPosition(val) {
+    handleSetPosition (val) {
       this.popSettings.two.props.data = deepCopy(this.dataJson.currentJson)
       if (this.popSettings.two.props.data.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -624,10 +624,10 @@ export default {
       // 更新
       this.popSettings.two.visible = true
     },
-    handleCloseDialogTwoOk() {
+    handleCloseDialogTwoOk () {
       this.popSettings.two.visible = false
     },
-    handleCloseDialogTwoCancel() {
+    handleCloseDialogTwoCancel () {
       this.popSettings.two.visible = false
     }
   }
