@@ -1,13 +1,32 @@
 <template>
   <div>
-    <el-tabs v-model="settings.tabs.activeName" @tab-click="handleTabsClick" @tab-remove="handleRemoveTab">
-      <el-tab-pane name="main" :style="{height: height + 'px'}" style="overflow-y:auto;overflow-x:hidden;" :disabled="dataJson.tab.show">
+    <el-tabs
+      v-model="settings.tabs.activeName"
+      @tab-click="handleTabsClick"
+      @tab-remove="handleRemoveTab"
+    >
+      <el-tab-pane
+        name="main"
+        :style="{height: height + 'px'}"
+        style="overflow-y:auto;overflow-x:hidden;"
+        :disabled="dataJson.tab.show"
+      >
         <template slot="label">权限列表</template>
         <permission-template :height="height - 142" />
       </el-tab-pane>
-      <el-tab-pane v-if="dataJson.tab.show" name="edit_permission" :style="{height: height + 'px'}" style="overflow-y:auto;overflow-x:hidden;" closable>
+      <el-tab-pane
+        v-if="dataJson.tab.show"
+        name="edit_permission"
+        :style="{height: height + 'px'}"
+        style="overflow-y:auto;overflow-x:hidden;"
+        closable
+      >
         <template slot="label">{{ dataJson.tab.name }}</template>
-        <operation-template :height="height - 102" :head-info="dataJson.operation_head_info" :permission-id="dataJson.permissionId" />
+        <operation-template
+          :height="height - 102"
+          :head-info="dataJson.operation_head_info"
+          :permission-id="dataJson.permissionId"
+        />
       </el-tab-pane>
     </el-tabs>
 
@@ -15,44 +34,44 @@
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-cascader {
-    width: 100%;
-  }
-  .grid-content {
-    border-radius: 2px;
-    min-height: 36px;
-    margin-bottom: 10px;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .el-alert--info.is-light{
-    background: #eee;
-  }
-  .corner {
-    position: absolute;
-    top: 0px;
-    border: 0;
-    right: 0;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-cascader {
+  width: 100%;
+}
+.grid-content {
+  border-radius: 2px;
+  min-height: 36px;
+  margin-bottom: 10px;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.el-alert--info.is-light {
+  background: #eee;
+}
+.corner {
+  position: absolute;
+  top: 0px;
+  border: 0;
+  right: 0;
+}
 </style>
 <style >
-  .buttonSearch{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
-  .buttonReset{
-    color: #FFFFFF;
-    background-color: #F56C6C;
-    border-color: #F56C6C;
-  }
+.buttonSearch {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+.buttonReset {
+  color: #ffffff;
+  background-color: #f56c6c;
+  border-color: #f56c6c;
+}
 </style>
 <script>
 import elDragDialog from '@/directive/el-drag-dialog'
@@ -68,7 +87,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 左侧树的数据
@@ -95,7 +114,7 @@ export default {
   // 监听器
   watch: {
   },
-  mounted() {
+  mounted () {
     // 描绘完成
     this.$on(this.EMITS.EMIT_PERMISSION_DEPT_CHANGE, _data => {
       this.dataJson.leftTreeData = _data
@@ -120,14 +139,14 @@ export default {
       this.settings.tabs.is_edit = _data
     })
   },
-  created() {
+  created () {
   },
   methods: {
-    handleTabsClick(tab, event) {
+    handleTabsClick (tab, event) {
       // console.log(tab, event)
     },
     // 点击tabs的关闭
-    handleRemoveTab(targetName) {
+    handleRemoveTab (targetName) {
       if (this.settings.tabs.is_edit === false) {
         this.doCloseTab()
       } else {
@@ -138,7 +157,7 @@ export default {
             cancelButtonText: '确认关闭'
           }).then(() => {
           }).catch(action => {
-          // 右上角X
+            // 右上角X
             if (action === 'cancel') {
               this.doCloseTab()
             }
@@ -146,7 +165,7 @@ export default {
         }
       }
     },
-    doCloseTab() {
+    doCloseTab () {
       this.dataJson.tab.show = false
       this.settings.tabs.activeName = 'main'
       this.$off(this.EMITS.EMIT_PERMISSION_DEPT_OPERATE_EDIT_OK)

@@ -15,7 +15,13 @@
     >
       <el-form-item label="">
         <el-button-group>
-          <el-button type="primary" icon="el-icon-circle-plus-outline" :disabled="settings.loading || settings.btnDisabledStatus.disabledSave " :loading="settings.loading" @click="handleSave">保存</el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-circle-plus-outline"
+            :disabled="settings.loading || settings.btnDisabledStatus.disabledSave "
+            :loading="settings.loading"
+            @click="handleSave"
+          >保存</el-button>
         </el-button-group>
       </el-form-item>
     </el-form>
@@ -40,30 +46,76 @@
       @current-change="handleCurrentChange"
       @select-all="handleCheckAllMenu()"
     >
-      <el-table-column ref="column_head_selection" type="selection" min-width="45">
+      <el-table-column
+        ref="column_head_selection"
+        type="selection"
+        min-width="45"
+      >
         <template v-slot="scope">
-          <el-checkbox v-model="scope.row.is_enable" @change="handleCheckMenu(scope.row.is_enable, scope.row)" />
+          <el-checkbox
+            v-model="scope.row.is_enable"
+            @change="handleCheckMenu(scope.row.is_enable, scope.row)"
+          />
         </template>
       </el-table-column>
-      <el-table-column header-align="center" type="index" width="45" />
-      <el-table-column header-align="center" show-overflow-tooltip min-width="120" prop="name" label="菜单名称">
+      <el-table-column
+        header-align="center"
+        type="index"
+        width="45"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        min-width="120"
+        prop="name"
+        label="菜单名称"
+      >
         <template v-slot="scope">
-          <svg-icon v-if="scope.row.meta_icon" :icon-class="scope.row.meta_icon" :class="scope.row.meta_icon" />
+          <svg-icon
+            v-if="scope.row.meta_icon"
+            :icon-class="scope.row.meta_icon"
+            :class="scope.row.meta_icon"
+          />
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column header-align="center" show-overflow-tooltip min-width="50" prop="type_name" label="类型">
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        min-width="50"
+        prop="type_name"
+        label="类型"
+      >
         <template v-slot="scope">
           <span class="menu_png">
-            <em v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_ROOT" class="root">根结点</em>
-            <em v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_TOPNAV" class="top_nav">顶部导航栏</em>
-            <em v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_NODE" class="node">结点</em>
-            <em v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_PAGE" class="page">页面</em>
-            <em v-if="scope.row.is_default" class="default">默认菜单</em>
+            <em
+              v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_ROOT"
+              class="root"
+            >根结点</em>
+            <em
+              v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_TOPNAV"
+              class="top_nav"
+            >顶部导航栏</em>
+            <em
+              v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_NODE"
+              class="node"
+            >结点</em>
+            <em
+              v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_PAGE"
+              class="page"
+            >页面</em>
+            <em
+              v-if="scope.row.is_default"
+              class="default"
+            >默认菜单</em>
           </span>
         </template>
       </el-table-column>
-      <el-table-column header-align="center" label="权限" min-width="260">
+      <el-table-column
+        header-align="center"
+        label="权限"
+        min-width="260"
+      >
         <template v-slot:header>
           <span>
             权限
@@ -77,19 +129,33 @@
                 已勾选：已授权 <br>
                 未勾选：未授权 <br>
               </div>
-              <svg-icon icon-class="perfect-icon-question1_btn" style="margin-left: 5px" />
+              <svg-icon
+                icon-class="perfect-icon-question1_btn"
+                style="margin-left: 5px"
+              />
             </el-tooltip>
           </span>
         </template>
         <template v-slot="operations">
           <el-row>
-            <el-col v-for="item in operations.row.function_info" :key="item.id" :span="4">
-              <el-checkbox v-model="item.is_enable" @change="handleCheck(operations.row)">{{ item.name }}</el-checkbox>
+            <el-col
+              v-for="item in operations.row.function_info"
+              :key="item.id"
+              :span="4"
+            >
+              <el-checkbox
+                v-model="item.is_enable"
+                @change="handleCheck(operations.row)"
+              >{{ item.name }}</el-checkbox>
             </el-col>
           </el-row>
         </template>
       </el-table-column>
-      <el-table-column header-align="center" label="全选" min-width="30">
+      <el-table-column
+        header-align="center"
+        label="全选"
+        min-width="30"
+      >
         <template v-slot:header>
           <span>
             全选
@@ -102,13 +168,20 @@
                 全选提示： <br>
                 勾选全选时，左侧对应的权限将会全部自动勾选。<br>
               </div>
-              <svg-icon icon-class="perfect-icon-question1_btn" style="margin-left: 5px" />
+              <svg-icon
+                icon-class="perfect-icon-question1_btn"
+                style="margin-left: 5px"
+              />
             </el-tooltip>
           </span>
         </template>
         <template v-slot="operations">
           <div v-if="operations.row.function_info.length > 0">
-            <el-checkbox v-model="operations.row.check_all" :indeterminate="operations.row.indeterminate" @change="handleCheckAllChange(operations.row)" />
+            <el-checkbox
+              v-model="operations.row.check_all"
+              :indeterminate="operations.row.indeterminate"
+              @change="handleCheckAllChange(operations.row)"
+            />
           </div>
         </template>
         <template />
@@ -119,26 +192,26 @@
 </template>
 
 <style scoped>
-  .el-alert--info.is-dark {
-    background-color: #448aca;
-  }
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
-  .grid-content {
-    border-radius: 2px;
-    min-height: 36px;
-    margin-bottom: 10px;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
+.el-alert--info.is-dark {
+  background-color: #448aca;
+}
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
+.grid-content {
+  border-radius: 2px;
+  min-height: 36px;
+  margin-bottom: 10px;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
 </style>
 
 <script>
@@ -147,8 +220,8 @@ import { getOperationListApi, savePermissionApi } from '@/api/20_master/permissi
 import deepCopy from 'deep-copy'
 
 export default {
-  components: { },
-  directives: { },
+  components: {},
+  directives: {},
   mixins: [],
   props: {
     height: {
@@ -169,7 +242,7 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       // 监听器
       watch: {
@@ -210,18 +283,18 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     this.initShow()
   },
-  mounted() {
+  mounted () {
   },
   methods: {
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
     },
     // 设置监听器
-    setWatch() {
+    setWatch () {
       this.unWatch()
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_tempJson = this.$watch('dataJson.listData', (newVal, oldVal) => {
@@ -233,7 +306,7 @@ export default {
         this.$emit(this.EMITS.EMIT_PERMISSION_DEPT_IS_EDIT, !newVal)
       })
     },
-    unWatch() {
+    unWatch () {
       if (this.watch.unwatch_tempJson) {
         this.watch.unwatch_tempJson()
       }
@@ -242,19 +315,19 @@ export default {
       }
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = deepCopy(row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
-    getDataList() {
+    getDataList () {
       // 查询逻辑
       this.settings.loading = true
       getOperationListApi(this.dataJson.searchForm).then(response => {
@@ -271,19 +344,19 @@ export default {
       })
     },
     // 当前行的权限全部勾选
-    handleCheckAllChange(val) {
+    handleCheckAllChange (val) {
       val.function_info.forEach(item => {
         item.is_enable = val.check_all
       })
     },
     // 勾选某一权限时，判断全选组件的状态
-    handleCheck(val) {
+    handleCheck (val) {
       const _checked_count = val.function_info.filter(item => item.is_enable === true).length
       const _operation_count = val.function_info.length
       val.check_all = _checked_count === _operation_count
       val.indeterminate = _checked_count > 0 && _checked_count < _operation_count
     },
-    handleSave() {
+    handleSave () {
       this.settings.loading = true
       // 获取权限数据
       const operation_data = this.getJsonObjects(this.dataJson.listData, 'function_info')
@@ -309,7 +382,7 @@ export default {
       })
     },
     // 全选
-    handleCheckAllMenu(selection) {
+    handleCheckAllMenu (selection) {
       // tableData 第一层只要有在 selection 里面就是全选 dataJson.check_all.checked
       const head_checkbox = this.$refs.multipleTable.$children[6].$children[0]
       if (head_checkbox.isChecked) {
@@ -321,7 +394,7 @@ export default {
         this.setFieldValue2JsonObjects(this.dataJson.listData, 'is_enable', true, 'function_info')
       }
     },
-    handleCheckMenu(val, row) {
+    handleCheckMenu (val, row) {
       // 所有的is_enable都设置为传入的值，递归设置，选择父节点，自动选中所有的子节点，反之则为撤销
       this.setFieldValue2JsonObjects(row, 'is_enable', val, 'function_info')
       this.setParentNodeIsEnable(val, 'menu_id', 'parent_id', 'is_enable', row, this.dataJson.listData, 'function_info')

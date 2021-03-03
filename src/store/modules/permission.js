@@ -74,7 +74,7 @@ const actions = {
     // 设置到vuex中是菜单树
     commit('SET_TOP_NAV_ACTIVE_INDEX', topNavIndex)
   },
-  getPermissionAndSetTopNavAction2 ({ commit }, _data) {
+  getPermissionAndSetTopNavActionP ({ commit }, _data) {
     return new Promise((resolve, reject) => {
       // 获取权限，顶部导航栏，操作权限数据
       getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
