@@ -1,19 +1,29 @@
 <template>
   <div class="icons-container">
     <aside>
-      <a href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/icon.html" target="_blank">Add and use
+      <a
+        href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/icon.html"
+        target="_blank"
+      >Add and use
       </a>
     </aside>
     <el-tabs type="border-card">
       <el-tab-pane label="Icons">
         <div class="grid">
-          <div v-for="item of svgIcons" :key="item" @click="handleClipboard(generateIconCode(item),$event)">
+          <div
+            v-for="item of svgIcons"
+            :key="item"
+            @click="handleClipboard(generateIconCode(item),$event)"
+          >
             <el-tooltip placement="top">
               <div slot="content">
                 {{ generateIconCode(item) }}
               </div>
               <div class="icon-item">
-                <svg-icon :icon-class="item" class-name="disabled" />
+                <svg-icon
+                  :icon-class="item"
+                  class-name="disabled"
+                />
                 <span>{{ item }}</span>
               </div>
             </el-tooltip>
@@ -22,7 +32,11 @@
       </el-tab-pane>
       <el-tab-pane label="Element-UI Icons">
         <div class="grid">
-          <div v-for="item of elementIcons" :key="item" @click="handleClipboard(generateElementIconCode(item),$event)">
+          <div
+            v-for="item of elementIcons"
+            :key="item"
+            @click="handleClipboard(generateElementIconCode(item),$event)"
+          >
             <el-tooltip placement="top">
               <div slot="content">
                 {{ generateElementIconCode(item) }}
@@ -46,20 +60,20 @@ import elementIcons from './element-icons'
 
 export default {
   name: 'Icons',
-  data() {
+  data () {
     return {
       svgIcons,
       elementIcons
     }
   },
   methods: {
-    generateIconCode(symbol) {
+    generateIconCode (symbol) {
       return `<svg-icon icon-class="${symbol}" />`
     },
-    generateElementIconCode(symbol) {
+    generateElementIconCode (symbol) {
       return `<i class="el-icon-${symbol}" />`
     },
-    handleClipboard(text, event) {
+    handleClipboard (text, event) {
       clipboard(text, event)
     }
   }

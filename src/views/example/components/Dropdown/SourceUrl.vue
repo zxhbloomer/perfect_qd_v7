@@ -1,12 +1,26 @@
 <template>
-  <el-dropdown :show-timeout="100" trigger="click">
+  <el-dropdown
+    :show-timeout="100"
+    trigger="click"
+  >
     <el-button plain>
       Link
       <i class="el-icon-caret-bottom el-icon--right" />
     </el-button>
-    <el-dropdown-menu slot="dropdown" class="no-padding no-border" style="width:400px">
-      <el-form-item label-width="0px" style="margin-bottom: 0px" prop="source_uri">
-        <el-input v-model="source_uri" placeholder="Please enter the content">
+    <el-dropdown-menu
+      slot="dropdown"
+      class="no-padding no-border"
+      style="width:400px"
+    >
+      <el-form-item
+        label-width="0px"
+        style="margin-bottom: 0px"
+        prop="source_uri"
+      >
+        <el-input
+          v-model="source_uri"
+          placeholder="Please enter the content"
+        >
           <template slot="prepend">
             URL
           </template>
@@ -26,10 +40,10 @@ export default {
   },
   computed: {
     source_uri: {
-      get() {
+      get () {
         return this.value
       },
-      set(val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

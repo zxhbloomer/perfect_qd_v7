@@ -1,15 +1,32 @@
 <template>
   <div class="createPost-container">
-    <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+    <el-form
+      ref="postForm"
+      :model="postForm"
+      :rules="rules"
+      class="form-container"
+    >
 
-      <sticky :z-index="10" :class-name="'sub-navbar '+postForm.status">
+      <sticky
+        :z-index="10"
+        :class-name="'sub-navbar '+postForm.status"
+      >
         <CommentDropdown v-model="postForm.comment_disabled" />
         <PlatformDropdown v-model="postForm.platforms" />
         <SourceUrlDropdown v-model="postForm.source_uri" />
-        <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
+        <el-button
+          v-loading="loading"
+          style="margin-left: 10px;"
+          type="success"
+          @click="submitForm"
+        >
           Publish
         </el-button>
-        <el-button v-loading="loading" type="warning" @click="draftForm">
+        <el-button
+          v-loading="loading"
+          type="warning"
+          @click="draftForm"
+        >
           Draft
         </el-button>
       </sticky>
@@ -19,8 +36,16 @@
           <Warning />
 
           <el-col :span="24">
-            <el-form-item style="margin-bottom: 40px;" prop="title">
-              <MDinput v-model="postForm.title" :maxlength="100" name="name" required>
+            <el-form-item
+              style="margin-bottom: 40px;"
+              prop="title"
+            >
+              <MDinput
+                v-model="postForm.title"
+                :maxlength="100"
+                name="name"
+                required
+              >
                 Title
               </MDinput>
             </el-form-item>
@@ -28,21 +53,50 @@
             <div class="postInfo-container">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item label-width="60px" label="Author:" class="postInfo-container-item">
-                    <el-select v-model="postForm.author" :remote-method="getRemoteUserList" filterable default-first-option remote placeholder="Search user">
-                      <el-option v-for="(item,index) in userListOptions" :key="item+index" :label="item" :value="item" />
+                  <el-form-item
+                    label-width="60px"
+                    label="Author:"
+                    class="postInfo-container-item"
+                  >
+                    <el-select
+                      v-model="postForm.author"
+                      :remote-method="getRemoteUserList"
+                      filterable
+                      default-first-option
+                      remote
+                      placeholder="Search user"
+                    >
+                      <el-option
+                        v-for="(item,index) in userListOptions"
+                        :key="item+index"
+                        :label="item"
+                        :value="item"
+                      />
                     </el-select>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="10">
-                  <el-form-item label-width="120px" label="Publish Time:" class="postInfo-container-item">
-                    <el-date-picker v-model="displayTime" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time" />
+                  <el-form-item
+                    label-width="120px"
+                    label="Publish Time:"
+                    class="postInfo-container-item"
+                  >
+                    <el-date-picker
+                      v-model="displayTime"
+                      type="datetime"
+                      format="yyyy-MM-dd HH:mm:ss"
+                      placeholder="Select date and time"
+                    />
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="6">
-                  <el-form-item label-width="90px" label="Importance:" class="postInfo-container-item">
+                  <el-form-item
+                    label-width="90px"
+                    label="Importance:"
+                    class="postInfo-container-item"
+                  >
                     <el-rate
                       v-model="postForm.importance"
                       :max="3"
@@ -58,16 +112,40 @@
           </el-col>
         </el-row>
 
-        <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Summary:">
-          <el-input v-model="postForm.content_short" :rows="1" type="textarea" class="article-textarea" autosize placeholder="Please enter the content" />
-          <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>
+        <el-form-item
+          style="margin-bottom: 40px;"
+          label-width="70px"
+          label="Summary:"
+        >
+          <el-input
+            v-model="postForm.content_short"
+            :rows="1"
+            type="textarea"
+            class="article-textarea"
+            autosize
+            placeholder="Please enter the content"
+          />
+          <span
+            v-show="contentShortLength"
+            class="word-counter"
+          >{{ contentShortLength }}words</span>
         </el-form-item>
 
-        <el-form-item prop="content" style="margin-bottom: 30px;">
-          <Tinymce ref="editor" v-model="postForm.content" :height="400" />
+        <el-form-item
+          prop="content"
+          style="margin-bottom: 30px;"
+        >
+          <Tinymce
+            ref="editor"
+            v-model="postForm.content"
+            :height="400"
+          />
         </el-form-item>
 
-        <el-form-item prop="image_uri" style="margin-bottom: 30px;">
+        <el-form-item
+          prop="image_uri"
+          style="margin-bottom: 30px;"
+        >
           <Upload v-model="postForm.image_uri" />
         </el-form-item>
       </div>
@@ -109,7 +187,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     const validateRequire = (rule, value, callback) => {
       if (value === '') {
         this.$message({
@@ -150,7 +228,7 @@ export default {
     }
   },
   computed: {
-    contentShortLength() {
+    contentShortLength () {
       return this.postForm.content_short.length
     },
     displayTime: {
@@ -158,15 +236,15 @@ export default {
       // returned by the back end api is different from the front end
       // back end return => "2013-06-25 06:59:25"
       // front end need timestamp => 1372114765000
-      get() {
+      get () {
         return (+new Date(this.postForm.display_time))
       },
-      set(val) {
+      set (val) {
         this.postForm.display_time = new Date(val)
       }
     }
   },
-  created() {
+  created () {
     if (this.isEdit) {
       const id = this.$route.params && this.$route.params.id
       this.fetchData(id)
@@ -178,7 +256,7 @@ export default {
     this.tempRoute = Object.assign({}, this.$route)
   },
   methods: {
-    fetchData(id) {
+    fetchData (id) {
       fetchArticle(id).then(response => {
         this.postForm = response.data
 
@@ -195,16 +273,16 @@ export default {
         console.log(err)
       })
     },
-    setTagsViewTitle() {
+    setTagsViewTitle () {
       const title = 'Edit Article'
       const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.id}` })
       this.$store.dispatch('tagsView/updateVisitedView', route)
     },
-    setPageTitle() {
+    setPageTitle () {
       const title = 'Edit Article'
       document.title = `${title} - ${this.postForm.id}`
     },
-    submitForm() {
+    submitForm () {
       console.log(this.postForm)
       this.$refs.postForm.validate(valid => {
         if (valid) {
@@ -223,7 +301,7 @@ export default {
         }
       })
     },
-    draftForm() {
+    draftForm () {
       if (this.postForm.content.length === 0 || this.postForm.title.length === 0) {
         this.$message({
           message: '请填写必要的标题和内容',
@@ -239,7 +317,7 @@ export default {
       })
       this.postForm.status = 'draft'
     },
-    getRemoteUserList(query) {
+    getRemoteUserList (query) {
       searchUser(query).then(response => {
         if (!response.data.items) return
         this.userListOptions = response.data.items.map(v => v.name)
@@ -250,7 +328,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/mixin.scss";
+@import '~@/styles/mixin.scss';
 
 .createPost-container {
   position: relative;

@@ -2,7 +2,11 @@
   <div class="app-container">
     <el-card class="box-card">
       <div slot="header">
-        <a class="link-type link-title" target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/theme.html">
+        <a
+          class="link-type link-title"
+          target="_blank"
+          href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/theme.html"
+        >
           Theme documentation
         </a>
       </div>
@@ -34,10 +38,22 @@
     </div>
 
     <div class="block">
-      <el-button type="primary" icon="el-icon-edit" />
-      <el-button type="primary" icon="el-icon-share" />
-      <el-button type="primary" icon="el-icon-delete" />
-      <el-button type="primary" icon="el-icon-search">
+      <el-button
+        type="primary"
+        icon="el-icon-edit"
+      />
+      <el-button
+        type="primary"
+        icon="el-icon-share"
+      />
+      <el-button
+        type="primary"
+        icon="el-icon-delete"
+      />
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+      >
         Search
       </el-button>
       <el-button type="primary">
@@ -47,7 +63,12 @@
     </div>
 
     <div class="block">
-      <el-tag v-for="tag in tags" :key="tag.type" :type="tag.type" class="tag-item">
+      <el-tag
+        v-for="tag in tags"
+        :key="tag.type"
+        :type="tag.type"
+        class="tag-item"
+      >
         {{ tag.name }}
       </el-tag>
     </div>
@@ -78,7 +99,7 @@ import '@/assets/custom-theme/index.css' // the theme changed version element-ui
 
 export default {
   name: 'Theme',
-  data() {
+  data () {
     return {
       theme: false,
       tags: [
@@ -93,7 +114,7 @@ export default {
     }
   },
   watch: {
-    theme() {
+    theme () {
       toggleClass(document.body, 'custom-theme')
     }
   }
@@ -101,7 +122,7 @@ export default {
 </script>
 
 <style scoped>
-.field-label{
+.field-label {
   vertical-align: middle;
 }
 .box-card {

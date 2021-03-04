@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="aaabbb">
     <el-alert
       :title="dataJson.head.info"
       type="info"
@@ -142,7 +142,7 @@
       />
       <el-table-column
         header-align="center"
-        min-width="100"
+        min-width="120"
         :sort-orders="settings.sortOrders"
         label="删除·启用"
       >
@@ -212,7 +212,7 @@
       <el-table-column
         header-align="center"
         show-overflow-tooltip
-        min-width="110"
+        min-width="160"
         prop="oper"
         label="权限操作"
       >
