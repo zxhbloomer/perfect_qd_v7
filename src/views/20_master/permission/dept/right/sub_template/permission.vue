@@ -293,6 +293,9 @@
 </template>
 
 <style scoped>
+.el-alert {
+  padding: 7px 16px;
+}
 .el-alert--info.is-dark {
   background-color: #448aca;
 }
