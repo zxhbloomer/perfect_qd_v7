@@ -1,5 +1,5 @@
 <template>
-  <div class="aaabbb">
+  <div>
     <el-alert
       :title="dataJson.head.info"
       type="info"
