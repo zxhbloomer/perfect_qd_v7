@@ -142,13 +142,13 @@
       />
       <el-table-column
         header-align="center"
-        min-width="120"
+        min-width="80"
         :sort-orders="settings.sortOrders"
         label="删除·启用"
       >
         <template v-slot:header>
           <span>
-            删除·启用
+            删除
             <el-tooltip
               class="item"
               effect="dark"
@@ -169,7 +169,6 @@
 
         <template v-slot="scope">
           <div class="switch">
-            删除：
             <el-tooltip
               :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' "
               placement="top"
@@ -185,25 +184,6 @@
                 active-text="是"
                 inactive-text="否"
                 @change="handleDel(scope.row)"
-              />
-            </el-tooltip>
-            <br>
-            启用：
-            <el-tooltip
-              :content="scope.row.is_enable === 'false' ? '启用状态：已启用' : '启用状态：未启用' "
-              placement="top"
-              :open-delay="500"
-            >
-              <el-switch
-                v-model="scope.row.is_enable"
-                active-color="#ff4949"
-                inactive-color="#13ce66"
-                :active-value="true"
-                :inactive-value="false"
-                :disabled="meDialogStatus"
-                active-text="是"
-                inactive-text="否"
-                @change="handleEnable(scope.row)"
               />
             </el-tooltip>
           </div>
@@ -298,6 +278,9 @@
 }
 .el-alert--info.is-dark {
   background-color: #448aca;
+}
+.switch {
+  text-align: center;
 }
 .switch ::v-deep .el-switch__label {
   position: absolute;
