@@ -86,13 +86,21 @@
               @input="handleRadioChange"
             >
               <el-radio-button
-                v-for="item in dataJson.selectOptions.xxxxx"
+                v-for="item in settings.radio.enabledOptions"
                 :key="item.value"
                 :value="item.value"
                 :label="item.value"
               >{{ item.name }}
               </el-radio-button>
             </el-radio-group>
+            <el-date-picker
+              v-model="dataJson.tempJson.is_enable_time"
+              type="datetime"
+              :placeholder="settings.datepicker.placeholder"
+              align="right"
+              :disabled="(isViewModel || settings.radio.disabled)"
+              :picker-options="settings.datepicker.data"
+            />
           </el-form-item>
         </el-col>
       </el-row>
@@ -255,7 +263,8 @@ export default {
           dbversion: 0,
           serial_type: this.data.serial_type,
           serial_id: this.data.serial_id,
-          is_enable: 1
+          is_enable: '1',
+          is_enable_time: ''
         },
         // 单条数据 json
         tempJson: null,
@@ -269,7 +278,12 @@ export default {
       },
       settings: {
         radio: {
-          is_enable: ''
+          // 下拉选项json
+          enabledOptions: [
+            { name: '立即启用', value: '1' },
+            { name: '定时启用', value: '2' }
+          ],
+          disabled: false
         },
         // loading 状态
         loading: true,
@@ -292,6 +306,32 @@ export default {
         // pop的check内容
         rules: {
           name: [{ required: true, message: '请输入权限名称', trigger: 'change' }]
+        },
+        // 日期快捷选择
+        datepicker: {
+          data: {
+            shortcuts: [{
+              text: '今天',
+              onClick (picker) {
+                picker.$emit('pick', new Date())
+              }
+            }, {
+              text: '明天',
+              onClick (picker) {
+                const date = new Date()
+                date.setTime(date.getTime() + 3600 * 1000 * 24)
+                picker.$emit('pick', date)
+              }
+            }, {
+              text: '一周后',
+              onClick (picker) {
+                const date = new Date()
+                date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
+                picker.$emit('pick', date)
+              }
+            }]
+          },
+          placeholder: '请选择日期时间'
         }
       }
     }
@@ -367,6 +407,10 @@ export default {
       // 数据初始化
       this.initTempJsonOriginal()
       this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
+      // 设置启用时间控件
+      this.dataJson.tempJson.is_enable_time = ''
+      this.settings.radio.disabled = true
+      this.settings.datepicker.placeholder = '点击保存后立即启用'
       // 设置按钮
       this.settings.btnShowStatus.showInsert = true
       // 控件focus
@@ -380,6 +424,10 @@ export default {
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJson.code = ''
       this.dataJson.tempJsonOriginal = deepCopy(this.data)
+      // 设置启用时间控件
+      this.dataJson.tempJson.is_enable_time = ''
+      this.settings.radio.disabled = true
+      this.settings.datepicker.placeholder = '点击保存后立即启用'
       // 设置按钮
       this.settings.btnShowStatus.showCopyInsert = true
       // 控件focus
@@ -392,6 +440,9 @@ export default {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJsonOriginal = deepCopy(this.data)
+      // 设置启用时间控件
+      this.settings.radio.disabled = false
+      this.settings.datepicker.placeholder = '请选择日期时间'
       // 设置按钮
       this.settings.btnShowStatus.showUpdate = true
       // 控件focus
@@ -539,8 +590,19 @@ export default {
       this.$off(this.EMITS.EMIT_PERMISSION_DEPT_LEFT)
       this.$emit(this.EMITS.EMIT_PERMISSION_DEPT_LEFT)
     },
-    handleRadioChange () {
-      debugger
+    // 单选框事件
+    handleRadioChange (val) {
+      switch (val) {
+        case '1':
+          this.dataJson.tempJson.is_enable_time = ''
+          this.settings.radio.disabled = true
+          this.settings.datepicker.placeholder = '点击保存后立即启用'
+          break
+        default:
+          this.settings.radio.disabled = false
+          this.settings.datepicker.placeholder = '请选择日期时间'
+          break
+      }
     }
   }
 }
