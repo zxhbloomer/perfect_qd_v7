@@ -1,6 +1,7 @@
-import { constantRoutes, asyncRoutes, convertToOneRouter, setAsyncRouters, setRedirectRouter, deepRecursiveLoadComponent } from '@/router'
+import { constantRoutes, convertToOneRouter, setAsyncRouters, setRedirectRouter, deepRecursiveLoadComponent } from '@/router'
 import { getPermissionAndTopNavApi } from '@/api/user'
 import deepcopy from 'deep-copy'
+import { asyncRoutesArray, asyncRoutesAll, topNav } from '@/router/devMenu'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -74,7 +75,7 @@ const actions = {
     // 设置到vuex中是菜单树
     commit('SET_TOP_NAV_ACTIVE_INDEX', topNavIndex)
   },
-  getPermissionAndSetTopNavActionP ({ commit }, _data) {
+  getPermissionAndSetTopNavAction ({ commit }, _data) {
     return new Promise((resolve, reject) => {
       // 获取权限，顶部导航栏，操作权限数据
       getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
@@ -125,40 +126,18 @@ const actions = {
    * @param {*} param0
    * @param {*} _data
    */
-  getPermissionAndSetTopNavAction ({ commit }, _data) {
+  getPermissionAndSetTopNavAction2 ({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
-      const _topNavData = [
-        {
-          nav_path: '01',
-          index: '1',
-          type: 'T',
-          meta: {
-            icon: '系统管理',
-            name: '工作台'
-          }
-        },
-        {
-          nav_path: '02',
-          index: '2',
-          type: 'T',
-          meta: {
-            icon: 'syscode',
-            name: '业务管理'
-          }
-        },
-        {
-          nav_path: '03',
-          index: '3',
-          type: 'T',
-          meta: {
-            icon: 'syscode',
-            name: '业务管理a'
-          }
-        }
-      ]
+      const _topNavData = topNav
 
-      commit('SET_TOP_NAV_ACTIVE_INDEX', '1')
+      let _navindex = 0
+      if (!isNaN(_data.pathOrIndex)) {
+        _navindex = _data.pathOrIndex - 1
+      }
+
+      // 设置顶部导航栏高亮
+      commit('SET_TOP_NAV_ACTIVE_INDEX', (_navindex + 1).toString())
       // 把顶部导航栏，设置到vuex中去
       commit('SET_TOP_NAV', _topNavData)
 
@@ -169,7 +148,7 @@ const actions = {
        *
        *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
       */
-      var _routers = deepcopy(asyncRoutes)
+      var _routers = deepcopy(asyncRoutesAll)
       const convertData = convertToOneRouter(_routers)
       const redirect_data = {
         redirect: '/dashboard',
@@ -180,7 +159,7 @@ const actions = {
         }
       }
       setRedirectRouter(redirect_data)
-      commit('SET_MENUS_ROUTERS', asyncRoutes)
+      commit('SET_MENUS_ROUTERS', asyncRoutesArray[_navindex])
       resolve(convertData)
     })
   }
