@@ -21,7 +21,7 @@
             :to="to"
             @contextmenu.native.prevent="e => showContextmenu(id, index, e)"
             @click.native="clickRouter(items[index])"
-          >
+          >{{ i18nText(tips || title) || lang.tab.untitled }}
             <slot v-bind="{ tab: items[index], tabs: items, index }">
               <i
                 v-if="icon"
