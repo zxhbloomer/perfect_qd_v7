@@ -8,16 +8,34 @@
       class="floatRight"
     >
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.code" clearable placeholder="集团编号" />
+        <el-input
+          v-model.trim="dataJson.searchForm.code"
+          clearable
+          placeholder="集团编号"
+        />
       </el-form-item>
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.name" clearable placeholder="集团名称" />
+        <el-input
+          v-model.trim="dataJson.searchForm.name"
+          clearable
+          placeholder="集团名称"
+        />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-search"
+          @click="handleSearch"
+        >查询</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-popover:popover type="primary" plain icon="el-icon-zoom-in">高级查询</el-button>
+        <el-button
+          v-popover:popover
+          type="primary"
+          plain
+          icon="el-icon-zoom-in"
+        >高级查询</el-button>
       </el-form-item>
     </el-form>
 
@@ -36,23 +54,70 @@
         <el-form-item label="">
           <delete-type-normal v-model="dataJson.searchForm.is_del" />
         </el-form-item>
-        <el-form-item v-show="meDialogStatus" label="">
-          <select-dict v-model="dataJson.searchForm.dataModel" :para="CONSTANTS.DICT_ORG_USED_TYPE" init-placeholder="请选择" />
+        <el-form-item
+          v-show="meDialogStatus"
+          label=""
+        >
+          <select-dict
+            v-model="dataJson.searchForm.dataModel"
+            :para="CONSTANTS.DICT_ORG_USED_TYPE"
+            init-placeholder="请选择"
+          />
         </el-form-item>
         <el-divider />
         <div style="text-align: right; margin: 0">
-          <el-button type="text" @click="doResetSearch()">重置</el-button>
-          <el-button type="primary" @click="handleSearch">提交</el-button>
+          <el-button
+            type="text"
+            @click="doResetSearch()"
+          >重置</el-button>
+          <el-button
+            type="primary"
+            @click="handleSearch"
+          >提交</el-button>
         </div>
       </el-form>
     </el-popover>
 
     <el-button-group>
-      <el-button v-permission="'P_GROUP:ADD'" type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
-      <el-button v-permission="'P_GROUP:UPDATE'" :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
-      <el-button v-permission="'P_GROUP:COPY_INSERT'" :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button v-permission="'P_GROUP:EXPORT'" :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.loading" @click="handleExport">导出</el-button>
-      <el-button v-permission="'P_GROUP:INFO'" :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.loading" @click="handleView">查看</el-button>
+      <el-button
+        v-permission="'P_GROUP:ADD'"
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        :loading="settings.loading"
+        @click="handleInsert"
+      >新增</el-button>
+      <el-button
+        v-permission="'P_GROUP:UPDATE'"
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleUpdate"
+      >修改</el-button>
+      <el-button
+        v-permission="'P_GROUP:COPY_INSERT'"
+        :disabled="!settings.btnShowStatus.showCopyInsert"
+        type="primary"
+        icon="el-icon-camera-solid"
+        :loading="settings.loading"
+        @click="handleCopyInsert"
+      >复制新增</el-button>
+      <el-button
+        v-permission="'P_GROUP:EXPORT'"
+        :disabled="!settings.btnShowStatus.showExport"
+        type="primary"
+        icon="el-icon-s-management"
+        :loading="settings.loading"
+        @click="handleExport"
+      >导出</el-button>
+      <el-button
+        v-permission="'P_GROUP:INFO'"
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-info"
+        :loading="settings.loading"
+        @click="handleView"
+      >查看</el-button>
     </el-button-group>
     <el-table
       ref="multipleTable"
@@ -73,7 +138,12 @@
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column v-if="!meDialogStatus" type="selection" width="45" prop="id" />
+      <el-table-column
+        v-if="!meDialogStatus"
+        type="selection"
+        width="45"
+        prop="id"
+      />
       <!-- <el-table-column type="index" width="45" label="No" /> -->
       <el-table-column
         label="No"
@@ -85,12 +155,50 @@
           <span>{{ (dataJson.searchForm.pageCondition.current - 1) * dataJson.searchForm.pageCondition.size + scope.$index + 1 }}</span>
         </template>
       </el-table-column>
-      <el-table-column v-if="!meDialogStatus" header-align="center" show-overflow-tooltip sortable="custom" min-width="130" :sort-orders="settings.sortOrders" prop="parent_group_simple_name" label="上级集团" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="name" label="集团名称" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="140" :sort-orders="settings.sortOrders" prop="simple_name" label="集团简称" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="130" :sort-orders="settings.sortOrders" prop="code" label="集团编号" />
+      <el-table-column
+        v-if="!meDialogStatus"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="130"
+        :sort-orders="settings.sortOrders"
+        prop="parent_group_simple_name"
+        label="上级集团"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="name"
+        label="集团名称"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="140"
+        :sort-orders="settings.sortOrders"
+        prop="simple_name"
+        label="集团简称"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="130"
+        :sort-orders="settings.sortOrders"
+        prop="code"
+        label="集团编号"
+      />
       <!-- <el-table-column header-align="center" show-overflow-tooltip min-width="150" prop="descr" label="说明" /> -->
-      <el-table-column header-align="center" min-width="60" :sort-orders="settings.sortOrders" label="删除">
+      <el-table-column
+        header-align="center"
+        min-width="60"
+        :sort-orders="settings.sortOrders"
+        label="删除"
+      >
         <template v-slot:header>
           <span>
             删除
@@ -101,15 +209,22 @@
             >
               <div slot="content">
                 删除状态提示：<br>
-                绿色：未删除  <br>
+                绿色：未删除 <br>
                 红色：已删除
               </div>
-              <svg-icon icon-class="perfect-icon-question1_btn" style="margin-left: 5px" />
+              <svg-icon
+                icon-class="perfect-icon-question1_btn"
+                style="margin-left: 5px"
+              />
             </el-tooltip>
           </span>
         </template>
         <template v-slot="scope">
-          <el-tooltip :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' " placement="top" :open-delay="500">
+          <el-tooltip
+            :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' "
+            placement="top"
+            :open-delay="500"
+          >
             <el-switch
               v-model="scope.row.is_del"
               active-color="#ff4949"
@@ -123,14 +238,36 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="80" :sort-orders="settings.sortOrders" prop="u_name" label="更新人" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="180" :sort-orders="settings.sortOrders" prop="u_time" label="更新时间">
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="80"
+        :sort-orders="settings.sortOrders"
+        prop="u_name"
+        label="更新人"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="180"
+        :sort-orders="settings.sortOrders"
+        prop="u_time"
+        label="更新时间"
+      >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="minusPaging" :total="dataJson.paging.total" :page.sync="dataJson.paging.current" :limit.sync="dataJson.paging.size" @pagination="getDataList" />
+    <pagination
+      ref="minusPaging"
+      :total="dataJson.paging.total"
+      :page.sync="dataJson.paging.current"
+      :limit.sync="dataJson.paging.size"
+      @pagination="getDataList"
+    />
 
     <edit-dialog
       v-if="popSettings.one.visible"
@@ -142,27 +279,34 @@
       @closeMeCancel="handleCloseDialogOneCancel"
     />
 
-    <iframe id="refIframe" ref="refIframe" scrolling="no" frameborder="0" style="display:none" name="refIframe">x</iframe>
+    <iframe
+      id="refIframe"
+      ref="refIframe"
+      scrolling="no"
+      frameborder="0"
+      style="display:none"
+      name="refIframe"
+    >x</iframe>
   </div>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
 // import constants_program from '@/common/constants/constants_program'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 import { getListApi, exportAllApi, exportSelectionApi, deleteApi } from '@/api/20_master/group/group'
-import resizeMixin from './groupResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 import Pagination from '@/components/Pagination'
 import DeleteTypeNormal from '@/components/00_dict/select/SelectDeleteTypeNormal'
 import SelectDict from '@/components/00_dict/select/SelectDict'
@@ -185,7 +329,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -253,7 +397,7 @@ export default {
   watch: {
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -262,38 +406,38 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.initShow()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
   },
   methods: {
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
     },
     // 弹出框设置初始化
-    initDialogStatus() {
+    initDialogStatus () {
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
     // 行双点击，仅在dialog中有效
-    handleRowDbClick(row) {
+    handleRowDbClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
       var _data = deepCopy(row)
       if (this.meDialogStatus) {
         this.$emit('rowDbClick', _data)
       }
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -303,7 +447,7 @@ export default {
       this.$refs.multipleTable.clearSelection()
     },
     // 删除操作
-    handleDel(row) {
+    handleDel (row) {
       let _message = ''
       const _value = row.is_del
       const selectionJson = []
@@ -345,7 +489,7 @@ export default {
       })
     },
     // 导出按钮
-    handleExport() {
+    handleExport () {
       // 没有选择任何数据的情况
       if (this.dataJson.multipleSelection.length <= 0) {
         this.$alert('请在表格中选择数据进行导出', '未选择数据错误', {
@@ -375,7 +519,7 @@ export default {
       }
     },
     // 全部数据导出
-    handleExportAllData() {
+    handleExportAllData () {
       // loading
       this.settings.loading = true
       // 开始导出
@@ -385,11 +529,11 @@ export default {
       })
     },
     // 部分数据导出
-    handleExportSelectionData() {
+    handleExportSelectionData () {
       // loading
       this.settings.loading = true
       const selectionJson = []
-      this.dataJson.multipleSelection.forEach(function(value, index, array) {
+      this.dataJson.multipleSelection.forEach(function (value, index, array) {
         selectionJson.push({ 'id': value.id })
       })
       // 开始导出
@@ -398,7 +542,7 @@ export default {
         this.settings.loading = false
       })
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
 
@@ -414,7 +558,7 @@ export default {
       // 设置dialog的返回
       this.$store.dispatch('popUpSearchDialog/selectedDataJson', Object.assign({}, row))
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.dataJson.searchForm.pageCondition.sort = column.prop
@@ -423,7 +567,7 @@ export default {
       }
       this.getDataList()
     },
-    getDataList() {
+    getDataList () {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
@@ -438,35 +582,35 @@ export default {
       })
     },
     // 重置查询区域
-    doResetSearch() {
+    doResetSearch () {
       this.dataJson.searchForm = this.$options.data.call(this).dataJson.searchForm
     },
 
     // 获取row-key
-    getRowKeys(row) {
+    getRowKeys (row) {
       return row.id
     },
     // table选择框
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.dataJson.multipleSelection = val
     },
 
     // 点击按钮 新增
-    handleInsert() {
+    handleInsert () {
       // 新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_INSERT
       this.popSettings.one.visible = true
     },
 
     // 点击按钮 复制新增
-    handleCopyInsert() {
+    handleCopyInsert () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       // 复制新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_COPY_INSERT
       this.popSettings.one.visible = true
     },
     // 点击按钮 更新
-    handleUpdate() {
+    handleUpdate () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -477,7 +621,7 @@ export default {
       this.popSettings.one.visible = true
     },
     // 查看
-    handleView() {
+    handleView () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -487,7 +631,7 @@ export default {
       this.popSettings.one.visible = true
     },
     // ------------------编辑弹出框 start--------------------
-    handleCloseDialogOneOk(val) {
+    handleCloseDialogOneOk (val) {
       switch (this.popSettings.one.props.dialogStatus) {
         case this.PARAMETERS.STATUS_INSERT:
           this.doInsertModelCallBack(val)
@@ -502,11 +646,11 @@ export default {
           break
       }
     },
-    handleCloseDialogOneCancel() {
+    handleCloseDialogOneCancel () {
       this.popSettings.one.visible = false
     },
     // 处理插入回调
-    doInsertModelCallBack(val) {
+    doInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -528,7 +672,7 @@ export default {
       }
     },
     // 处理复制新增回调
-    doCopyInsertModelCallBack(val) {
+    doCopyInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
         // 设置到table中绑定的json数据源
@@ -551,7 +695,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateModelCallBack(val) {
+    doUpdateModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 

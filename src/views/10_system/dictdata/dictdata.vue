@@ -8,33 +8,83 @@
       class="floatRight"
     >
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.dictTypeCode" clearable placeholder="字典类型编码" />
+        <el-input
+          v-model.trim="dataJson.searchForm.dictTypeCode"
+          clearable
+          placeholder="字典类型编码"
+        />
       </el-form-item>
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.dictTypeName" clearable placeholder="字典类型名称" />
+        <el-input
+          v-model.trim="dataJson.searchForm.dictTypeName"
+          clearable
+          placeholder="字典类型名称"
+        />
       </el-form-item>
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.label" clearable placeholder="字典标签" />
+        <el-input
+          v-model.trim="dataJson.searchForm.label"
+          clearable
+          placeholder="字典标签"
+        />
       </el-form-item>
       <el-form-item label="">
         <delete-type-normal v-model="dataJson.searchForm.is_del" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-search"
+          @click="handleSearch"
+        >查询</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-popover:popover type="primary" plain icon="perfect-icon-reset" @click="doResetSearch">重置</el-button>
+        <el-button
+          v-popover:popover
+          type="primary"
+          plain
+          icon="perfect-icon-reset"
+          @click="doResetSearch"
+        >重置</el-button>
       </el-form-item>
     </el-form>
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.loading" @click="handleExport">导出</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        :loading="settings.loading"
+        @click="handleInsert"
+      >新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleUpdate"
+      >修改</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showCopyInsert"
+        type="primary"
+        icon="el-icon-camera-solid"
+        :loading="settings.loading"
+        @click="handleCopyInsert"
+      >复制新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showExport"
+        type="primary"
+        icon="el-icon-s-management"
+        :loading="settings.loading"
+        @click="handleExport"
+      >导出</el-button>
     </el-button-group>
 
     <el-button-group>
-      <el-button type="primary" icon="el-icon-upload" @click="handleOpenImportDialog">数据批量导入</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-upload"
+        @click="handleOpenImportDialog"
+      >数据批量导入</el-button>
     </el-button-group>
     <el-table
       ref="multipleTable"
@@ -55,29 +105,107 @@
       @cell-mouse-enter="handleCellMouseEnter"
       @cell-mouse-leave="handleCellMouseLeave"
     >
-      <el-table-column type="selection" width="45" prop="id" />
-      <el-table-column type="index" width="45" label="No" />
-      <el-table-column show-overflow-tooltip min-width="130" prop="dictTypeCode" label="字典类型" />
-      <el-table-column show-overflow-tooltip min-width="130" prop="dictTypeName" label="字典类型名称" />
-      <el-table-column show-overflow-tooltip min-width="120" prop="label" label="字典标签" />
-      <el-table-column show-overflow-tooltip min-width="120" prop="dict_value" label="字典键值" />
-      <el-table-column show-overflow-tooltip min-width="120" prop="extra1" label="额外配置1" />
-      <el-table-column show-overflow-tooltip min-width="120" prop="extra2" label="额外配置2" />
-      <el-table-column show-overflow-tooltip min-width="120" prop="extra3" label="额外配置3" />
-      <el-table-column show-overflow-tooltip min-width="120" prop="extra4" label="额外配置4" />
-      <el-table-column show-overflow-tooltip min-width="120" prop="sort" label="字典排序">
+      <el-table-column
+        type="selection"
+        width="45"
+        prop="id"
+      />
+      <el-table-column
+        type="index"
+        width="45"
+        label="No"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="130"
+        prop="dictTypeCode"
+        label="字典类型"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="130"
+        prop="dictTypeName"
+        label="字典类型名称"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="120"
+        prop="label"
+        label="字典标签"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="120"
+        prop="dict_value"
+        label="字典键值"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="120"
+        prop="extra1"
+        label="额外配置1"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="120"
+        prop="extra2"
+        label="额外配置2"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="120"
+        prop="extra3"
+        label="额外配置3"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="120"
+        prop="extra4"
+        label="额外配置4"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="120"
+        prop="sort"
+        label="字典排序"
+      >
         <template v-slot="scope">
           <span>{{ scope.row.sort }}</span>
           <div class="floatRight">
-            <el-button class="el-icon-top" type="text" style="font-size: 16px" :disabled="scope.row.sort===scope.row.min_sort" @click="handleSortUp(scope, scope.$index)" />
-            <el-button class="el-icon-bottom" type="text" style="font-size: 16px" :disabled="scope.row.sort===scope.row.max_sort" @click="handleSortDown(scope, scope.$index)" />
+            <el-button
+              class="el-icon-top"
+              type="text"
+              style="font-size: 16px"
+              :disabled="scope.row.sort===scope.row.min_sort"
+              @click="handleSortUp(scope, scope.$index)"
+            />
+            <el-button
+              class="el-icon-bottom"
+              type="text"
+              style="font-size: 16px"
+              :disabled="scope.row.sort===scope.row.max_sort"
+              @click="handleSortDown(scope, scope.$index)"
+            />
           </div>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip min-width="180" prop="descr" label="字典说明" />
-      <el-table-column min-width="70" label="删除" :render-header="renderHeaderIsDel">
+      <el-table-column
+        show-overflow-tooltip
+        min-width="180"
+        prop="descr"
+        label="字典说明"
+      />
+      <el-table-column
+        min-width="70"
+        label="删除"
+        :render-header="renderHeaderIsDel"
+      >
         <template v-slot="scope">
-          <el-tooltip :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' " placement="top" :open-delay="500">
+          <el-tooltip
+            :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' "
+            placement="top"
+            :open-delay="500"
+          >
             <el-switch
               v-model="scope.row.is_del"
               active-color="#ff4949"
@@ -90,13 +218,26 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column sortable="custom" min-width="180" :sort-orders="settings.sortOrders" show-overflow-tooltip prop="u_time" label="更新时间">
+      <el-table-column
+        sortable="custom"
+        min-width="180"
+        :sort-orders="settings.sortOrders"
+        show-overflow-tooltip
+        prop="u_time"
+        label="更新时间"
+      >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="minusPaging" :total="dataJson.paging.total" :page.sync="dataJson.paging.current" :limit.sync="dataJson.paging.size" @pagination="getDataList" />
+    <pagination
+      ref="minusPaging"
+      :total="dataJson.paging.total"
+      :page.sync="dataJson.paging.current"
+      :limit.sync="dataJson.paging.size"
+      @pagination="getDataList"
+    />
     <dicttype-dialog
       :visible="popSettingsData.searchDialogData.dialogVisible"
       @closeMeOk="handleResourceCloseOk"
@@ -121,7 +262,11 @@
         status-icon
       >
         <el-form-item label="点击下载：">
-          <el-link ref="refDownLoadOne" type="primary" :href="popSettingsImport.templateFilePath"> 模版文件下载</el-link>
+          <el-link
+            ref="refDownLoadOne"
+            type="primary"
+            :href="popSettingsImport.templateFilePath"
+          > 模版文件下载</el-link>
         </el-form-item>
         <el-form-item label="选择导入文件：">
           <simple-upload
@@ -129,7 +274,11 @@
             @upload-success="handleUploadFileSuccess"
             @upload-error="handleUploadFileError"
           />
-          <el-link v-show="!(popSettingsImport.errorFileUrl =='')" type="danger" :href="popSettingsImport.errorFileUrl">
+          <el-link
+            v-show="!(popSettingsImport.errorFileUrl =='')"
+            type="danger"
+            :href="popSettingsImport.errorFileUrl"
+          >
             <i class="el-icon-view el-icon--right" />错误信息
           </el-link>
         </el-form-item>
@@ -143,9 +292,16 @@
         <li>如果上传失败，会自动下载错误信息，请修改完毕后再次上传</li>
       </ul>
 
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-divider />
-        <el-button plain :disabled="settings.loading" @click="handlCloseDialog">关 闭</el-button>
+        <el-button
+          plain
+          :disabled="settings.loading"
+          @click="handlCloseDialog"
+        >关 闭</el-button>
       </div>
     </el-dialog>
 
@@ -175,22 +331,46 @@
         <br>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="字典类型：" prop="dictTypeCode">
-              <el-input v-model="popSettingsData.searchDialogData.selectedDataJson.code" disabled>
-                <el-button slot="append" ref="selectOne" :icon="popSettingsData.searchDialogData.selectOrResetIcon" @click="handleSelectOrReset">
+            <el-form-item
+              label="字典类型："
+              prop="dictTypeCode"
+            >
+              <el-input
+                v-model="popSettingsData.searchDialogData.selectedDataJson.code"
+                disabled
+              >
+                <el-button
+                  slot="append"
+                  ref="selectOne"
+                  :icon="popSettingsData.searchDialogData.selectOrResetIcon"
+                  @click="handleSelectOrReset"
+                >
                   {{ popSettingsData.searchDialogData.selectOrResetName }}
                 </el-button>
               </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="字典类型名称：" prop="dictTypeName">
-              <el-input v-model="popSettingsData.searchDialogData.selectedDataJson.name" disabled />
+            <el-form-item
+              label="字典类型名称："
+              prop="dictTypeName"
+            >
+              <el-input
+                v-model="popSettingsData.searchDialogData.selectedDataJson.name"
+                disabled
+              />
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="字典类型说明：" prop="dictTypeDescr">
-          <el-input v-model.trim="popSettingsData.searchDialogData.selectedDataJson.descr" type="textarea" disabled />
+        <el-form-item
+          label="字典类型说明："
+          prop="dictTypeDescr"
+        >
+          <el-input
+            v-model.trim="popSettingsData.searchDialogData.selectedDataJson.descr"
+            type="textarea"
+            disabled
+          />
         </el-form-item>
         <el-alert
           title="字典数据设置"
@@ -200,106 +380,220 @@
         <br>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="字典键值：" prop="dict_value">
-              <el-input ref="refDictValue" v-model.trim="dataJson.tempJson.dict_value" clearable show-word-limit controls-position="right" :maxlength="dataJson.inputSettings.maxLength.dict_value" />
+            <el-form-item
+              label="字典键值："
+              prop="dict_value"
+            >
+              <el-input
+                ref="refDictValue"
+                v-model.trim="dataJson.tempJson.dict_value"
+                clearable
+                show-word-limit
+                controls-position="right"
+                :maxlength="dataJson.inputSettings.maxLength.dict_value"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="字典标签：" prop="label">
-              <el-input v-model.trim="dataJson.tempJson.label" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.label" />
+            <el-form-item
+              label="字典标签："
+              prop="label"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.label"
+                clearable
+                show-word-limit
+                :maxlength="dataJson.inputSettings.maxLength.label"
+              />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="额外配置1：" prop="extra1">
-              <el-input v-model.trim="dataJson.tempJson.extra1" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.extra1" />
+            <el-form-item
+              label="额外配置1："
+              prop="extra1"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.extra1"
+                clearable
+                show-word-limit
+                :maxlength="dataJson.inputSettings.maxLength.extra1"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="额外配置2：" prop="extra2">
-              <el-input v-model.trim="dataJson.tempJson.extra2" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.extra2" />
+            <el-form-item
+              label="额外配置2："
+              prop="extra2"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.extra2"
+                clearable
+                show-word-limit
+                :maxlength="dataJson.inputSettings.maxLength.extra2"
+              />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="额外配置3：" prop="extra3">
-              <el-input v-model.trim="dataJson.tempJson.extra3" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.extra3" />
+            <el-form-item
+              label="额外配置3："
+              prop="extra3"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.extra3"
+                clearable
+                show-word-limit
+                :maxlength="dataJson.inputSettings.maxLength.extra3"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="额外配置4：" prop="extra4">
-              <el-input v-model.trim="dataJson.tempJson.extra4" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.extra4" />
+            <el-form-item
+              label="额外配置4："
+              prop="extra4"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.extra4"
+                clearable
+                show-word-limit
+                :maxlength="dataJson.inputSettings.maxLength.extra4"
+              />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="字典排序：" prop="sort">
-              <el-input v-model.trim="dataJson.tempJson.sort" disabled placeholder="系统自动指定" />
+            <el-form-item
+              label="字典排序："
+              prop="sort"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.sort"
+                disabled
+                placeholder="系统自动指定"
+              />
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="说明：" prop="descr">
-          <el-input v-model.trim="dataJson.tempJson.descr" clearable type="textarea" show-word-limit :maxlength="dataJson.inputSettings.maxLength.descr" />
+        <el-form-item
+          label="说明："
+          prop="descr"
+        >
+          <el-input
+            v-model.trim="dataJson.tempJson.descr"
+            clearable
+            type="textarea"
+            show-word-limit
+            :maxlength="dataJson.inputSettings.maxLength.descr"
+          />
         </el-form-item>
         <el-row v-show="popSettingsData.dialogStatus === PARAMETERS.STATUS_UPDATE">
           <el-col :span="12">
-            <el-form-item label="更新人：" prop="u_name">
-              <el-input v-model.trim="dataJson.tempJson.u_id" disabled />
+            <el-form-item
+              label="更新人："
+              prop="u_name"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.u_id"
+                disabled
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="更新时间：" prop="u_time">
-              <el-input v-model.trim="dataJson.tempJson.u_time" disabled />
+            <el-form-item
+              label="更新时间："
+              prop="u_time"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.u_time"
+                disabled
+              />
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-divider />
         <div class="floatLeft">
-          <el-button type="danger" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledReset" @click="doReset()">重置</el-button>
+          <el-button
+            type="danger"
+            :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledReset"
+            @click="doReset()"
+          >重置</el-button>
         </div>
-        <el-button plain :disabled="settings.loading" @click="popSettingsData.dialogFormVisible = false">取消</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showInsert" plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledInsert " @click="doInsert()">确定</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showUpdate" plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledUpdate " @click="doUpdate()">确定</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showCopyInsert" plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledCopyInsert " @click="doCopyInsert()">确定</el-button>
+        <el-button
+          plain
+          :disabled="settings.loading"
+          @click="popSettingsData.dialogFormVisible = false"
+        >取消</el-button>
+        <el-button
+          v-show="popSettingsData.btnShowStatus.showInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledInsert "
+          @click="doInsert()"
+        >确定</el-button>
+        <el-button
+          v-show="popSettingsData.btnShowStatus.showUpdate"
+          plain
+          type="primary"
+          :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledUpdate "
+          @click="doUpdate()"
+        >确定</el-button>
+        <el-button
+          v-show="popSettingsData.btnShowStatus.showCopyInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledCopyInsert "
+          @click="doCopyInsert()"
+        >确定</el-button>
       </div>
     </el-dialog>
-    <iframe id="refIframe" ref="refIframe" scrolling="no" frameborder="0" style="display:none" name="refIframe">x</iframe>
+    <iframe
+      id="refIframe"
+      ref="refIframe"
+      scrolling="no"
+      frameborder="0"
+      style="display:none"
+      name="refIframe"
+    >x</iframe>
   </div>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 <style >
-  .el-input-group__append_select{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
-  .el-input-group__append_reset{
-    color: #FFFFFF;
-    background-color: #F56C6C;
-    border-color: #F56C6C;
-  }
+.el-input-group__append_select {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+.el-input-group__append_reset {
+  color: #ffffff;
+  background-color: #f56c6c;
+  border-color: #f56c6c;
+}
 </style>
 
 <script>
 import constants_program from '@/common/constants/constants_program'
 import { getListApi, updateApi, insertApi, exportAllApi, exportSelectionApi, importExcelApi, deleteApi, saveListApi } from '@/api/10_system/dictdata/dictdata'
-import resizeMixin from './dictdataResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 import Pagination from '@/components/Pagination'
 import elDragDialog from '@/directive/el-drag-dialog'
 import SimpleUpload from '@/components/10_file/SimpleUpload'
@@ -312,7 +606,7 @@ export default {
   components: { Pagination, SimpleUpload, dicttypeDialog, DeleteTypeNormal },
   directives: { elDragDialog },
   mixins: [resizeMixin],
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -442,7 +736,7 @@ export default {
   watch: {
     // 监听弹出窗口是否有返回值
     'popSettingsData.searchDialogData.selectedDataJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.id !== undefined) {
           this.dataJson.tempJson.dict_type_id = newVal.id
         }
@@ -452,7 +746,7 @@ export default {
     },
     // 监听页面上面是否有修改，有修改按钮高亮
     'dataJson.tempJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.popSettingsData.btnResetStatus === true) {
           // 点击了重置按钮
           this.popSettingsData.btnDisabledStatus.disabledReset = true
@@ -473,7 +767,7 @@ export default {
     },
     // 弹出窗口初始化，按钮不可用
     'popSettingsData.dialogFormVisible': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.popSettingsData.dialogFormVisible) {
           this.initPopUpStatus()
           // 修改的情况下
@@ -485,7 +779,7 @@ export default {
     },
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -494,7 +788,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     if (this.$route.query.dictTypeCode !== undefined) {
       this.dataJson.searchForm.dictTypeCode = this.$route.query.dictTypeCode
     } else {
@@ -510,24 +804,24 @@ export default {
     // 数据初始化
     this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
   },
-  mounted() {
+  mounted () {
     // 描绘完成
   },
   methods: {
     // 下拉选项控件事件
-    handleSelectChange(val) {
+    handleSelectChange (val) {
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -536,7 +830,7 @@ export default {
       this.dataJson.multipleSelection = []
       this.$refs.multipleTable.clearSelection()
     },
-    handleRowUpdate(row, _rowIndex) {
+    handleRowUpdate (row, _rowIndex) {
       // 修改
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
       this.dataJson.rowIndex = _rowIndex
@@ -547,7 +841,7 @@ export default {
       })
     },
     // 删除操作
-    handleDel(row) {
+    handleDel (row) {
       let _message = ''
       const _value = row.is_del
       const selectionJson = []
@@ -589,7 +883,7 @@ export default {
       })
     },
     // 点击按钮 新增
-    handleInsert() {
+    handleInsert () {
       // 新增
       this.popSettingsData.dialogStatus = 'insert'
       this.$nextTick(() => {
@@ -608,7 +902,7 @@ export default {
       })
     },
     // 点击按钮 更新
-    handleUpdate() {
+    handleUpdate () {
       this.dataJson.tempJson = Object.assign({}, this.dataJson.currentJson)
       if (this.dataJson.tempJson.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -630,7 +924,7 @@ export default {
       })
     },
     // 导出按钮
-    handleExport() {
+    handleExport () {
       // 没有选择任何数据的情况
       if (this.dataJson.multipleSelection.length <= 0) {
         this.$alert('请在表格中选择数据进行导出', '未选择数据错误', {
@@ -660,7 +954,7 @@ export default {
       }
     },
     // 全部数据导出
-    handleExportAllData() {
+    handleExportAllData () {
       // loading
       this.settings.loading = true
       // 开始导出
@@ -670,11 +964,11 @@ export default {
       })
     },
     // 部分数据导出
-    handleExportSelectionData() {
+    handleExportSelectionData () {
       // loading
       this.settings.loading = true
       const selectionJson = []
-      this.dataJson.multipleSelection.forEach(function(value, index, array) {
+      this.dataJson.multipleSelection.forEach(function (value, index, array) {
         selectionJson.push({ 'id': value.id })
       })
       // 开始导出
@@ -684,7 +978,7 @@ export default {
       })
     },
     // 点击按钮 复制新增
-    handleCopyInsert() {
+    handleCopyInsert () {
       this.dataJson.tempJson = Object.assign({}, this.dataJson.currentJson)
       this.dataJson.tempJson.id = undefined
       this.dataJson.tempJson.template_id = undefined
@@ -712,7 +1006,7 @@ export default {
         this.$refs['refDictValue'].focus()
       })
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.tempJsonOriginal = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
@@ -726,7 +1020,7 @@ export default {
         this.settings.btnShowStatus.showCopyInsert = false
       }
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.dataJson.searchForm.pageCondition.sort = column.prop
@@ -735,7 +1029,7 @@ export default {
       }
       this.getDataList()
     },
-    getDataList() {
+    getDataList () {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
@@ -749,7 +1043,7 @@ export default {
       })
     },
     // 更新逻辑
-    doUpdate() {
+    doUpdate () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -781,11 +1075,11 @@ export default {
       })
     },
     // 重置查询区域
-    doResetSearch() {
+    doResetSearch () {
       this.dataJson.searchForm = this.$options.data.call(this).dataJson.searchForm
     },
     // 重置按钮
-    doReset() {
+    doReset () {
       this.popSettingsData.btnResetStatus = true
       switch (this.popSettingsData.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
@@ -828,7 +1122,7 @@ export default {
       })
     },
     // 插入逻辑
-    doInsert() {
+    doInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -856,7 +1150,7 @@ export default {
       })
     },
     // 复制新增逻辑
-    doCopyInsert() {
+    doCopyInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -885,7 +1179,7 @@ export default {
       })
     },
     // 文件上传成功
-    handleUploadFileSuccess(res) {
+    handleUploadFileSuccess (res) {
       // 开始导出
       importExcelApi(res.response.data).then(response => {
         this.settings.loading = false
@@ -910,7 +1204,7 @@ export default {
       })
     },
     // 文件上传失败
-    handleUploadFileError() {
+    handleUploadFileError () {
       console.debug('文件上传失败')
       this.$notify({
         title: '导入错误',
@@ -920,27 +1214,27 @@ export default {
       })
     },
     // 数据批量导入按钮
-    handleOpenImportDialog() {
+    handleOpenImportDialog () {
       this.popSettingsImport.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['refDownLoadOne'].$el.target = 'refIframe'
       })
     },
     // 关闭弹出窗口
-    handlCloseDialog() {
+    handlCloseDialog () {
       this.popSettingsImport.dialogFormVisible = false
       this.popSettingsData.dialogFormVisible = false
     },
     // 获取row-key
-    getRowKeys(row) {
+    getRowKeys (row) {
       return row.id
     },
     // table选择框
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.dataJson.multipleSelection = val
     },
     /** 当单元格 hover 进入时会触发该事件 */
-    handleCellMouseEnter(row, column, cell, event) {
+    handleCellMouseEnter (row, column, cell, event) {
       switch (column.columnKey) {
         case 'columnCode':
           // 字典编码列时
@@ -953,7 +1247,7 @@ export default {
       }
     },
     /** 当单元格 hover 退出时会触发该事件 */
-    handleCellMouseLeave(row, column, cell, event) {
+    handleCellMouseLeave (row, column, cell, event) {
       switch (column.columnKey) {
         case 'columnCode':
           // 字典编码列时
@@ -966,7 +1260,7 @@ export default {
       }
     },
     // 弹出查询对话框
-    handleSelectOrReset() {
+    handleSelectOrReset () {
       // this.$store.dispatch('popUpSearchDialog/show', true)
       if (this.popSettingsData.searchDialogData.selectOrReset === false) {
         // 选择按钮
@@ -982,7 +1276,7 @@ export default {
       }
     },
     // 关闭对话框：确定
-    handleResourceCloseOk(val) {
+    handleResourceCloseOk (val) {
       this.popSettingsData.searchDialogData.selectedDataJson = val
       this.popSettingsData.searchDialogData.dialogVisible = false
       this.initSelectOrResectButton()
@@ -992,10 +1286,10 @@ export default {
       this.dataJson.tempJson.dictTypeDescr = this.popSettingsData.searchDialogData.selectedDataJson.descr
     },
     // 关闭对话框：取消
-    handleResourceCloseCancel() {
+    handleResourceCloseCancel () {
       this.popSettingsData.searchDialogData.dialogVisible = false
     },
-    initSelectData() {
+    initSelectData () {
       // 设置资源部分的数据，从表格上复制
       this.popSettingsData.searchDialogData.selectedDataJson = {
         id: this.dataJson.tempJson.dict_type_id,
@@ -1006,7 +1300,7 @@ export default {
       this.initSelectOrResectButton()
     },
     // 弹出框设置初始化
-    initPopUpStatus() {
+    initPopUpStatus () {
       this.popSettingsData.btnDisabledStatus.disabledReset = true
       this.popSettingsData.btnDisabledStatus.disabledInsert = true
       this.popSettingsData.btnDisabledStatus.disabledUpdate = true
@@ -1014,7 +1308,7 @@ export default {
       this.initSelectOrResectButton()
     },
     // 选择资源窗口判断是否已经选择
-    isDataSelected() {
+    isDataSelected () {
       if (this.popSettingsData.searchDialogData.selectedDataJson.id === undefined) {
         // 未选择
         return false
@@ -1024,7 +1318,7 @@ export default {
       }
     },
     // 选择or重置按钮的初始化
-    initSelectOrResectButton() {
+    initSelectOrResectButton () {
       if (this.isDataSelected() === false) {
         this.$nextTick(() => {
           this.$refs.selectOne.$el.parentElement.className = 'el-input-group__append el-input-group__append_select'
@@ -1041,7 +1335,7 @@ export default {
         this.popSettingsData.searchDialogData.selectOrResetIcon = 'el-icon-circle-close'
       }
     },
-    renderHeaderIsDel: function(h, { column }) {
+    renderHeaderIsDel: function (h, { column }) {
       return (
         <span>{column.label}
           <el-tooltip
@@ -1050,17 +1344,17 @@ export default {
             placement='bottom'
           >
             <div slot='content'>
-            删除状态提示：<br/>
-            灰色：未删除  <br/>
+              删除状态提示：<br />
+            灰色：未删除  <br />
             红色：已删除
             </div>
-            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px'/>
+            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px' />
           </el-tooltip>
         </span>
       )
     },
     // 排序上
-    handleSortUp(scope, index) {
+    handleSortUp (scope, index) {
       // loading
       this.settings.loading = true
       // 1：位置互换，数组对象中
@@ -1073,7 +1367,7 @@ export default {
       this.doSortUpdate(this.getSortedDataList(scope.row.dict_type_id))
     },
     // 排序下
-    handleSortDown(scope, index) {
+    handleSortDown (scope, index) {
       // loading
       this.settings.loading = true
       // 1：位置互换，数组对象中
@@ -1086,8 +1380,8 @@ export default {
       this.doSortUpdate(this.getSortedDataList(scope.row.dict_type_id), scope.row.dict_type_id)
     },
     // sort重新计算
-    doReIndexSort(dict_type_id) {
-      this.dataJson.listData.forEach(function(item, index, arr) {
+    doReIndexSort (dict_type_id) {
+      this.dataJson.listData.forEach(function (item, index, arr) {
         if (item.dict_type_id === dict_type_id) {
           // 开始排序
           item.sort = index
@@ -1095,9 +1389,9 @@ export default {
       })
     },
     // sort重新计算
-    getSortedDataList(dict_type_id) {
+    getSortedDataList (dict_type_id) {
       const rtnList = []
-      this.dataJson.listData.forEach(function(item, index, arr) {
+      this.dataJson.listData.forEach(function (item, index, arr) {
         if (item.dict_type_id === dict_type_id) {
           rtnList.push(item)
         }
@@ -1105,7 +1399,7 @@ export default {
       return rtnList
     },
     // 更新逻辑
-    doSortUpdate(listData, dict_type_id) {
+    doSortUpdate (listData, dict_type_id) {
       saveListApi(listData).then((_data) => {
         this.$notify({
           title: '更新处理成功',
@@ -1129,9 +1423,9 @@ export default {
       })
     },
     // 更新完毕后，把最新的数据更新回去
-    doUpdateSortJson(updatedData, dict_type_id) {
+    doUpdateSortJson (updatedData, dict_type_id) {
       let startIndex = 0
-      this.dataJson.listData.forEach(function(item, index, arr) {
+      this.dataJson.listData.forEach(function (item, index, arr) {
         if (item.dict_type_id === dict_type_id) {
           // 位置互换，数组对象中
           const index1 = index
@@ -1141,7 +1435,7 @@ export default {
         }
       })
     },
-    closeEvent() {
+    closeEvent () {
       alert(111)
     }
   }

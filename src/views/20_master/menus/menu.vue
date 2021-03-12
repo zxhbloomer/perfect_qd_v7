@@ -8,26 +8,81 @@
       class="floatRight"
     >
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.name" clearable placeholder="名称" />
+        <el-input
+          v-model.trim="dataJson.searchForm.name"
+          clearable
+          placeholder="名称"
+        />
       </el-form-item>
       <!-- <el-form-item label="">
         <select-dict v-model="dataJson.searchForm.visible" :para="CONSTANTS.DICT_SYS_VISIBLE_TYPE" init-placeholder="请选择菜单类型" />
       </el-form-item> -->
       <el-form-item>
-        <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-search"
+          @click="handleSearch"
+        >查询</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain icon="perfect-icon-reset" @click="doResetSearch">重置</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="perfect-icon-reset"
+          @click="doResetSearch"
+        >重置</el-button>
       </el-form-item>
     </el-form>
     <el-button-group v-show="!meDialogStatus.dialogStatus">
-      <el-button :disabled="!settings.btnShowStatus.showInsert" type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增菜单组</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showAddTopNav" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleAddTopNav">添加顶部导航栏</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showAddSubNode" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleAddSubNode">添加子菜单-结点</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showAddSubMenu" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleAddSubMenu">添加子菜单-页面</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
-      <el-button type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleSort">调整菜单顺序</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showRealyDelete" type="primary" icon="el-icon-circle-close" :loading="settings.loading" @click="handleRealyDelete">物理删除</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showInsert"
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        :loading="settings.loading"
+        @click="handleInsert"
+      >新增菜单组</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showAddTopNav"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleAddTopNav"
+      >添加顶部导航栏</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showAddSubNode"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleAddSubNode"
+      >添加子菜单-结点</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showAddSubMenu"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleAddSubMenu"
+      >添加子菜单-页面</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleUpdate"
+      >修改</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleSort"
+      >调整菜单顺序</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showRealyDelete"
+        type="primary"
+        icon="el-icon-circle-close"
+        :loading="settings.loading"
+        @click="handleRealyDelete"
+      >物理删除</el-button>
     </el-button-group>
     <el-table
       v-cloak
@@ -49,29 +104,78 @@
       @current-change="handleCurrentChange"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column header-align="center" type="index" width="45" fixed />
-      <el-table-column header-align="center" show-overflow-tooltip min-width="250" prop="name" label="菜单名称" fixed>
+      <el-table-column
+        header-align="center"
+        type="index"
+        width="45"
+        fixed
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        min-width="250"
+        prop="name"
+        label="菜单名称"
+        fixed
+      >
         <template v-slot="scope">
-          <svg-icon v-if="scope.row.meta_icon" :icon-class="scope.row.meta_icon" :class="scope.row.meta_icon" />
+          <svg-icon
+            v-if="scope.row.meta_icon"
+            :icon-class="scope.row.meta_icon"
+            :class="scope.row.meta_icon"
+          />
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column header-align="center" show-overflow-tooltip min-width="160" prop="type_name" label="类型" fixed>
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        min-width="160"
+        prop="type_name"
+        label="类型"
+        fixed
+      >
         <template v-slot="scope">
           <span class="menu_png">
-            <em v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_ROOT" class="root">根结点</em>
-            <em v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_TOPNAV" class="top_nav">顶部导航栏</em>
-            <em v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_NODE" class="node">结点</em>
-            <em v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_PAGE" class="page">页面</em>
-            <em v-if="scope.row.is_default" class="default">默认菜单</em>
+            <em
+              v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_ROOT"
+              class="root"
+            >根结点</em>
+            <em
+              v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_TOPNAV"
+              class="top_nav"
+            >顶部导航栏</em>
+            <em
+              v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_NODE"
+              class="node"
+            >结点</em>
+            <em
+              v-if="scope.row.type ===CONSTANTS.DICT_SYS_MENU_TYPE_PAGE"
+              class="page"
+            >页面</em>
+            <em
+              v-if="scope.row.is_default"
+              class="default"
+            >默认菜单</em>
           </span>
         </template>
       </el-table-column>
-      <el-table-column header-align="center" show-overflow-tooltip min-width="150" prop="path" label="请求地址" fixed>
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        min-width="150"
+        prop="path"
+        label="请求地址"
+        fixed
+      >
         <template v-slot="scope">
           {{ scope.row.path }}
           <br>
-          <el-link v-if="scope.row.path ==='/'" type="primary" @click="handleRedirect()">
+          <el-link
+            v-if="scope.row.path ==='/'"
+            type="primary"
+            @click="handleRedirect()"
+          >
             <span v-if="dataJson.redirect.name === ''">
               设置跳转页面
             </span>
@@ -83,7 +187,10 @@
       </el-table-column>
       <!-- <el-table-column header-align="center" show-overflow-tooltip min-width="150" prop="code" label="菜单编号" /> -->
       <!-- <el-table-column header-align="center" show-overflow-tooltip min-width="80" prop="type_name" label="菜单类型" /> -->
-      <el-table-column header-align="center" label="按钮">
+      <el-table-column
+        header-align="center"
+        label="按钮"
+      >
         <el-table-column
           v-for="button_column in dataJson.menu_buttons"
           :key="button_column.code"
@@ -178,46 +285,46 @@
 
 <style >
 [v-cloak] {
-        display: none !important;
-      }
+  display: none !important;
+}
 </style>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
-  .grid-content {
-    border-radius: 2px;
-    min-height: 36px;
-    margin-bottom: 10px;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
+.grid-content {
+  border-radius: 2px;
+  min-height: 36px;
+  margin-bottom: 10px;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
 </style>
 <style >
-  .el-input-group__append_select{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
-  .el-input-group__append_reset{
-    color: #FFFFFF;
-    background-color: #F56C6C;
-    border-color: #F56C6C;
-  }
+.el-input-group__append_select {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+.el-input-group__append_reset {
+  color: #ffffff;
+  background-color: #f56c6c;
+  border-color: #f56c6c;
+}
 </style>
 
 <script>
 import constants_program from '@/common/constants/constants_program'
 import { getListApi, realDeleteSelectionApi, saveRedirectApi } from '@/api/20_master/menus/menu'
-import resizeMixin from './menuResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 import elDragDialog from '@/directive/el-drag-dialog'
 // import SelectDict from '@/components/00_dict/select/SelectDict'
 import editGroupDialog from '@/views/20_master/menus/dialog/editGroup'
@@ -239,7 +346,8 @@ export default {
     editSubMenuDialog,
     editSortDialog,
     selectRootNodeDialog,
-    editRedirectPageDialog },
+    editRedirectPageDialog
+  },
   directives: { elDragDialog },
   mixins: [resizeMixin],
   props: {
@@ -253,7 +361,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 级联选择器数据
@@ -374,7 +482,7 @@ export default {
   watch: {
     // 当前行的选中
     'dataJson.currentJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.dataJson.currentJson !== undefined && this.dataJson.currentJson.id !== undefined) {
           // 根据菜单类型，设置按钮是否可用
           switch (this.dataJson.currentJson.type) {
@@ -422,31 +530,31 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.initShow()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
   },
   methods: {
-    initShow() {
+    initShow () {
       this.settings.btnShowStatus.showInsert = true
       // 初始化查询
       this.getDataList()
     },
     // 下拉选项控件事件
-    handleSelectChange(val) {
+    handleSelectChange (val) {
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -455,17 +563,17 @@ export default {
       this.dataJson.multipleSelection = []
       this.$refs.multipleTable.clearSelection()
     },
-    handleRowUpdate(row, _rowIndex) {
+    handleRowUpdate (row, _rowIndex) {
       this.dataJson.rowIndex = _rowIndex
     },
     // 点击按钮 新增
-    handleInsert() {
+    handleInsert () {
       // 新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_INSERT
       this.popSettings.one.visible = true
     },
     // 点击按钮 更新
-    handleUpdate() {
+    handleUpdate () {
       // 没有选择任何数据的情况
       if (this.dataJson.currentJson.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -478,19 +586,19 @@ export default {
           this.popSettings.one.visible = true
           this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_UPDATE
           break
-          // 顶部导航栏编辑
+        // 顶部导航栏编辑
         case this.CONSTANTS.DICT_SYS_MENU_TYPE_TOPNAV:
           this.popSettings.six.props.data = deepCopy(this.dataJson.currentJson)
           this.popSettings.six.visible = true
           this.popSettings.six.props.dialogStatus = this.PARAMETERS.STATUS_UPDATE
           break
-          // 结点编辑
+        // 结点编辑
         case this.CONSTANTS.DICT_SYS_MENU_TYPE_NODE:
           this.popSettings.two.props.data = deepCopy(this.dataJson.currentJson)
           this.popSettings.two.visible = true
           this.popSettings.two.props.dialogStatus = this.PARAMETERS.STATUS_UPDATE
           break
-          // 菜单编辑
+        // 菜单编辑
         case this.CONSTANTS.DICT_SYS_MENU_TYPE_PAGE:
           this.popSettings.three.props.data = deepCopy(this.dataJson.currentJson)
           this.popSettings.three.visible = true
@@ -499,30 +607,30 @@ export default {
       }
     },
     // 点击按钮 添加顶部导航栏
-    handleAddTopNav() {
+    handleAddTopNav () {
       this.popSettings.six.props.dialogStatus = this.PARAMETERS.STATUS_INSERT
       this.popSettings.six.props.data = deepCopy(this.dataJson.currentJson)
       this.popSettings.six.visible = true
     },
     // 点击按钮 添加子菜单-结点
-    handleAddSubNode() {
+    handleAddSubNode () {
       this.popSettings.two.props.dialogStatus = this.PARAMETERS.STATUS_INSERT
       this.popSettings.two.props.data = deepCopy(this.dataJson.currentJson)
       this.popSettings.two.visible = true
     },
     // 点击按钮 添加子菜单-页面
-    handleAddSubMenu() {
+    handleAddSubMenu () {
       this.popSettings.three.props.dialogStatus = this.PARAMETERS.STATUS_INSERT
       this.popSettings.three.props.data = deepCopy(this.dataJson.currentJson)
       this.popSettings.three.visible = true
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
       // 设置dialog的返回
       this.$store.dispatch('popUpSearchDialog/selectedDataJson', Object.assign({}, row))
     },
-    getDataList() {
+    getDataList () {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
@@ -549,22 +657,22 @@ export default {
       })
     },
     // 重置查询区域
-    doResetSearch() {
+    doResetSearch () {
       this.dataJson.searchForm = this.$options.data.call(this).dataJson.searchForm
     },
     // 获取row-key
-    getRowKeys(row) {
+    getRowKeys (row) {
       return row.id
     },
     // table选择框
-    handleSelectionChange(arr) {
-      arr.forEach(function(val, index, arr) {
+    handleSelectionChange (arr) {
+      arr.forEach(function (val, index, arr) {
         console.log(val, index, arr)
       })
       this.dataJson.multipleSelection = arr
     },
     // 删除按钮
-    handleRealyDelete() {
+    handleRealyDelete () {
       // 没有选择任何数据的情况
       if (this.dataJson.currentJson.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -586,7 +694,7 @@ export default {
       })
     },
     // 选中数据删除
-    handleRealDeleteData() {
+    handleRealDeleteData () {
       // loading
       this.settings.loading = true
       const tempData = Object.assign({}, this.dataJson.currentJson)
@@ -613,7 +721,7 @@ export default {
       })
     },
     // -----------------新增菜单组 start------------------
-    handleEditGroupDialogCloseMeOk(val) {
+    handleEditGroupDialogCloseMeOk (val) {
       switch (this.popSettings.one.props.dialogStatus) {
         case this.PARAMETERS.STATUS_INSERT:
           this.doInsertEditGrouplCallBack(val)
@@ -623,11 +731,11 @@ export default {
           break
       }
     },
-    handleEditGroupDialogCloseMeCancel() {
+    handleEditGroupDialogCloseMeCancel () {
       this.popSettings.one.visible = false
     },
     // 处理插入回调
-    doInsertEditGrouplCallBack(val) {
+    doInsertEditGrouplCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -650,7 +758,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateEditGroupCallBack(val) {
+    doUpdateEditGroupCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -674,7 +782,7 @@ export default {
     },
     // -----------------新增菜单组 end------------------
     // -----------------添加顶部导航栏 start------------------
-    handleEditTopNavDialogCloseMeOk(val) {
+    handleEditTopNavDialogCloseMeOk (val) {
       switch (this.popSettings.six.props.dialogStatus) {
         case this.PARAMETERS.STATUS_INSERT:
           this.doInsertTopNavCallBack(val)
@@ -684,11 +792,11 @@ export default {
           break
       }
     },
-    handleEditTopNavDialogCloseMeCancel() {
+    handleEditTopNavDialogCloseMeCancel () {
       this.popSettings.six.visible = false
     },
     // 处理插入回调
-    doInsertTopNavCallBack(val) {
+    doInsertTopNavCallBack (val) {
       if (val.return_flag) {
         this.popSettings.six.visible = false
         this.getDataList()
@@ -708,7 +816,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateTopNavCallBack(val) {
+    doUpdateTopNavCallBack (val) {
       if (val.return_flag) {
         this.popSettings.six.visible = false
         // 设置到currentjson中
@@ -731,7 +839,7 @@ export default {
     },
     // -----------------添加顶部导航栏 end------------------
     // -----------------添加子菜单-结点 start------------------
-    handleEditSubNodeDialogCloseMeOk(val) {
+    handleEditSubNodeDialogCloseMeOk (val) {
       switch (this.popSettings.two.props.dialogStatus) {
         case this.PARAMETERS.STATUS_INSERT:
           this.doInsertEditSubNodeCallBack(val)
@@ -741,11 +849,11 @@ export default {
           break
       }
     },
-    handleEditSubNodeDialogCloseMeCancel() {
+    handleEditSubNodeDialogCloseMeCancel () {
       this.popSettings.two.visible = false
     },
     // 处理插入回调
-    doInsertEditSubNodeCallBack(val) {
+    doInsertEditSubNodeCallBack (val) {
       if (val.return_flag) {
         this.popSettings.two.visible = false
         this.getDataList()
@@ -765,7 +873,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateEditSubNodeCallBack(val) {
+    doUpdateEditSubNodeCallBack (val) {
       if (val.return_flag) {
         this.popSettings.two.visible = false
         // 设置到currentjson中
@@ -788,7 +896,7 @@ export default {
     },
     // -----------------添加子菜单-结点 end------------------
     // -----------------添加子菜单-页面 start------------------
-    handleEditSubMenuDialogCloseMeOk(val) {
+    handleEditSubMenuDialogCloseMeOk (val) {
       switch (this.popSettings.three.props.dialogStatus) {
         case this.PARAMETERS.STATUS_INSERT:
           this.doInsertEditSubMenuCallBack(val)
@@ -798,11 +906,11 @@ export default {
           break
       }
     },
-    handleEditSubMenuDialogCloseMeCancel() {
+    handleEditSubMenuDialogCloseMeCancel () {
       this.popSettings.three.visible = false
     },
     // 处理插入回调
-    doInsertEditSubMenuCallBack(val) {
+    doInsertEditSubMenuCallBack (val) {
       if (val.return_flag) {
         this.popSettings.three.visible = false
         this.getDataList()
@@ -822,7 +930,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateEditSubMenuCallBack(val) {
+    doUpdateEditSubMenuCallBack (val) {
       if (val.return_flag) {
         this.popSettings.three.visible = false
         // 设置到currentjson中
@@ -845,32 +953,32 @@ export default {
     },
     // -----------------添加子菜单-页面 end------------------
     // -----------------菜单排序 start------------------
-    handleEditSortDialogCloseMeCancel() {
+    handleEditSortDialogCloseMeCancel () {
       this.popSettings.four.visible = false
     },
     // -----------------菜单排序 end------------------
     // -----------------选择根目录 start------------------
-    handleSort() {
+    handleSort () {
       this.popSettings.five.props.data = this.dataJson.listData
       this.popSettings.five.visible = true
     },
-    handleSelectRootNodeDialogCloseMeOk(val) {
+    handleSelectRootNodeDialogCloseMeOk (val) {
       this.popSettings.five.visible = false
       // 打开菜单排序 dialog
       const _data = [val]
       this.popSettings.four.props.data = _data
       this.popSettings.four.visible = true
     },
-    handleSelectRootNodeDialogCloseMeCancel() {
+    handleSelectRootNodeDialogCloseMeCancel () {
       this.popSettings.five.visible = false
     },
     // -----------------选择根目录 end------------------
     // -----------------设置重定向 start------------------
-    handleRedirect() {
+    handleRedirect () {
       this.popSettings.seven.props.data = this.dataJson.listData
       this.popSettings.seven.visible = true
     },
-    handleRedirectPageDialogCloseMeOk(val) {
+    handleRedirectPageDialogCloseMeOk (val) {
       // 重定向数据更新至数据库中
       const redirect_id = this.dataJson.redirect.data === undefined ? undefined : this.dataJson.redirect.data.id
       saveRedirectApi({ id: redirect_id, root_id: val.root_id, page_id: val.page_id, menu_page_id: val.id }).then((_data) => {
@@ -883,7 +991,7 @@ export default {
 
       this.popSettings.seven.visible = false
     },
-    handleRedirectPageDialogCloseMeCancel() {
+    handleRedirectPageDialogCloseMeCancel () {
       this.popSettings.seven.visible = false
     }
     // -----------------设置重定向 end------------------

@@ -6,9 +6,15 @@
       class="filterInput"
       placeholder="输入关键字进行过滤"
     >
-      <el-button slot="append" icon="el-icon-search" />
+      <el-button
+        slot="append"
+        icon="el-icon-search"
+      />
     </el-input>
-    <div :style="{height: height + 'px'}" class="treeStyle generalDiv">
+    <div
+      :style="{height: height + 'px'}"
+      class="treeStyle generalDiv"
+    >
       <el-tree
         ref="treeObject"
         :data="treeData"
@@ -19,7 +25,10 @@
         node-key="id"
         default-expand-all
       >
-        <template v-slot="{ node, data }" class="custom-tree-node">
+        <template
+          v-slot="{ node, data }"
+          class="custom-tree-node"
+        >
           <span>{{ node.label }}</span>
           <span>
             <el-dropdown
@@ -67,63 +76,62 @@
 </template>
 
 <style scoped>
-  .treeStyle {
-    overflow: auto;
-    border: 1px solid #ebeef5;
-  }
-  .filterInput {
-    margin-bottom: 10px;
-  }
+.treeStyle {
+  overflow: auto;
+  border: 1px solid #ebeef5;
+}
+.filterInput {
+  margin-bottom: 10px;
+}
 
-  .leaf {
-      width: 20px;
-      background: #ddd
-  }
+.leaf {
+  width: 20px;
+  background: #ddd;
+}
 
-  .folder {
-      width: 20px;
-      background: #888
-  }
+.folder {
+  width: 20px;
+  background: #888;
+}
 
-  .custom-tree-container {
-      display: -ms-flexbox;
-      display: flex;
-      margin: -24px
-  }
+.custom-tree-container {
+  display: -ms-flexbox;
+  display: flex;
+  margin: -24px;
+}
 
-  .block {
-      -ms-flex: 1;
-      flex: 1;
-      padding: 8px 24px 24px
-  }
+.block {
+  -ms-flex: 1;
+  flex: 1;
+  padding: 8px 24px 24px;
+}
 
-  .block>p {
-      text-align: center;
-      margin: 0;
-      line-height: 4
-  }
+.block > p {
+  text-align: center;
+  margin: 0;
+  line-height: 4;
+}
 
-  .block:first-child {
-      border-right: 1px solid #eff2f6
-  }
+.block:first-child {
+  border-right: 1px solid #eff2f6;
+}
 
-  .custom-tree-node {
-      -ms-flex: 1;
-      flex: 1;
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-align: center;
-      align-items: center;
-      -ms-flex-pack: justify;
-      justify-content: space-between;
-      font-size: 12px;
-      padding-right: 8px
-  }
-
+.custom-tree-node {
+  -ms-flex: 1;
+  flex: 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  font-size: 12px;
+  padding-right: 8px;
+}
 </style>
 
 <script>
-import resizeMixin from './organizeResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 
 export default {
   name: 'P00000010', // 页面id，和router中的name需要一致，作为缓存
@@ -137,7 +145,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       // 表格数据
       searchForm: {
@@ -209,29 +217,29 @@ export default {
     }
   },
   watch: {
-    filterText(val) {
+    filterText (val) {
       this.$refs.treeObject.filter(val)
     }
   },
-  created() {
+  created () {
     // 初始化查询
     this.btnStatus.doEdit = false
   },
   methods: {
-    append(data) {
+    append (data) {
       const newChild = { id: 12345, label: 'testtest', children: [] }
       if (!data.children) {
         this.$set(data, 'children', [])
       }
       data.children.push(newChild)
     },
-    remove(node, data) {
+    remove (node, data) {
       const parent = node.parent
       const children = parent.data.children || parent.data
       const index = children.findIndex(d => d.id === data.id)
       children.splice(index, 1)
     },
-    filterNode(value, data) {
+    filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     }

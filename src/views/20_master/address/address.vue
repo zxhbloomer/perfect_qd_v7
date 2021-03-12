@@ -8,15 +8,49 @@
       class="floatRight"
     >
       <el-form-item>
-        <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">刷 新</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-search"
+          @click="handleSearch"
+        >刷 新</el-button>
       </el-form-item>
     </el-form>
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-delete" :loading="settings.loading" @click="handleRealyDelete">删除</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.loading" @click="handleView">查看</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        :loading="settings.loading"
+        @click="handleInsert"
+      >新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleUpdate"
+      >修改</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showCopyInsert"
+        type="primary"
+        icon="el-icon-camera-solid"
+        :loading="settings.loading"
+        @click="handleCopyInsert"
+      >复制新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showExport"
+        type="primary"
+        icon="el-icon-delete"
+        :loading="settings.loading"
+        @click="handleRealyDelete"
+      >删除</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-info"
+        :loading="settings.loading"
+        @click="handleView"
+      >查看</el-button>
     </el-button-group>
     <el-table
       ref="multipleTable"
@@ -37,22 +71,93 @@
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column v-if="!meDialogStatus" type="selection" width="45" prop="id" />
-      <el-table-column type="index" width="45" label="No" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="link_man" label="联系人" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="phone" label="电话" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="postal_code" label="邮编" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="is_default" label="默认" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="tag_name" label="标签" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="250" :sort-orders="settings.sortOrders" prop="detail_address" label="详细地址" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="100" :sort-orders="settings.sortOrders" prop="u_name" label="更新人" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="180" :sort-orders="settings.sortOrders" prop="u_time" label="更新时间">
+      <el-table-column
+        v-if="!meDialogStatus"
+        type="selection"
+        width="45"
+        prop="id"
+      />
+      <el-table-column
+        type="index"
+        width="45"
+        label="No"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="link_man"
+        label="联系人"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="phone"
+        label="电话"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="postal_code"
+        label="邮编"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="is_default"
+        label="默认"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="tag_name"
+        label="标签"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="250"
+        :sort-orders="settings.sortOrders"
+        prop="detail_address"
+        label="详细地址"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="100"
+        :sort-orders="settings.sortOrders"
+        prop="u_name"
+        label="更新人"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="180"
+        :sort-orders="settings.sortOrders"
+        prop="u_time"
+        label="更新时间"
+      >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="minusPaging" :total="dataJson.paging.total" :page.sync="dataJson.paging.current" :limit.sync="dataJson.paging.size" @pagination="getDataList" />
+    <pagination
+      ref="minusPaging"
+      :total="dataJson.paging.total"
+      :page.sync="dataJson.paging.current"
+      :limit.sync="dataJson.paging.size"
+      @pagination="getDataList"
+    />
 
     <edit-dialog
       v-if="popSettings.one.visible"
@@ -63,26 +168,33 @@
       @closeMeOk="handleCloseDialogOneOk"
       @closeMeCancel="handleCloseDialogOneCancel"
     />
-    <iframe id="refIframe" ref="refIframe" scrolling="no" frameborder="0" style="display:none" name="refIframe">x</iframe>
+    <iframe
+      id="refIframe"
+      ref="refIframe"
+      scrolling="no"
+      frameborder="0"
+      style="display:none"
+      name="refIframe"
+    >x</iframe>
   </div>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
 import constants_program from '@/common/constants/constants_program'
 import { getListApi, realDeleteSelectionApi } from '@/api/20_master/address/address'
-import resizeMixin from './addressResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 import Pagination from '@/components/Pagination'
 import deepCopy from 'deep-copy'
 import editDialog from '@/views/20_master/address/dialog/edit'
@@ -90,7 +202,7 @@ import editDialog from '@/views/20_master/address/dialog/edit'
 export default {
   name: constants_program.P_ADDRESS, // 页面id，和router中的name需要一致，作为缓存
   components: { Pagination, editDialog },
-  directives: { },
+  directives: {},
   mixins: [resizeMixin],
   props: {
     // 自己作为弹出框时的参数
@@ -99,7 +211,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -165,7 +277,7 @@ export default {
   watch: {
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -174,42 +286,42 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.initShow()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
   },
   methods: {
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
     },
     // 弹出框设置初始化
-    initDialogStatus() {
+    initDialogStatus () {
     },
     // 下拉选项控件事件
-    handleSelectChange(val) {
+    handleSelectChange (val) {
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.tempJson = deepCopy(row) // copy obj
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
     // 行双点击，仅在dialog中有效
-    handleRowDbClick(row) {
+    handleRowDbClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
       var _data = deepCopy(row)
       if (this.meDialogStatus) {
         this.$emit('rowDbClick', _data)
       }
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -219,13 +331,13 @@ export default {
       this.$refs.multipleTable.clearSelection()
     },
     // 点击按钮 新增
-    handleInsert() {
+    handleInsert () {
       // 新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_INSERT
       this.popSettings.one.visible = true
     },
     // 点击按钮 更新
-    handleUpdate() {
+    handleUpdate () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -236,7 +348,7 @@ export default {
       this.popSettings.one.visible = true
     },
     // 查看
-    handleView() {
+    handleView () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -246,7 +358,7 @@ export default {
       this.popSettings.one.visible = true
     },
     // 导出按钮
-    handleExport() {
+    handleExport () {
       // 没有选择任何数据的情况
       if (this.dataJson.multipleSelection.length <= 0) {
         this.$alert('请在表格中选择数据进行导出', '未选择数据错误', {
@@ -278,13 +390,13 @@ export default {
       }
     },
     // 点击按钮 复制新增
-    handleCopyInsert() {
+    handleCopyInsert () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       // 复制新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_COPY_INSERT
       this.popSettings.one.visible = true
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
       this.dataJson.tempJsonOriginal = Object.assign({}, row) // copy obj
@@ -301,7 +413,7 @@ export default {
       // 设置dialog的返回
       this.$store.dispatch('popUpSearchDialog/selectedDataJson', Object.assign({}, row))
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.dataJson.searchForm.pageCondition.sort = column.prop
@@ -310,7 +422,7 @@ export default {
       }
       this.getDataList()
     },
-    getDataList() {
+    getDataList () {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
@@ -329,19 +441,19 @@ export default {
       })
     },
     // 重置查询区域
-    doResetSearch() {
+    doResetSearch () {
       this.dataJson.searchForm = this.$options.data.call(this).dataJson.searchForm
     },
     // 获取row-key
-    getRowKeys(row) {
+    getRowKeys (row) {
       return row.id
     },
     // table选择框
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.dataJson.multipleSelection = val
     },
     // 删除按钮
-    handleRealyDelete() {
+    handleRealyDelete () {
       // 没有选择任何数据的情况
       if (this.dataJson.multipleSelection.length <= 0) {
         this.$alert('请在表格中选择数据进行删除', '未选择数据错误', {
@@ -359,19 +471,19 @@ export default {
           // 选中数据删除
           this.handleRealDeleteSelectionData()
         }).catch(action => {
-        // 右上角X
-        // if (action !== 'close') {
-        //   //
-        // }
+          // 右上角X
+          // if (action !== 'close') {
+          //   //
+          // }
         })
       }
     },
     // 选中数据删除
-    handleRealDeleteSelectionData() {
+    handleRealDeleteSelectionData () {
       // loading
       this.settings.loading = true
       const selectionJson = []
-      this.dataJson.multipleSelection.forEach(function(value, index, array) {
+      this.dataJson.multipleSelection.forEach(function (value, index, array) {
         selectionJson.push({ 'id': value.id })
       })
       // 开始删除
@@ -397,7 +509,7 @@ export default {
       })
     },
     // ------------------编辑弹出框 start--------------------
-    handleCloseDialogOneOk(val) {
+    handleCloseDialogOneOk (val) {
       switch (this.popSettings.one.props.dialogStatus) {
         case this.PARAMETERS.STATUS_INSERT:
           this.doInsertModelCallBack(val)
@@ -412,11 +524,11 @@ export default {
           break
       }
     },
-    handleCloseDialogOneCancel() {
+    handleCloseDialogOneCancel () {
       this.popSettings.one.visible = false
     },
     // 处理插入回调
-    doInsertModelCallBack(val) {
+    doInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -438,7 +550,7 @@ export default {
       }
     },
     // 处理复制新增回调
-    doCopyInsertModelCallBack(val) {
+    doCopyInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
         // 设置到table中绑定的json数据源
@@ -461,7 +573,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateModelCallBack(val) {
+    doUpdateModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 

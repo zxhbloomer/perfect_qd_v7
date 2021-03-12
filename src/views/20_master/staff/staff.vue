@@ -8,28 +8,78 @@
       class="floatRight"
     >
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.name" clearable placeholder="员工名称" />
+        <el-input
+          v-model.trim="dataJson.searchForm.name"
+          clearable
+          placeholder="员工名称"
+        />
       </el-form-item>
       <el-form-item label="">
         <delete-type-normal v-model="dataJson.searchForm.is_del" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-search"
+          @click="handleSearch"
+        >查询</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-popover:popover type="primary" plain icon="perfect-icon-reset" @click="doResetSearch">重置</el-button>
+        <el-button
+          v-popover:popover
+          type="primary"
+          plain
+          icon="perfect-icon-reset"
+          @click="doResetSearch"
+        >重置</el-button>
       </el-form-item>
     </el-form>
 
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.loading" @click="handleExport">导出</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.loading" @click="handleView">查看</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        :loading="settings.loading"
+        @click="handleInsert"
+      >新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleUpdate"
+      >修改</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showExport"
+        type="primary"
+        icon="el-icon-s-management"
+        :loading="settings.loading"
+        @click="handleExport"
+      >导出</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-info"
+        :loading="settings.loading"
+        @click="handleView"
+      >查看</el-button>
     </el-button-group>
     <el-button-group>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-user-solid" :loading="settings.loading" @click="handleSetPosition">设置岗位员工</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-user" :loading="settings.loading" @click="handleUpdate">设置角色</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-user-solid"
+        :loading="settings.loading"
+        @click="handleSetPosition"
+      >设置岗位员工</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-user"
+        :loading="settings.loading"
+        @click="handleUpdate"
+      >设置角色</el-button>
     </el-button-group>
     <el-table
       ref="multipleTable"
@@ -50,25 +100,93 @@
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="45" prop="id" />
-      <el-table-column type="index" width="45" label="No" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="name" label="员工姓名" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="simple_name" label="姓名简称" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="80" :sort-orders="settings.sortOrders" prop="sex_text" label="性别" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="80" :sort-orders="settings.sortOrders" prop="birthday" label="生日" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="email" label="邮箱地址" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" prop="company_name" label="所属公司" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" prop="dept_name" label="默认部门" />
+      <el-table-column
+        type="selection"
+        width="45"
+        prop="id"
+      />
+      <el-table-column
+        type="index"
+        width="45"
+        label="No"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="name"
+        label="员工姓名"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="simple_name"
+        label="姓名简称"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="80"
+        :sort-orders="settings.sortOrders"
+        prop="sex_text"
+        label="性别"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="80"
+        :sort-orders="settings.sortOrders"
+        prop="birthday"
+        label="生日"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="email"
+        label="邮箱地址"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        prop="company_name"
+        label="所属公司"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        prop="dept_name"
+        label="默认部门"
+      />
 
-      <el-table-column header-align="center" label="岗位信息" min-width="150">
+      <el-table-column
+        header-align="center"
+        label="岗位信息"
+        min-width="150"
+      >
         <template v-slot="column_lists">
-          <el-tag v-for="item in column_lists.row.positions" :key="item.position_id" class="position_tag" @click.stop="handlePositionClick(item.position_name)">
+          <el-tag
+            v-for="item in column_lists.row.positions"
+            :key="item.position_id"
+            class="position_tag"
+            @click.stop="handlePositionClick(item.position_name)"
+          >
             {{ item.position_name }}
           </el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column min-width="90" :sort-orders="settings.sortOrders" label="删除">
+      <el-table-column
+        min-width="90"
+        :sort-orders="settings.sortOrders"
+        label="删除"
+      >
         <template v-slot:header>
           <span>
             删除
@@ -79,15 +197,22 @@
             >
               <div slot="content">
                 删除状态提示：<br>
-                绿色：未删除  <br>
+                绿色：未删除 <br>
                 红色：已删除
               </div>
-              <svg-icon icon-class="perfect-icon-question1_btn" style="margin-left: 5px" />
+              <svg-icon
+                icon-class="perfect-icon-question1_btn"
+                style="margin-left: 5px"
+              />
             </el-tooltip>
           </span>
         </template>
         <template v-slot="scope">
-          <el-tooltip :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' " placement="top" :open-delay="500">
+          <el-tooltip
+            :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' "
+            placement="top"
+            :open-delay="500"
+          >
             <el-switch
               v-model="scope.row.is_del"
               active-color="#ff4949"
@@ -101,14 +226,34 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="90" :sort-orders="settings.sortOrders" prop="u_name" label="更新人" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="180" :sort-orders="settings.sortOrders" prop="u_time" label="更新时间">
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="90"
+        :sort-orders="settings.sortOrders"
+        prop="u_name"
+        label="更新人"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="180"
+        :sort-orders="settings.sortOrders"
+        prop="u_time"
+        label="更新时间"
+      >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="minusPaging" :total="dataJson.paging.total" :page.sync="dataJson.paging.current" :limit.sync="dataJson.paging.size" @pagination="getDataList" />
+    <pagination
+      ref="minusPaging"
+      :total="dataJson.paging.total"
+      :page.sync="dataJson.paging.current"
+      :limit.sync="dataJson.paging.size"
+      @pagination="getDataList"
+    />
 
     <edit-dialog
       v-if="popSettings.one.visible"
@@ -128,30 +273,36 @@
       @closeMeCancel="handleCloseDialogTwoCancel"
     />
 
-    <iframe id="refIframe" ref="refIframe" scrolling="no" frameborder="0" style="display:none" name="refIframe">x</iframe>
+    <iframe
+      id="refIframe"
+      ref="refIframe"
+      scrolling="no"
+      frameborder="0"
+      style="display:none"
+      name="refIframe"
+    >x</iframe>
   </div>
 </template>
 
 <style scoped>
-
-  .position_tag{
-   cursor: pointer;
-  }
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.position_tag {
+  cursor: pointer;
+}
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
 import constants_program from '@/common/constants/constants_program'
 import { getListApi, exportAllApi, exportSelectionApi, deleteApi } from '@/api/20_master/staff/staff'
-import resizeMixin from './staffResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 import Pagination from '@/components/Pagination'
 import elDragDialog from '@/directive/el-drag-dialog'
 import DeleteTypeNormal from '@/components/00_dict/select/SelectDeleteTypeNormal'
@@ -612,7 +763,10 @@ export default {
         return
       }
       // 通知路由，打开岗位页面
-      this.$router.push({ name: this.PROGRAMS.P_POSITION, query: { name: val }})
+      this.$router.push(
+        {
+          name: this.PROGRAMS.P_POSITION, query: { name: val }
+        })
     },
     // -------------------岗位调整 弹出框 start-----
     handleSetPosition (val) {

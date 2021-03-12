@@ -8,26 +8,80 @@
       class="floatRight"
     >
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.page_name" clearable placeholder="页面名称" />
+        <el-input
+          v-model.trim="dataJson.searchForm.page_name"
+          clearable
+          placeholder="页面名称"
+        />
       </el-form-item>
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.page_code" clearable placeholder="页面编号" />
+        <el-input
+          v-model.trim="dataJson.searchForm.page_code"
+          clearable
+          placeholder="页面编号"
+        />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-search"
+          @click="handleSearch"
+        >查询</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-popover:popover type="primary" plain icon="perfect-icon-reset" @click="doResetSearch">重置</el-button>
+        <el-button
+          v-popover:popover
+          type="primary"
+          plain
+          icon="perfect-icon-reset"
+          @click="doResetSearch"
+        >重置</el-button>
       </el-form-item>
     </el-form>
 
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-circle-close" :loading="settings.loading" @click="handleRealyDelete">物理删除</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.loading" @click="handleExport">导出</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-info" :loading="settings.loading" @click="handleView">查看</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        :loading="settings.loading"
+        @click="handleInsert"
+      >新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleUpdate"
+      >修改</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showCopyInsert"
+        type="primary"
+        icon="el-icon-camera-solid"
+        :loading="settings.loading"
+        @click="handleCopyInsert"
+      >复制新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showExport"
+        type="primary"
+        icon="el-icon-circle-close"
+        :loading="settings.loading"
+        @click="handleRealyDelete"
+      >物理删除</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showExport"
+        type="primary"
+        icon="el-icon-s-management"
+        :loading="settings.loading"
+        @click="handleExport"
+      >导出</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-info"
+        :loading="settings.loading"
+        @click="handleView"
+      >查看</el-button>
     </el-button-group>
     <el-table
       ref="multipleTable"
@@ -48,7 +102,12 @@
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column v-if="!meDialogStatus" type="selection" width="45" prop="id" />
+      <el-table-column
+        v-if="!meDialogStatus"
+        type="selection"
+        width="45"
+        prop="id"
+      />
       <el-table-column
         label="No"
         type="index"
@@ -59,27 +118,120 @@
           <span>{{ (dataJson.searchForm.pageCondition.current - 1) * dataJson.searchForm.pageCondition.size + scope.$index + 1 }}</span>
         </template>
       </el-table-column>
-      <el-table-column v-if="!meDialogStatus" :auto-fit="true" header-align="center" show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="page_code" label="页面编号" />
-      <el-table-column :auto-fit="true" header-align="center" show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="page_name" label="页面名称" />
-      <el-table-column :auto-fit="true" header-align="center" show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="page_perms" label="页面权限标识" />
-      <el-table-column :auto-fit="true" header-align="center" show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="function_code" label="按钮编号" />
-      <el-table-column :auto-fit="true" header-align="center" show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="function_name" label="按钮名称" />
-      <el-table-column :auto-fit="true" header-align="center" show-overflow-tooltip sortable="custom" min-width="200" :sort-orders="settings.sortOrders" prop="perms" label="权限标识" />
-      <el-table-column :auto-fit="true" header-align="center" show-overflow-tooltip sortable="custom" min-width="100" :sort-orders="settings.sortOrders" prop="sort" label="排序" class-name="perfect_edit_column">
+      <el-table-column
+        v-if="!meDialogStatus"
+        :auto-fit="true"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="page_code"
+        label="页面编号"
+      />
+      <el-table-column
+        :auto-fit="true"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="page_name"
+        label="页面名称"
+      />
+      <el-table-column
+        :auto-fit="true"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="page_perms"
+        label="页面权限标识"
+      />
+      <el-table-column
+        :auto-fit="true"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="function_code"
+        label="按钮编号"
+      />
+      <el-table-column
+        :auto-fit="true"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="function_name"
+        label="按钮名称"
+      />
+      <el-table-column
+        :auto-fit="true"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="200"
+        :sort-orders="settings.sortOrders"
+        prop="perms"
+        label="权限标识"
+      />
+      <el-table-column
+        :auto-fit="true"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="100"
+        :sort-orders="settings.sortOrders"
+        prop="sort"
+        label="排序"
+        class-name="perfect_edit_column"
+      >
         <template v-slot="{row}">
-          <editable-cell v-model="row.sort" :row-data="row" :show-input="row.edit_cell_model" @closeMeOk="handleSortUpdate">
+          <editable-cell
+            v-model="row.sort"
+            :row-data="row"
+            :show-input="row.edit_cell_model"
+            @closeMeOk="handleSortUpdate"
+          >
             <span slot="edit-cell-content">{{ row.sort }}</span>
           </editable-cell>
         </template>
       </el-table-column>
-      <el-table-column :auto-fit="true" header-align="center" show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="u_name" label="更新人" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" :sort-orders="settings.sortOrders" min-width="200" prop="u_time" label="更新时间">
+      <el-table-column
+        :auto-fit="true"
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="u_name"
+        label="更新人"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        :sort-orders="settings.sortOrders"
+        min-width="200"
+        prop="u_time"
+        label="更新时间"
+      >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="minusPaging" :total="dataJson.paging.total" :page.sync="dataJson.paging.current" :limit.sync="dataJson.paging.size" @pagination="getDataList" />
+    <pagination
+      ref="minusPaging"
+      :total="dataJson.paging.total"
+      :page.sync="dataJson.paging.current"
+      :limit.sync="dataJson.paging.size"
+      @pagination="getDataList"
+    />
 
     <edit-dialog
       v-if="popSettings.one.visible"
@@ -91,29 +243,36 @@
       @closeMeCancel="handleCloseDialogOneCancel"
     />
 
-    <iframe id="refIframe" ref="refIframe" scrolling="no" frameborder="0" style="display:none" name="refIframe">x</iframe>
+    <iframe
+      id="refIframe"
+      ref="refIframe"
+      scrolling="no"
+      frameborder="0"
+      style="display:none"
+      name="refIframe"
+    >x</iframe>
   </div>
 </template>
 
 <style scoped>
-  .el-table ::v-deep .perfect_edit_column .cell  {
-    padding-left:0px ;
-    padding-right:3px ;
-  }
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.el-table ::v-deep .perfect_edit_column .cell {
+  padding-left: 0px;
+  padding-right: 3px;
+}
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
 import { getListApi, realDeleteSelectionApi } from '@/api/10_system/pages/page_function'
-import resizeMixin from './page_functionResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 import Pagination from '@/components/Pagination'
 import editDialog from '@/views/10_system/pages/page_function/dialog/edit'
 import deepCopy from 'deep-copy'
@@ -122,7 +281,7 @@ import { updateAssignApi } from '@/api/10_system/pages/page_function'
 
 export default {
   components: { Pagination, editDialog, EditableCell },
-  directives: { },
+  directives: {},
   mixins: [resizeMixin],
   props: {
     // 自己作为弹出框时的参数
@@ -135,7 +294,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -202,7 +361,7 @@ export default {
   watch: {
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -211,38 +370,38 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.initShow()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
   },
   methods: {
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
     },
     // 弹出框设置初始化
-    initDialogStatus() {
+    initDialogStatus () {
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
     // 行双点击，仅在dialog中有效
-    handleRowDbClick(row) {
+    handleRowDbClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
       var _data = deepCopy(row)
       if (this.meDialogStatus) {
         this.$emit('rowDbClick', _data)
       }
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -253,7 +412,7 @@ export default {
       this.$refs.multipleTable.clearSelection()
     },
     // 导出按钮
-    handleExport() {
+    handleExport () {
       // 没有选择任何数据的情况
       if (this.dataJson.multipleSelection.length <= 0) {
         this.$alert('请在表格中选择数据进行导出', '未选择数据错误', {
@@ -282,7 +441,7 @@ export default {
         this.handleExportSelectionData()
       }
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
 
@@ -298,7 +457,7 @@ export default {
       // 设置dialog的返回
       this.$store.dispatch('popUpSearchDialog/selectedDataJson', Object.assign({}, row))
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.dataJson.searchForm.pageCondition.sort = column.prop
@@ -307,7 +466,7 @@ export default {
       }
       this.getDataList()
     },
-    getDataList() {
+    getDataList () {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
@@ -322,35 +481,35 @@ export default {
       })
     },
     // 重置查询区域
-    doResetSearch() {
+    doResetSearch () {
       this.dataJson.searchForm = this.$options.data.call(this).dataJson.searchForm
     },
 
     // 获取row-key
-    getRowKeys(row) {
+    getRowKeys (row) {
       return row.id
     },
     // table选择框
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.dataJson.multipleSelection = val
     },
 
     // 点击按钮 新增
-    handleInsert() {
+    handleInsert () {
       // 新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_INSERT
       this.popSettings.one.visible = true
     },
 
     // 点击按钮 复制新增
-    handleCopyInsert() {
+    handleCopyInsert () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       // 复制新增
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_COPY_INSERT
       this.popSettings.one.visible = true
     },
     // 点击按钮 更新
-    handleUpdate() {
+    handleUpdate () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -361,7 +520,7 @@ export default {
       this.popSettings.one.visible = true
     },
     // 查看
-    handleView() {
+    handleView () {
       this.popSettings.one.props.data = Object.assign({}, this.dataJson.currentJson)
       if (this.popSettings.one.props.data.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -371,7 +530,7 @@ export default {
       this.popSettings.one.visible = true
     },
     // 删除按钮
-    handleRealyDelete() {
+    handleRealyDelete () {
       // 没有选择任何数据的情况
       if (this.dataJson.multipleSelection.length <= 0) {
         this.$alert('请在表格中选择数据进行删除', '未选择数据错误', {
@@ -386,11 +545,11 @@ export default {
       }
     },
     // 选中数据删除
-    handleRealDeleteSelectionData() {
+    handleRealDeleteSelectionData () {
       // loading
       this.settings.loading = true
       const selectionJson = []
-      this.dataJson.multipleSelection.forEach(function(value, index, array) {
+      this.dataJson.multipleSelection.forEach(function (value, index, array) {
         selectionJson.push({ 'id': value.id })
       })
       var _message = '是否要删除选择的数据？'
@@ -428,7 +587,7 @@ export default {
       })
     },
     // ------------------编辑弹出框 start--------------------
-    handleCloseDialogOneOk(val) {
+    handleCloseDialogOneOk (val) {
       switch (this.popSettings.one.props.dialogStatus) {
         case this.PARAMETERS.STATUS_INSERT:
           this.doInsertModelCallBack(val)
@@ -443,11 +602,11 @@ export default {
           break
       }
     },
-    handleCloseDialogOneCancel() {
+    handleCloseDialogOneCancel () {
       this.popSettings.one.visible = false
     },
     // 处理插入回调
-    doInsertModelCallBack(val) {
+    doInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
         // 设置到table中绑定的json数据源
@@ -468,7 +627,7 @@ export default {
       }
     },
     // 处理复制新增回调
-    doCopyInsertModelCallBack(val) {
+    doCopyInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
         // 设置到table中绑定的json数据源
@@ -491,7 +650,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateModelCallBack(val) {
+    doUpdateModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -515,7 +674,7 @@ export default {
       }
     },
     // ------------------编辑弹出框 end--------------------
-    handleSortUpdate(oldRow, val) {
+    handleSortUpdate (oldRow, val) {
       if (oldRow.sort === val) {
         return
       }

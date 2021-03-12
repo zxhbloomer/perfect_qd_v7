@@ -18,11 +18,24 @@
       </el-tab-pane> -->
       <el-tab-pane>
         <template slot="label">图标集合
-          <el-badge v-show="settings.badge.countTwo>0" ref="minusTabTwo" :value="settings.badge.countTwo" type="danger" />
+          <el-badge
+            v-show="settings.badge.countTwo>0"
+            ref="minusTabTwo"
+            :value="settings.badge.countTwo"
+            type="danger"
+          />
         </template>
-        <section class="content element-doc content" :style="dataJson.tabHeightStyle" style="overflow-y:auto;overflow-x:hidden;">
+        <section
+          class="content element-doc content"
+          :style="dataJson.tabHeightStyle"
+          style="overflow-y:auto;overflow-x:hidden;"
+        >
           <ul class="icon-list">
-            <li v-for="(item) in dataJson.svgs" :key="item" @dblclick="setIcon(item)">
+            <li
+              v-for="(item) in dataJson.svgs"
+              :key="item"
+              @dblclick="setIcon(item)"
+            >
               <span>
                 <i>
                   <svg-icon :icon-class="item" />
@@ -38,89 +51,94 @@
 </template>
 
 <style scoped>
-  .content>ul:not(.timeline) {
-      margin: 10px 0;
-      padding: 0 0 0 20px;
-      font-size: 14px;
-      color: #5e6d82;
-      line-height: 2em
-  }
-  .content>ul.icon-list {
-    overflow: hidden;
-    list-style: none;
-    padding: 0!important;
-    border: 1px solid #eaeefb;
-    border-radius: 4px;
-  }
-  [class*=" icon-"], [class^=icon-] {
-    font-family: icomoon!important;
-    speak: none;
-    font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  .icon-list li {
-      float: left;
-      width: 16.66%;
-      text-align: center;
-      height: 120px;
-      line-height: 120px;
-      color: #666;
-      font-size: 13px;
-      border-right: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-      margin-right: -1px;
-      margin-bottom: -1px;
-  }
-  .icon-list li span {
-    line-height: normal;
-    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
-    color: #99a9bf;
-    transition: color .15s linear;
-  }
+.content > ul:not(.timeline) {
+  margin: 10px 0;
+  padding: 0 0 0 20px;
+  font-size: 14px;
+  color: #5e6d82;
+  line-height: 2em;
+}
+.content > ul.icon-list {
+  overflow: hidden;
+  list-style: none;
+  padding: 0 !important;
+  border: 1px solid #eaeefb;
+  border-radius: 4px;
+}
+[class*=' icon-'],
+[class^='icon-'] {
+  font-family: icomoon !important;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-list li {
+  float: left;
+  width: 16.66%;
+  text-align: center;
+  height: 120px;
+  line-height: 120px;
+  color: #666;
+  font-size: 13px;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-right: -1px;
+  margin-bottom: -1px;
+}
+.icon-list li span {
+  line-height: normal;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, SimSun, sans-serif;
+  color: #99a9bf;
+  transition: color 0.15s linear;
+}
 
-  .icon-list li:after, .icon-list li span {
-      display: inline-block;
-      vertical-align: middle;
-  }
-  .icon-list li i {
-    display: block;
-    font-size: 32px;
-    margin-bottom: 15px;
-    color: #606266;
-    transition: color .15s linear;
-  }
-  .icon-list li .icon-name {
-    display: inline-block;
-    padding: 0 3px;
-    height: 1em;
-  }
-  .icon-list li span {
-      line-height: normal;
-      font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
-      color: #99a9bf;
-      transition: color .15s linear;
-  }
-  .icon-list li:hover i,.icon-list li:hover span {
-    color: #5cb6ff
-  }
-  .el-backtop {
-    background-color: #1890ff;
-    color: #ffffff;
-  }
+.icon-list li:after,
+.icon-list li span {
+  display: inline-block;
+  vertical-align: middle;
+}
+.icon-list li i {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 15px;
+  color: #606266;
+  transition: color 0.15s linear;
+}
+.icon-list li .icon-name {
+  display: inline-block;
+  padding: 0 3px;
+  height: 1em;
+}
+.icon-list li span {
+  line-height: normal;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, SimSun, sans-serif;
+  color: #99a9bf;
+  transition: color 0.15s linear;
+}
+.icon-list li:hover i,
+.icon-list li:hover span {
+  color: #5cb6ff;
+}
+.el-backtop {
+  background-color: #1890ff;
+  color: #ffffff;
+}
 </style>
 
 <script>
-import resizeMixin from './iconResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 
 export default {
   // name: constants_program.P_SYS_PAGES, // 页面id，和router中的name需要一致，作为缓存
-  components: { },
-  directives: { },
+  components: {},
+  directives: {},
   mixins: [resizeMixin],
   props: {
     // 自己作为弹出框时的参数
@@ -133,7 +151,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         tabHeightStyle: '',
@@ -435,30 +453,30 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     this.initShow()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
   },
   methods: {
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
     },
-    getDataList() {
+    getDataList () {
       this.settings.badge.countOne = this.dataJson.vueIcons.length
       this.getCustomerIcons()
       this.settings.badge.countTwo = this.dataJson.svgs.length
     },
-    getCustomerIcons() {
+    getCustomerIcons () {
       const files = require.context('@/icons/svg', false, /.svg$/).keys()
       files.forEach(key => {
         const name = key.substring(2).substring(0, key.substring(2).indexOf('.svg'))
         this.dataJson.svgs.push(name)
       })
     },
-    setIcon(val) {
+    setIcon (val) {
       if (this.meDialogStatus) {
         this.$emit('iconDbClick', val)
       }

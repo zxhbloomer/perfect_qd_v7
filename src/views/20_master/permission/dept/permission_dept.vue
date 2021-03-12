@@ -1,13 +1,31 @@
 <template>
   <div class="app-container">
     <el-row :gutter="10">
-      <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-card shadow="always" :body-style="{ padding: '10px' }">
+      <el-col
+        :xs="6"
+        :sm="6"
+        :md="6"
+        :lg="6"
+        :xl="6"
+      >
+        <el-card
+          shadow="always"
+          :body-style="{ padding: '10px' }"
+        >
           <left :height="settings.leftHeight" />
         </el-card>
       </el-col>
-      <el-col :xs="18" :sm="18" :md="18" :lg="18" :xl="18">
-        <el-card shadow="always" :body-style="{ padding: '10px' }">
+      <el-col
+        :xs="18"
+        :sm="18"
+        :md="18"
+        :lg="18"
+        :xl="18"
+      >
+        <el-card
+          shadow="always"
+          :body-style="{ padding: '10px' }"
+        >
           <right :height="settings.rightHeight" />
         </el-card>
       </el-col>
@@ -16,7 +34,7 @@
 </template>
 <script>
 import constants_program from '@/common/constants/constants_program'
-import resizeMixin from './permission_deptResizeHandlerMixin'
+import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 
 export default {
   name: constants_program.P_PERMISSION_DEPT, // 页面id，和router中的name需要一致，作为缓存
@@ -28,7 +46,7 @@ export default {
   mixins: [resizeMixin],
   props: {
   },
-  data() {
+  data () {
     return {
 
       // 数据类
@@ -52,9 +70,9 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
   },
-  mounted() {
+  mounted () {
   },
   methods: {
   }
