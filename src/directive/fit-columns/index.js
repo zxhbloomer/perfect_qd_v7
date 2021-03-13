@@ -1,11 +1,11 @@
-import drag from './drag'
+import drag from './fitColumns'
 
 const install = function (Vue) {
-  Vue.directive('el-drag-dialog', drag)
+  Vue.directive('fit-columns', drag)
 }
 
 if (window.Vue) {
-  window['el-drag-dialog'] = drag
+  window['fit-columns'] = drag
   Vue.use(install); // eslint-disable-line
 }
 

@@ -20,15 +20,15 @@ export default {
       default: undefined
     }
   },
-  created() {
+  created () {
     if (this.setColumnSize) {
       // 设置拖动列宽的事件
-      this.$on('header-dragend', function(newWidth, oldWidth, column, event) {
+      this.$on('header-dragend', function (newWidth, oldWidth, column, event) {
         this.saveColumnsSize(this, this.$parent.$options.name, column)
       })
     }
   },
-  mounted() {
+  mounted () {
     // 描绘完成
     const { componentInstance: $table } = this.$vnode
     if (!$table) { return }
@@ -43,12 +43,12 @@ export default {
     this.setColumnsSize($table, page_code, table_type)
     $table.doLayout()
   },
-  updated() {
+  updated () {
   },
   methods: {
 
     // 设置表格上的列宽度，如果有数据
-    saveColumnsSize(table_obj, page_code, column) {
+    saveColumnsSize (table_obj, page_code, column) {
       // 获取当前列的index
       let column_index = 0
       for (var i = 0; i < table_obj.columns.length; i++) {
@@ -58,7 +58,8 @@ export default {
         }
       }
       // 获取数据
-      saveColumnsSizeApi({ page_code: page_code,
+      saveColumnsSizeApi({
+        page_code: page_code,
         column_label: column.label,
         column_property: column.property,
         column_index: column_index,
@@ -70,7 +71,7 @@ export default {
       })
     },
     // 调整列宽方法
-    setColumnsSize(table_object, page_code, table_type) {
+    setColumnsSize (table_object, page_code, table_type) {
       // 获取数据
       getColumnsSizeApi({ page_code: page_code, type: table_type }).then(response => {
         for (const item of response.data) {

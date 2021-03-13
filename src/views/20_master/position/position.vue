@@ -178,6 +178,7 @@
         :sort-orders="settings.sortOrders"
         prop="name"
         label="岗位名称"
+        :auto-fit="true"
       />
       <el-table-column
         show-overflow-tooltip

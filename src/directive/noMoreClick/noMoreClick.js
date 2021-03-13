@@ -1,5 +1,5 @@
 export default {
-  inserted(el) {
+  inserted (el) {
     el.addEventListener('click', e => {
       el.classList.add('is-disabled')
       el.disabled = true

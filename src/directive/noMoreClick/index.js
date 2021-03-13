@@ -1,6 +1,6 @@
 import noMoreClick from './noMoreClick'
 
-const install = function(Vue) {
+const install = function (Vue) {
   Vue.directive('no-more-click', noMoreClick)
 }
 

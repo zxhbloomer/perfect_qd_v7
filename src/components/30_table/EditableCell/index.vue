@@ -1,13 +1,23 @@
 <template>
   <div>
-    <div v-if="settings.showModal" class="modal_class" @click="settings.showModal=false" />
-    <div class="el-input__inner perfect_edit_cell" @click="onFieldClick">
+    <div
+      v-if="settings.showModal"
+      class="modal_class"
+      @click="settings.showModal=false"
+    />
+    <div
+      class="el-input__inner perfect_edit_cell"
+      @click="onFieldClick"
+    >
       <el-tooltip
         :placement="toolTipPlacement"
         :open-delay="toolTipDelay"
         :content="toolTipContent"
       >
-        <div v-popover:popover @keyup.enter="onFieldClick">
+        <div
+          v-popover:popover
+          @keyup.enter="onFieldClick"
+        >
           <slot name="edit-cell-content" />
         </div>
       </el-tooltip>
@@ -40,8 +50,14 @@
             </el-form-item>
             <el-divider />
             <div style="text-align: right; margin: 0">
-              <el-button type="text" @click="handleReset">重置</el-button>
-              <el-button type="primary" @click="handleSubmit">提交</el-button>
+              <el-button
+                type="text"
+                @click="handleReset"
+              >重置</el-button>
+              <el-button
+                type="primary"
+                @click="handleSubmit"
+              >提交</el-button>
             </div>
           </el-form>
         </el-popover>
@@ -51,22 +67,22 @@
 </template>
 
 <style scoped>
-  .modal_class {
-    background-color: #000;
-    opacity: 0.5;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1400
-  }
-  .perfect_edit_cell {
-    height: 28px;
-    line-height: 28px;
-    cursor: pointer;
-    border-color:#1a90ff;
-  }
+.modal_class {
+  background-color: #000;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1400;
+}
+.perfect_edit_cell {
+  height: 28px;
+  line-height: 28px;
+  cursor: pointer;
+  border-color: #1a90ff;
+}
 </style>
 
 <script>
@@ -105,7 +121,7 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       editMode: false,
       dataJson: {
@@ -128,10 +144,10 @@ export default {
     //   }
     // }
   },
-  created() {
+  created () {
   },
   methods: {
-    onFieldClick() {
+    onFieldClick () {
       this.dataJson.form.data = this.value
       this.settings.showModal = true
       this.editMode = true
@@ -142,15 +158,15 @@ export default {
         }
       })
     },
-    onInputChange(val) {
+    onInputChange (val) {
       this.$emit('input', val)
     },
-    handleSubmit() {
+    handleSubmit () {
       this.$refs.popover.doClose()
       this.settings.showModal = false
       this.$emit('closeMeOk', this.rowData, this.dataJson.form.data)
     },
-    handleReset() {
+    handleReset () {
       this.dataJson.form.data = this.value
       this.$nextTick(() => {
         const inputRef = this.$refs.input

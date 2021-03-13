@@ -13,7 +13,10 @@
     @mouseenter="hovering = true"
     @mouseleave="hovering = false"
   >
-    <div v-if="$slots.prepend" class="el-input-group__prepend">
+    <div
+      v-if="$slots.prepend"
+      class="el-input-group__prepend"
+    >
       <slot name="prepend" />
     </div>
     <el-input
@@ -35,17 +38,17 @@
 </template>
 
 <style >
-  .el-input-group__append_select{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
+.el-input-group__append_select {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
 </style>
 
 <style scoped>
-  .el-input.is-disabled::v-deep .el-input__inner {
-    color: #606266 !important;
-  }
+.el-input.is-disabled::v-deep .el-input__inner {
+  color: #606266 !important;
+}
 </style>
 
 <script>
@@ -63,18 +66,18 @@ export default {
   },
   computed: {
   },
-  mounted() {
+  mounted () {
     this.initSearchBtn()
   },
   methods: {
-    inputSize() {
+    inputSize () {
       return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size
     },
-    handleClick() {
+    handleClick () {
       this.$emit('onInputSearch')
     },
     // Placeholder设置
-    isPlaceholderShow(val) {
+    isPlaceholderShow (val) {
       if (this.disabled) {
         return ''
       } else {
@@ -82,7 +85,7 @@ export default {
       }
     },
     // 选择or重置按钮的初始化
-    initSearchBtn() {
+    initSearchBtn () {
       this.$nextTick(() => {
         if (this.$slots.prepend) {
           if (this.disabled) {
