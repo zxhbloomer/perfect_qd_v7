@@ -1,6 +1,7 @@
 import { Table } from 'element-ui'
 
 import { getColumnsSizeApi, saveColumnsSizeApi } from '@/api/00_common/colums_size'
+import { isNotEmpty } from '@/utils/index.js'
 
 export default {
   name: 'ElTable',
@@ -44,6 +45,9 @@ export default {
     $table.doLayout()
   },
   updated () {
+    if (isNotEmpty(this.data)) {
+      this.$children[8].updateAutoWidth()
+    }
   },
   methods: {
 

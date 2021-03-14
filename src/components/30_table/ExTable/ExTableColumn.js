@@ -31,29 +31,29 @@ export default {
     }
   },
   computed: {
+    // 覆盖el-clumns中的方法
     realMinWidth () {
       if (this.autoFit) {
         return parseMinWidth(max([this.minWidth, this.autoWidth]))
       }
       return TableColumn.computed.realMinWidth.call(this)
-    },
-    // table数据
-    values () {
-      const data = this.$parent.data
-      return data
     }
+    // // table数据
+    // values () {
+    //   const data = this.$parent.data
+    //   return data
+    // }
   },
-  watch: {
-    values: {
-      handler (newVal, oldVal) {
-        this.updateAutoWidth()
-      }
-    }
-  },
+  // watch: {
+  //   values: {
+  //     handler (newVal, oldVal) {
+  //       this.updateAutoWidth()
+  //     }
+  //   }
+  // },
   methods: {
     updateAutoWidth () {
       if (!this.autoFit) return
-      debugger
       const cellWrapperClass = this.fitHeader ? `.${this.columnId}` : `td.${this.columnId}`
 
       let cells = window.document.querySelectorAll(`${cellWrapperClass} .${this.fitByClass}`)
@@ -72,8 +72,6 @@ export default {
     }
   },
   updated () {
-    debugger
-    this.updateAutoWidth()
   },
   mounted () {
     this.$nextTick(this.updateAutoWidth)
