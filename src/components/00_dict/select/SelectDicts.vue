@@ -41,7 +41,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 资源类型下拉选项json
@@ -61,21 +61,21 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     // 初始化查询
     this.init()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
   },
   methods: {
     // 初始化
-    init() {
+    init () {
       this.dataJson.settings.loading = true
       this.dataJson.searchForm.para = ''
       this.getRemoteData()
     },
-    getRemoteData() {
+    getRemoteData () {
       this.dataJson.searchForm.para = this.para
       getDictDataApi(this.dataJson.searchForm).then((_data) => {
         this.dataJson.selectOptions = _data.data
@@ -83,7 +83,7 @@ export default {
       }, (_error) => {
       })
     },
-    handleChange(val) {
+    handleChange (val) {
       this.$emit('change', val)
     }
   }

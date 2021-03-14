@@ -36,6 +36,18 @@ export default {
         return parseMinWidth(max([this.minWidth, this.autoWidth]))
       }
       return TableColumn.computed.realMinWidth.call(this)
+    },
+    // table数据
+    values () {
+      const data = this.$parent.data
+      return data
+    }
+  },
+  watch: {
+    values: {
+      handler (newVal, oldVal) {
+        this.updateAutoWidth()
+      }
     }
   },
   methods: {

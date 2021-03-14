@@ -114,7 +114,7 @@
         @click="handleView"
       >查看</el-button>
     </el-button-group>
-    <vxe-table
+    <el-table
       ref="multipleTable"
       v-loading="settings.loading"
       :data="dataJson.listData"
@@ -124,7 +124,6 @@
       stripe
       border
       fit
-      auto-resize
       highlight-current-row
       :default-sort="{prop: 'u_time', order: 'descending'}"
       style="width: 100%"
@@ -134,60 +133,65 @@
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
     >
-      <vxe-table-column
+      <el-table-column
         v-if="!meDialogStatus"
-        type="checkbox"
+        type="selection"
         width="45"
-        field="id"
+        prop="id"
       />
-      <vxe-table-column
-        type="seq"
+      <el-table-column
+        type="index"
         width="45"
-        title="No"
+        label="No"
       />
-      <vxe-table-column
+      <el-table-column
         v-if="!meDialogStatus"
         show-overflow-tooltip
-        sortable
-        min-width="auto"
-        field="group_full_simple_name"
-        title="集团信息"
+        sortable="custom"
+        min-width="280"
+        :sort-orders="settings.sortOrders"
+        prop="group_full_simple_name"
+        label="集团信息"
       />
-      <vxe-table-column
+      <el-table-column
         v-if="!meDialogStatus"
         show-overflow-tooltip
-        sortable
-        min-width="auto"
-        field="company_simple_name"
-        title="企业信息"
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="company_simple_name"
+        label="企业信息"
       />
-      <vxe-table-column
+      <el-table-column
         v-if="!meDialogStatus"
         show-overflow-tooltip
-        sortable
-        min-width="auto"
-        field="dept_full_simple_name"
-        title="部门信息"
+        sortable="custom"
+        min-width="180"
+        :sort-orders="settings.sortOrders"
+        prop="dept_full_simple_name"
+        label="部门信息"
       />
-      <vxe-table-column
-        sortable
-        field="name"
-        title="岗位名称"
+      <el-table-column
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="name"
+        label="岗位名称"
         :auto-fit="true"
-        min-width="auto"
       />
-      <vxe-table-column
+      <el-table-column
         show-overflow-tooltip
-        sortable
-        min-width="auto"
-        field="simple_name"
-        title="岗位简称"
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="simple_name"
+        label="岗位简称"
       />
-      <vxe-table-column
+      <el-table-column
         show-overflow-tooltip
-        min-width="auto"
-        field=""
-        title="操作"
+        min-width="130"
+        prop=""
+        label="操作"
       >
         <template v-slot="scope">
           <el-link
@@ -207,17 +211,19 @@
             ）
           </span>
         </template>
-      </vxe-table-column>
-      <vxe-table-column
-        show-overflow-tooltip
-        sortable
-        min-width="auto"
-        field="code"
-        title="岗位编号"
+      </el-table-column>
+      <el-table-column
+        :auto-fit="true"
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="code"
+        label="岗位编号"
       />
-      <vxe-table-column
+      <el-table-column
         min-width="70"
-        title="删除"
+        :sort-orders="settings.sortOrders"
+        label="删除"
       >
         <template v-slot:header>
           <span>
@@ -257,26 +263,28 @@
             />
           </el-tooltip>
         </template>
-      </vxe-table-column>
-      <vxe-table-column
+      </el-table-column>
+      <el-table-column
         show-overflow-tooltip
-        sortable
-        min-width="auto"
-        field="u_name"
-        title="更新人"
+        sortable="custom"
+        min-width="100"
+        :sort-orders="settings.sortOrders"
+        prop="u_name"
+        label="更新人"
       />
-      <vxe-table-column
+      <el-table-column
         show-overflow-tooltip
-        sortable
-        min-width="auto"
-        field="u_time"
-        title="更新时间"
+        sortable="custom"
+        min-width="180"
+        :sort-orders="settings.sortOrders"
+        prop="u_time"
+        label="更新时间"
       >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
-      </vxe-table-column>
-    </vxe-table>
+      </el-table-column>
+    </el-table>
     <pagination
       ref="minusPaging"
       :total="dataJson.paging.total"
@@ -316,8 +324,9 @@
 
   </div>
 </template>
-<style>
-.el-table .cell {
+<style >
+.el-table .cell,
+.el-table th > .cell {
   white-space: nowrap;
   width: fit-content;
 }

@@ -14,7 +14,13 @@
       />
     </el-select>
 
-    <el-select v-if="level>=1" v-model="curCityCode" :placeholder="placeholders[1] ? placeholders[1] : '请选择'" :size="size" :disabled="disabled">
+    <el-select
+      v-if="level>=1"
+      v-model="curCityCode"
+      :placeholder="placeholders[1] ? placeholders[1] : '请选择'"
+      :size="size"
+      :disabled="disabled"
+    >
       <p v-if="!Object.keys(citys).length">暂无数据</p>
       <el-option
         v-for="(val, key) in citys"
@@ -25,7 +31,13 @@
       />
     </el-select>
 
-    <el-select v-if="level>=2" v-model="curAreaCode" :placeholder="placeholders[2] ? placeholders[2] : '请选择'" :size="size" :disabled="disabled">
+    <el-select
+      v-if="level>=2"
+      v-model="curAreaCode"
+      :placeholder="placeholders[2] ? placeholders[2] : '请选择'"
+      :size="size"
+      :disabled="disabled"
+    >
       <p v-if="!Object.keys(areas).length">暂无数据</p>
       <el-option
         v-for="(val, key) in areas"
@@ -80,7 +92,7 @@ export default {
     }
   },
 
-  data() {
+  data () {
     if (!this.data || !this.data['86']) {
       throw new Error('[vue-area-linkage]: 需要提供地区数据，格式参考见：https://github.com/dwqs/area-data')
     }
@@ -106,22 +118,22 @@ export default {
   },
 
   watch: {
-    curProvinceCode(val, oldVal) {
+    curProvinceCode (val, oldVal) {
       this.curProvince = this.provinces[val]
       this.provinceChange(val, oldVal === val)
     },
 
-    curCityCode(val, oldVal) {
+    curCityCode (val, oldVal) {
       this.curCity = this.citys[val]
       this.cityChange(val, oldVal === val)
     },
 
-    curAreaCode(val, oldVal) {
+    curAreaCode (val, oldVal) {
       this.curArea = this.areas[val]
       this.areaChange(val, oldVal === val)
     },
 
-    value(val) {
+    value (val) {
       if (!this.isSetDefault && this.isArray(val) && val.length === this.level + 1) {
         this.beforeSetDefault()
         this.setDefaultValue()
@@ -133,7 +145,7 @@ export default {
     }
   },
 
-  created() {
+  created () {
     if (this.isArray(this.value) && this.value.length === this.level + 1) {
       this.beforeSetDefault()
       this.setDefaultValue()
@@ -145,7 +157,7 @@ export default {
   },
 
   methods: {
-    provinceChange(val, isEqual) {
+    provinceChange (val, isEqual) {
       if (this.level === 0) {
         this.selectChange()
       } else if (this.level >= 1) {
@@ -189,7 +201,7 @@ export default {
       }
     },
 
-    cityChange(val, isEqual) {
+    cityChange (val, isEqual) {
       if (this.level === 1) {
         this.selectChange()
       } else if (this.level === 2) {
@@ -232,12 +244,12 @@ export default {
       }
     },
 
-    areaChange(val) {
+    areaChange (val) {
       this.curAreaCode = val
       this.selectChange()
     },
 
-    getAreaCode() {
+    getAreaCode () {
       let codes = []
 
       switch (this.level) {
@@ -256,7 +268,7 @@ export default {
       return codes
     },
 
-    getAreaText() {
+    getAreaText () {
       let texts = []
 
       switch (this.level) {
@@ -275,7 +287,7 @@ export default {
       return texts
     },
 
-    getAreaCodeAndText(selected) {
+    getAreaCodeAndText (selected) {
       let textCodes = []
 
       switch (this.level) {
@@ -296,7 +308,7 @@ export default {
       return textCodes
     },
 
-    beforeSetDefault() {
+    beforeSetDefault () {
       const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]{2,}$/
       const num = /^\d{6,}$/
       const isCode = num.test(this.value[0])
@@ -315,7 +327,7 @@ export default {
       this.isSetDefault = true
     },
 
-    setDefaultValue() {
+    setDefaultValue () {
       let provinceCode = ''
 
       if (this.isCode) {
@@ -334,7 +346,7 @@ export default {
       })
     },
 
-    selectChange() {
+    selectChange () {
       this.isSetDefault = true
       let res = []
 
@@ -349,7 +361,7 @@ export default {
       this.$emit('change', res)
     },
 
-    isArray(param) {
+    isArray (param) {
       return Object.prototype.toString.call(param) === '[object Array]'
     }
   }

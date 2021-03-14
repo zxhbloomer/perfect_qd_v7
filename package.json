@@ -74,10 +74,7 @@
     "vue2-verify": "1.1.5",
     "vuedraggable": "2.23.2",
     "vuex": "3.1.0",
-    "xlsx": "0.14.1",
-    "vxe-table": "3.2.1",
-    "vxe-table-plugin-element": "1.10.3",
-    "xe-utils": "3.1.11"
+    "xlsx": "0.14.1"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
@@ -112,10 +109,7 @@
     "serve-static": "^1.13.2",
     "svg-sprite-loader": "4.1.3",
     "svgo": "1.2.0",
-    "vue-template-compiler": "2.6.10",
-    "vxe-table": "3.2.1",
-    "vxe-table-plugin-element": "1.10.3",
-    "xe-utils": "3.1.11"
+    "vue-template-compiler": "2.6.10"
   },
   "engines": {
     "node": ">=8.9",
