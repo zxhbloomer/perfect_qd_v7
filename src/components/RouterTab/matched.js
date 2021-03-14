@@ -4,7 +4,7 @@ import { warn } from './util/warn'
 export default {
   methods: {
     // 匹配路由
-    matchRoutes(route = this.$route) {
+    matchRoutes (route = this.$route) {
       const { matched } = route
 
       // 页面所在路由 index
@@ -24,7 +24,7 @@ export default {
     },
 
     // 解析匹配的路径
-    parsePath(path, params) {
+    parsePath (path, params) {
       for (const key in params) {
         path = path.replace(':' + key, params[key])
       }
@@ -33,13 +33,13 @@ export default {
     },
 
     // 获取 vnode 构造 id
-    getCtorIdByNode(node) {
+    getCtorIdByNode (node) {
       const { componentOptions: opts } = node
       return opts ? opts.Ctor.cid : null
     },
 
     // 获取跟路径
-    getBasePath() {
+    getBasePath () {
       const { path } = this.matchRoutes().baseRoute
       const { params } = this.$route
 
@@ -47,7 +47,7 @@ export default {
     },
 
     // 获取嵌套路由的页面路径
-    getPagePath(route = this.$route, matchRoutes = this.matchRoutes(route)) {
+    getPagePath (route = this.$route, matchRoutes = this.matchRoutes(route)) {
       const { pageRoute, isNest } = matchRoutes
 
       // 页面嵌套路由
@@ -57,29 +57,29 @@ export default {
     },
 
     // 获取嵌套路由的页面组件
-    getPageComp(route = this.$route) {
+    getPageComp (route = this.$route) {
       const { pageRoute } = this.matchRoutes(route)
       return pageRoute ? pageRoute.components.default : null
     },
 
     // 获取路由不带hash的路径
-    getPathWithoutHash(route) {
+    getPathWithoutHash (route) {
       return route.hash
         ? route.fullPath.replace(route.hash, '')
         : route.fullPath
     },
 
     // 是否相似路由
-    isAlikeRoute(route1, route2) {
+    isAlikeRoute (route1, route2) {
       const route1Path = this.getPagePath(route1)
       const route2Path = this.getPagePath(route2)
 
       return this.getPathWithoutHash(route1) === this.getPathWithoutHash(route2) ||
-      (route1Path && route2Path && route1Path === route2Path)
+        (route1Path && route2Path && route1Path === route2Path)
     },
 
     // 是否嵌套路由
-    isNestRoute(route, matchRoutes = this.matchRoutes(route)) {
+    isNestRoute (route, matchRoutes = this.matchRoutes(route)) {
       return matchRoutes.isNest
     }
   }

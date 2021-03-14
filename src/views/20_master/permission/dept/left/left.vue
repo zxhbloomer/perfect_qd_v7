@@ -1,6 +1,10 @@
 <template>
   <div style="position: relative">
-    <perfect-overLay v-if="settings.tree.disabled" :value="settings.tree.disabled" @click="handleOverLayClick" />
+    <perfect-overLay
+      v-if="settings.tree.disabled"
+      :value="settings.tree.disabled"
+      @click="handleOverLayClick"
+    />
     <el-input
       ref="minusLeftFilterInput"
       v-model="dataJson.filterText"
@@ -8,16 +12,36 @@
       placeholder="输入关键字进行过滤"
       style="width:calc(100% - 35px)"
     >
-      <el-button slot="append" ref="buttonSearch" icon="el-icon-search" class="buttonSearch" @click="handleButtonSearch" />
+      <el-button
+        slot="append"
+        ref="buttonSearch"
+        icon="el-icon-search"
+        class="buttonSearch"
+        @click="handleButtonSearch"
+      />
     </el-input>
     <div class="floatRight">
       <el-button-group>
-        <el-tooltip class="item" effect="dark" content="刷新所有组织" placement="top-end">
-          <el-button type="info" icon="el-icon-refresh-right" style="padding:7px 7px" @click="handleRefresh" />
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="刷新所有组织"
+          placement="top-end"
+        >
+          <el-button
+            type="info"
+            icon="el-icon-refresh-right"
+            style="padding:7px 7px"
+            @click="handleRefresh"
+          />
         </el-tooltip>
       </el-button-group>
     </div>
-    <div :style="{height: height + 'px'}" style="overflow-y:auto;overflow-x:auto;" class="mytree">
+    <div
+      :style="{height: height + 'px'}"
+      style="overflow-y:auto;overflow-x:auto;"
+      class="mytree"
+    >
       <el-tree
         ref="treeObject"
         :data="dataJson.treeData"
@@ -31,15 +55,42 @@
         class="tree"
         @current-change="handleCurrentChange"
       >
-        <span slot-scope="{ node, data }" class="custom-tree-node">
+        <span
+          slot-scope="{ node, data }"
+          class="custom-tree-node"
+        >
           <span>
-            <svg-icon v-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_TENANT" icon-class="perfect-icon-tenant" class="el-icon--right" />
-            <svg-icon v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_GROUP" icon-class="perfect-icon-group" class="el-icon--right" />
-            <svg-icon v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_COMPANY" icon-class="perfect-icon-company" class="el-icon--right" />
-            <svg-icon v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT" icon-class="perfect-icon-dept" class="el-icon--right" />
-            <svg-icon v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_POSITION" icon-class="perfect-icon-position" class="el-icon--right" />
+            <svg-icon
+              v-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_TENANT"
+              icon-class="perfect-icon-tenant"
+              class="el-icon--right"
+            />
+            <svg-icon
+              v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_GROUP"
+              icon-class="perfect-icon-group"
+              class="el-icon--right"
+            />
+            <svg-icon
+              v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_COMPANY"
+              icon-class="perfect-icon-company"
+              class="el-icon--right"
+            />
+            <svg-icon
+              v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT"
+              icon-class="perfect-icon-dept"
+              class="el-icon--right"
+            />
+            <svg-icon
+              v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_POSITION"
+              icon-class="perfect-icon-position"
+              class="el-icon--right"
+            />
             {{ data.simple_name }}
-            <el-link v-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT" type="danger" style="vertical-align:top">
+            <el-link
+              v-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT"
+              type="danger"
+              style="vertical-align:top"
+            >
               <span v-if="data.dept_permission_count">
                 ({{ data.dept_permission_count }})
               </span>
@@ -50,11 +101,26 @@
           </span>
           <!-- <span>[{{ data.type_text }}]</span> -->
           <span class="org_png">
-            <em v-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_TENANT" class="tenant">租户</em>
-            <em v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_GROUP" class="group">集团</em>
-            <em v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_COMPANY" class="company">企业</em>
-            <em v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT" class="dept">部门</em>
-            <em v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_POSITION" class="position">岗位</em>
+            <em
+              v-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_TENANT"
+              class="tenant"
+            >租户</em>
+            <em
+              v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_GROUP"
+              class="group"
+            >集团</em>
+            <em
+              v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_COMPANY"
+              class="company"
+            >企业</em>
+            <em
+              v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT"
+              class="dept"
+            >部门</em>
+            <em
+              v-else-if="data.type === CONSTANTS.DICT_ORG_SETTING_TYPE_POSITION"
+              class="position"
+            >岗位</em>
           </span>
         </span>
       </el-tree>
@@ -63,12 +129,12 @@
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
 </style>
 
 <style scoped>
@@ -81,48 +147,48 @@
 }
 
 .leaf {
-    width: 20px;
-    background: #ddd
+  width: 20px;
+  background: #ddd;
 }
 
 .folder {
-    width: 20px;
-    background: #888
+  width: 20px;
+  background: #888;
 }
 
 .custom-tree-container {
-    display: -ms-flexbox;
-    display: flex;
-    margin: -24px
+  display: -ms-flexbox;
+  display: flex;
+  margin: -24px;
 }
 
 .block {
-    -ms-flex: 1;
-    flex: 1;
-    padding: 8px 24px 24px
+  -ms-flex: 1;
+  flex: 1;
+  padding: 8px 24px 24px;
 }
 
-.block>p {
-    text-align: center;
-    margin: 0;
-    line-height: 4
+.block > p {
+  text-align: center;
+  margin: 0;
+  line-height: 4;
 }
 
 .block:first-child {
-    border-right: 1px solid #eff2f6
+  border-right: 1px solid #eff2f6;
 }
 
 .custom-tree-node {
-    -ms-flex: 1;
-    flex: 1;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    font-size: 14px;
-    padding-right: 8px
+  -ms-flex: 1;
+  flex: 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
 }
 .el-tree-node:focus > .el-tree-node__content {
   background-color: transparent !important;
@@ -130,8 +196,8 @@
 </style>
 
 <style lang="scss" scoped>
-.mytree ::v-deep{
-    .el-tree > .el-tree-node:after {
+.mytree ::v-deep {
+  .el-tree > .el-tree-node:after {
     border-top: none;
   }
 
@@ -144,21 +210,21 @@
     padding-left: 2px;
   }
   //结点有间隙，隐藏掉展开按钮就好了,如果觉得空隙没事可以删掉
-  .el-tree-node__expand-icon.is-leaf{
+  .el-tree-node__expand-icon.is-leaf {
     // display: none;
     // color: transparent;
-    border-left:5px solid  ;
-    border-top:5px solid  ;
-    border-bottom:5px solid  ;
+    border-left: 5px solid;
+    border-top: 5px solid;
+    border-bottom: 5px solid;
     // height: 10px;
     // top: 12px;
     // width: 8px;
     // margin-right: 8px;
     // assets使用方法
-    border-image: url('~@/assets/images/hyphen.png') 1 fill  stretch;
+    border-image: url('~@/assets/images/hyphen.png') 1 fill stretch;
   }
   .el-tree-node__expand-icon.is-leaf.el-icon-caret-right:before {
-    content:""
+    content: '';
   }
   .el-tree-node__children {
     padding-left: 20px;
@@ -177,7 +243,7 @@
   }
 
   .el-tree-node:before {
-    content: "";
+    content: '';
     left: 2px;
     position: absolute;
     right: auto;
@@ -185,7 +251,7 @@
   }
 
   .el-tree-node:after {
-    content: "";
+    content: '';
     left: 2px;
     position: absolute;
     right: auto;
@@ -203,26 +269,25 @@
     margin-left: 0px;
   }
 
-  .el-tree>.el-tree-node{
-    min-width:100%;
-    display: inline-block ;
+  .el-tree > .el-tree-node {
+    min-width: 100%;
+    display: inline-block;
   }
 
-  .el-tree-node__content>.el-tree-node__expand-icon {
+  .el-tree-node__content > .el-tree-node__expand-icon {
     // padding: 2px
     padding-left: 2px;
     padding-right: 2px;
   }
 }
-
 </style>
 
 <style >
-  .buttonSearch{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
+.buttonSearch {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
 </style>
 
 <script>
@@ -240,7 +305,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -291,12 +356,12 @@ export default {
   },
   watch: {
     'dataJson.filterText': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         this.$refs.treeObject.filter(newVal)
       }
     },
     'dataJson.currentJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal !== null) {
           // 判断是否是第一个结点：第一个结点是租户，所以不能删除，修改，只能新增
           if (this.dataJson.currentJson.parent_id === null) {
@@ -323,7 +388,7 @@ export default {
       }
     },
     'settings.loading': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         switch (newVal) {
           case true:
             this.showLoading('正在查询，请稍后...')
@@ -335,14 +400,14 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     // 初始化查询
     this.getDataList()
     this.$on(this.EMITS.EMIT_PERMISSION_DEPT_LEFT, _data => {
       this.handleRefresh()
     })
   },
-  mounted() {
+  mounted () {
     this.initSearchButton()
     // 和right开始绑定事件
     // 描绘完成
@@ -365,16 +430,16 @@ export default {
   },
   methods: {
     // 选择or重置按钮的初始化
-    initSearchButton() {
+    initSearchButton () {
       this.$nextTick(() => {
         this.$refs.buttonSearch.$el.parentElement.className = ' buttonSearch ' + this.$refs.buttonSearch.$el.parentElement.className
       })
     },
-    filterNode(value, data) {
+    filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1 || data.type_text.indexOf(value) !== -1
     },
-    getDataList() {
+    getDataList () {
       // 查询逻辑
       this.settings.loading = true
       getTreeListApi(this.dataJson.searchForm).then(response => {
@@ -398,7 +463,7 @@ export default {
         this.settings.loading = false
       })
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.tempJsonOriginal = Object.assign({}, row) // copy obj
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
@@ -409,28 +474,28 @@ export default {
       this.$emit(this.EMITS.EMIT_PERMISSION_DEPT_CHANGE, row)
     },
     // 兄弟组件发过来的调用请求
-    handleDataChange() {
+    handleDataChange () {
       // 查询
       this.getDataList()
     },
-    handleButtonSearch() {
+    handleButtonSearch () {
       // 查询
       this.getDataList()
     },
     // 查询后处理
-    getListAfterProcess() {
+    getListAfterProcess () {
       if (Object.keys(this.dataJson.filterText).length !== 0) {
         this.$nextTick(() => {
           this.$refs.treeObject.filter(this.dataJson.filterText)
         })
       }
     },
-    handleRefresh() {
+    handleRefresh () {
       // 初始化查询
       this.getDataList()
     },
     // 悬浮层点击事件
-    handleOverLayClick() {
+    handleOverLayClick () {
       this.$alert('点击无效，请完成操作权限的编辑，并点击保存！', '提示', {
         confirmButtonText: '关闭',
         type: 'error'

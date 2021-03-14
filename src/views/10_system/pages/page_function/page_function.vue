@@ -276,11 +276,10 @@ import resizeMixin from '@/mixin/viewResizeHandlerMixin'
 import Pagination from '@/components/Pagination'
 import editDialog from '@/views/10_system/pages/page_function/dialog/edit'
 import deepCopy from 'deep-copy'
-import EditableCell from '@/components/30_table/EditableCell'
 import { updateAssignApi } from '@/api/10_system/pages/page_function'
 
 export default {
-  components: { Pagination, editDialog, EditableCell },
+  components: { Pagination, editDialog },
   directives: {},
   mixins: [resizeMixin],
   props: {

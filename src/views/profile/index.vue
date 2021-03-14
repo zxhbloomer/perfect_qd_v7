@@ -3,20 +3,35 @@
     <div v-if="user">
       <el-row :gutter="20">
 
-        <el-col :span="6" :xs="24">
+        <el-col
+          :span="6"
+          :xs="24"
+        >
           <user-card :user="user" />
         </el-col>
 
-        <el-col :span="18" :xs="24">
+        <el-col
+          :span="18"
+          :xs="24"
+        >
           <el-card>
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="Activity" name="activity">
+              <el-tab-pane
+                label="Activity"
+                name="activity"
+              >
                 <activity />
               </el-tab-pane>
-              <el-tab-pane label="Timeline" name="timeline">
+              <el-tab-pane
+                label="Timeline"
+                name="timeline"
+              >
                 <timeline />
               </el-tab-pane>
-              <el-tab-pane label="Account" name="account">
+              <el-tab-pane
+                label="Account"
+                name="account"
+              >
                 <account :user="user" />
               </el-tab-pane>
             </el-tabs>
@@ -38,7 +53,7 @@ import Account from './components/Account'
 export default {
   name: 'Profile',
   components: { UserCard, Activity, Timeline, Account },
-  data() {
+  data () {
     return {
       user: {},
       activeTab: 'activity'
@@ -51,11 +66,11 @@ export default {
       'roles'
     ])
   },
-  created() {
+  created () {
     this.getUser()
   },
   methods: {
-    getUser() {
+    getUser () {
       this.user = {
         name: this.name,
         role: this.roles.join(' | '),

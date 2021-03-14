@@ -4,7 +4,10 @@
     <div class="header">
       <div class="clearfix">
         <div class="logo-title">企业注册</div>
-        <div class="have-account">已有账号？ <el-link><router-link to="login">请登录</router-link></el-link>
+        <div class="have-account">已有账号？
+          <el-link>
+            <router-link to="login">请登录</router-link>
+          </el-link>
         </div>
       </div>
       <el-divider />
@@ -18,7 +21,11 @@
       >
 
         <div class="progress-bar">
-          <el-steps :space="200" :active="stepsSetting.active + 1" align-center>
+          <el-steps
+            :space="200"
+            :active="stepsSetting.active + 1"
+            align-center
+          >
             <el-step title="验证手机号" />
             <el-step title="填写账号信息" />
             <el-step title="注册成功" />
@@ -69,11 +76,21 @@
                 @success="handlePuzzleSuccess('success')"
                 @error="handlePuzzleError('Error')"
               />
-              <el-button slot="reference" :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" class="form-item form-item-getcode" @click="handleShowPopover">点击按钮开始验证</el-button>
+              <el-button
+                slot="reference"
+                :loading="loading"
+                type="primary"
+                style="width:100%;margin-bottom:30px;"
+                class="form-item form-item-getcode"
+                @click="handleShowPopover"
+              >点击按钮开始验证</el-button>
             </el-popover>
           </div>
 
-          <el-form-item v-if="codeValidateFlg" prop="sms_code">
+          <el-form-item
+            v-if="codeValidateFlg"
+            prop="sms_code"
+          >
             <span class="code-container">
               手机验证码
             </span>
@@ -83,7 +100,10 @@
               class="code-width"
               autocomplete="off"
             />
-            <el-button class="code_button" @click="handleRecode">
+            <el-button
+              class="code_button"
+              @click="handleRecode"
+            >
               <span v-if="msTime.show">
                 {{ msTime.count }}秒后重新获取
               </span>
@@ -153,11 +173,24 @@
           <br>
         </div>
 
-        <el-button v-show="stepsSetting.active !== 2" :loading="loading" type="primary" class="btn-register" @click="handleNext">下一步</el-button>
-        <el-button v-show="stepsSetting.active === 2" :loading="loading" type="primary" class="btn-register" @click="handleReturnLoginBtn">返回登录页面</el-button>
+        <el-button
+          v-show="stepsSetting.active !== 2"
+          :loading="loading"
+          type="primary"
+          class="btn-register"
+          @click="handleNext"
+        >下一步</el-button>
+        <el-button
+          v-show="stepsSetting.active === 2"
+          :loading="loading"
+          type="primary"
+          class="btn-register"
+          @click="handleReturnLoginBtn"
+        >返回登录页面</el-button>
       </el-form>
     </div>
-  </div></template>
+  </div>
+</template>
 
 <script>
 import Verify from '@/components/Verify/Verify'
@@ -171,7 +204,7 @@ import { isNotEmpty } from '@/utils/index.js'
 export default {
   name: 'Login',
   components: { Verify },
-  data() {
+  data () {
     const validateMobile = (rule, value, callback) => {
       if (!validMobile(value)) {
         callback(new Error('请输入正确的手机号码'))
@@ -203,7 +236,7 @@ export default {
         tenant: '',
         admin: ''
       },
-      registRules: { },
+      registRules: {},
       // 步骤设置部分
       stepsSetting: {
         active: 0, // 控制步骤
@@ -246,7 +279,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         const query = route.query
         if (query) {
           this.redirect = query.redirect
@@ -257,14 +290,14 @@ export default {
     },
     // 输入信息是否有变更监控，如果有变化则情况错误信息
     'signupForm': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         this.checkJson.errorMsg = ''
       },
       deep: true
     },
     // 错误信息
     'checkJson.errorMsg': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal === undefined) {
           return
         }
@@ -279,7 +312,7 @@ export default {
     },
     // loading
     'loading': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         switch (newVal) {
           case true:
             this.showLoading('正在验证登录，请稍后...')
@@ -291,7 +324,7 @@ export default {
       }
     },
     'stepsSetting.active': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         switch (newVal) {
           case 0:
             this.registRules = this.stepsSetting.rulesFirst
@@ -306,25 +339,25 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     // window.addEventListener('storage', this.afterQRScan)
     this.initShow()
     this.stepsSetting.active = 0
   },
-  mounted() {
+  mounted () {
     if (this.signupForm.mobile === '') {
       this.$refs.mobile.focus()
     }
   },
-  destroyed() {
+  destroyed () {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
-    initShow() {
+    initShow () {
       // 步骤初始化
       // this.registRules = this.stepsSetting.rulesFirst
     },
-    checkCapslock({ shiftKey, key } = {}) {
+    checkCapslock ({ shiftKey, key } = {}) {
       if (key && key.length === 1) {
         if (shiftKey && (key >= 'a' && key <= 'z') || !shiftKey && (key >= 'A' && key <= 'Z')) {
           this.capsTooltip = true
@@ -336,7 +369,7 @@ export default {
         this.capsTooltip = false
       }
     },
-    showPwd() {
+    showPwd () {
       if (this.passwordType === 'password') {
         this.passwordType = ''
       } else {
@@ -346,7 +379,7 @@ export default {
         this.$refs.password.focus()
       })
     },
-    getOtherQuery(query) {
+    getOtherQuery (query) {
       return Object.keys(query).reduce((acc, cur) => {
         if (cur !== 'redirect') {
           acc[cur] = query[cur]
@@ -354,16 +387,16 @@ export default {
         return acc
       }, {})
     },
-    handleClose() {
+    handleClose () {
       this.checkJson.errorStatus = ''
     },
-    handlePuzzleSuccess(val) {
+    handlePuzzleSuccess (val) {
       this.doPuzzleSuccess()
     },
-    handlePuzzleError(val) {
+    handlePuzzleError (val) {
       console.log('验证码错误')
     },
-    doPuzzleSuccess() {
+    doPuzzleSuccess () {
       // 隐藏
       this.popoverShow = false
       // 调用短信验证码
@@ -376,7 +409,7 @@ export default {
 
       })
     },
-    handleShowPopover() {
+    handleShowPopover () {
       // 显示
       // this.popoverShow = false
       // 隐藏
@@ -393,7 +426,7 @@ export default {
       })
     },
     // 短信倒计时
-    doCountDown(count) {
+    doCountDown (count) {
       this.msTime.count = this.msTime.count - 1
       if (this.msTime.count === 0) {
         this.msTime.show = false
@@ -406,7 +439,7 @@ export default {
       }, 1000)
     },
     // 倒计时
-    handleCountDown() {
+    handleCountDown () {
       this.signupForm.sms_code = ''
       this.msTime.show = true
       this.msTime.count = 120
@@ -414,11 +447,11 @@ export default {
       this.doCountDown(this.msTime.count)
     },
     // 手机号码变更
-    handleChange() {
+    handleChange () {
       this.codeValidateFlg = false
     },
     // 验证码重发
-    handleRecode() {
+    handleRecode () {
       if (this.msTime.show) {
         return
       }
@@ -436,7 +469,7 @@ export default {
 
       })
     },
-    handleNext() {
+    handleNext () {
       this.$refs['signupForm'].clearValidate()
       this.$refs['signupForm'].validate((valid, error) => {
         if (valid) {
@@ -454,7 +487,7 @@ export default {
         }
       })
     },
-    doFirstNext() {
+    doFirstNext () {
       // check没有错误
       if (this.stepsSetting.active === 0 && this.signupForm.sms_code === '') {
         this.$alert('请完成验证', '错误', {
@@ -477,7 +510,7 @@ export default {
 
       })
     },
-    doSecondNext() {
+    doSecondNext () {
       signUpApi(this.signupForm).then(response => {
         if (this.stepsSetting.active === this.stepsSetting.stepNumber) {
           return
@@ -490,12 +523,12 @@ export default {
 
       })
     },
-    handleReturnLogin() {
+    handleReturnLogin () {
       this.signUpOk_CountDown = 5
       clearTimeout(this.signUpOk_CountDown_timeout)
       this.doReturnLoginCountDown(this.signUpOk_CountDown)
     },
-    doReturnLoginCountDown(count) {
+    doReturnLoginCountDown (count) {
       this.signUpOk_CountDown = this.signUpOk_CountDown - 1
       if (this.signUpOk_CountDown === 0) {
         this.handleReturnLoginBtn()
@@ -505,7 +538,7 @@ export default {
         this.doReturnLoginCountDown(this.msTime.count)
       }, 1000)
     },
-    handleReturnLoginBtn() {
+    handleReturnLoginBtn () {
       this.$router.push('/login')
     }
   }
@@ -513,9 +546,8 @@ export default {
 </script>
 
 <style lang="scss">
-
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -540,7 +572,7 @@ $cursor: #fff;
 }
 
 .btn-register {
-  margin-left:0px !important;
+  margin-left: 0px !important;
   width: 100%;
   height: 54px;
   text-align: center;
@@ -563,14 +595,14 @@ $cursor: #fff;
 }
 
 .el-step__head.is-process {
-  color: #C0C4CC;
-  border-color: #C0C4CC;
+  color: #c0c4cc;
+  border-color: #c0c4cc;
 }
 
 .el-step__title.is-process {
   font-weight: normal;
-  color: #C0C4CC;
-  border-color: #C0C4CC;
+  color: #c0c4cc;
+  border-color: #c0c4cc;
 }
 
 .progress-bar {
@@ -579,39 +611,39 @@ $cursor: #fff;
 }
 
 .header {
-    height: 110px;
+  height: 110px;
 }
 
 .header .logo {
-    width: 160px;
-    height: 50px;
-    float: left;
-    margin-top: 24px
+  width: 160px;
+  height: 50px;
+  float: left;
+  margin-top: 24px;
 }
 
 .header .logo-title {
-    float: left;
-    height: 34px;
-    line-height: 34px;
-    font-size: 24px;
-    color: #fff;
-    margin-top: 34px
+  float: left;
+  height: 34px;
+  line-height: 34px;
+  font-size: 24px;
+  color: #fff;
+  margin-top: 34px;
 }
 
 .header .have-account {
-    font-size: 16px;
-    float: right;
-    margin-top: 44px;
-    color: #999
+  font-size: 16px;
+  float: right;
+  margin-top: 44px;
+  color: #999;
 }
 
 .header .have-account a {
-    color: #FFFFFF
+  color: #ffffff;
 }
 
 .header .have-account a:hover {
-    color: #fff;
-    text-decoration: underline
+  color: #fff;
+  text-decoration: underline;
 }
 
 .clearfix {
@@ -653,18 +685,17 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .floatRight {
   float: right;
 }
 
 .form-item {
-    position: relative;
-    z-index: 0;
+  position: relative;
+  z-index: 0;
 }
 
 .form-item-getcode {
@@ -672,14 +703,14 @@ $light_gray:#eee;
   height: 47px;
   text-align: center;
   font-size: 14px;
-  color: #C0C4CC;
+  color: #c0c4cc;
   cursor: pointer;
   z-index: 2;
-  border: solid 1px rgba(255,255,255,0.1);
+  border: solid 1px rgba(255, 255, 255, 0.1);
 }
 
 .form-item-getcode:hover {
-    border-color: #fff
+  border-color: #fff;
 }
 
 .login-container {
@@ -714,10 +745,10 @@ $light_gray:#eee;
     color: $dark_gray;
     width: 100px;
     display: inline-block;
-    border: solid 1px rgba(255,255,255,0.1);
-    border-top:none;
-    border-bottom:none;
-    border-left:none;
+    border: solid 1px rgba(255, 255, 255, 0.1);
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
   }
 
   .mobile-container {
@@ -725,31 +756,31 @@ $light_gray:#eee;
     color: $dark_gray;
     width: 100px;
     display: inline-block;
-    border: solid 1px rgba(255,255,255,0.1);
-    border-top:none;
-    border-bottom:none;
-    border-left:none;
+    border: solid 1px rgba(255, 255, 255, 0.1);
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
   }
 
   .input-width {
-    width: 330px
+    width: 330px;
   }
 
   .code-width {
-    width: 200px
+    width: 200px;
   }
 
-  .code_button{
+  .code_button {
     width: 140px;
-    height:47px;
+    height: 47px;
     background-color: #2d3a4b;
     font-size: 14px;
-    color: #C0C4CC;
-    border: solid 1px rgba(255,255,255,0.1);
+    color: #c0c4cc;
+    border: solid 1px rgba(255, 255, 255, 0.1);
   }
   .code_button:hover {
-    border-color: #fff
-}
+    border-color: #fff;
+  }
 
   .svg-container {
     padding: 6px 5px 6px 15px;

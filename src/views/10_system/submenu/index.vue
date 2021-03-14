@@ -12,10 +12,10 @@
 export default {
   // name: 'M00000020',
   computed: {
-    cachedViews() {
+    cachedViews () {
       return this.$store.state.tagsView.cachedViews
     },
-    key() {
+    key () {
       return this.$route.name
     }
   }

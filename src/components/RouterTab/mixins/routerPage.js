@@ -1,7 +1,7 @@
 // 路由页面混入
 export default {
   // 创建前记录缓存
-  created() {
+  created () {
     const { $route, $vnode } = this
     const $alive = $vnode && $vnode.data.routerAlive
 
@@ -19,7 +19,7 @@ export default {
     })
 
     // 监听routerTab字段，更新页签信息
-    this.$watch('routeTab', function(val, old) {
+    this.$watch('routeTab', function (val, old) {
       cacheItem.tab = typeof val === 'string' ? { title: val } : val
       $alive.set(key, cacheItem)
     }, {
@@ -29,7 +29,7 @@ export default {
   },
 
   // 页面激活
-  activated() {
+  activated () {
     // 嵌套路由缓存导致页面不匹配时强制更新
     if (this._nestCacheForceReload) {
       delete this._nestCacheForceReload
@@ -43,7 +43,7 @@ export default {
   },
 
   // 销毁后清理数据
-  destroyed() {
+  destroyed () {
     if (this._isRouterPage) {
       this.$vnode.data.routerAlive = null
     }

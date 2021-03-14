@@ -30,97 +30,75 @@
         <el-tabs style="height: 400px;">
           <br>
           <el-tab-pane>
-            <template slot="label">基本信息<el-badge v-show="settings.badge.countOne>0" :value="settings.badge.countOne" type="danger" /></template>
+            <template slot="label">基本信息
+              <el-badge
+                v-show="settings.badge.countOne>0"
+                :value="settings.badge.countOne"
+                type="danger"
+              />
+            </template>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="社会信用代码：" prop="code">
-                  <el-input ref="refFocusOne" v-model.trim="dataJson.tempJson.code" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.code" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
+                <el-form-item
+                  label="社会信用代码："
+                  prop="code"
+                >
+                  <el-input
+                    ref="refFocusOne"
+                    v-model.trim="dataJson.tempJson.code"
+                    clearable
+                    show-word-limit
+                    :maxlength="dataJson.inputSettings.maxLength.code"
+                    :placeholder="isPlaceholderShow('请输入')"
+                    :disabled="isViewModel"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="企业名称：" prop="name">
-                  <el-input ref="refFocusTwo" v-model.trim="dataJson.tempJson.name" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.name" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
+                <el-form-item
+                  label="企业名称："
+                  prop="name"
+                >
+                  <el-input
+                    ref="refFocusTwo"
+                    v-model.trim="dataJson.tempJson.name"
+                    clearable
+                    show-word-limit
+                    :maxlength="dataJson.inputSettings.maxLength.name"
+                    :placeholder="isPlaceholderShow('请输入')"
+                    :disabled="isViewModel"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="企业简称：" prop="simple_name">
-                  <el-input v-model.trim="dataJson.tempJson.simple_name" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.simple_name" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
+                <el-form-item
+                  label="企业简称："
+                  prop="simple_name"
+                >
+                  <el-input
+                    v-model.trim="dataJson.tempJson.simple_name"
+                    clearable
+                    show-word-limit
+                    :maxlength="dataJson.inputSettings.maxLength.simple_name"
+                    :placeholder="isPlaceholderShow('请输入')"
+                    :disabled="isViewModel"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="法定代表人：" prop="juridical_name">
-                  <el-input v-model.trim="dataJson.tempJson.juridical_name" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.juridical_name" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="注册资本（万）：" prop="register_capital">
-                  <el-input-number v-model.trim="dataJson.tempJson.register_capital" clearable show-word-limit controls-position="right" :min="0" :max="1000000" style="width: 100%" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="企业类型：" prop="type">
-                  <select-dict v-model="dataJson.tempJson.type" :para="CONSTANTS.DICT_SYS_COMPANY_TYPE" init-placeholder="请选择企业类型" :disabled="isViewModel" />
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="成立日期：" prop="setup_date">
-                  <el-date-picker v-model="dataJson.tempJson.setup_date" value-format="yyyy-MM-dd" type="date" clearable :placeholder="isPlaceholderShow('选择日期')" style="width: 100%" :disabled="isViewModel" @change="handleSetup_dateChange()" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12" />
-            </el-row>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="营业有效期 ：" prop="end_date">
-                  <el-date-picker ref="refEnd_date" v-model="dataJson.tempJson.end_date" value-format="yyyy-MM-dd" type="date" clearable :placeholder="isPlaceholderShow('选择日期')" style="width: 100%" :disabled="settings.rules_disable.end_date || isViewModel" @change="handleEnd_dateChange()" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="营业有效期长期：" prop="long_term">
-                  <el-switch v-model="dataJson.tempJson.long_term" inactive-text="营业有效期" active-text="长期" :disabled="isViewModel" @change="handleLongTermChange" /></el-form-item>
-              </el-col>
-            </el-row>
-            <el-form-item label="说明：" prop="descr">
-              <el-input v-model.trim="dataJson.tempJson.descr" clearable show-word-limit type="textarea" :maxlength="dataJson.inputSettings.maxLength.descr" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" /></el-form-item>
-
-          </el-tab-pane>
-
-          <el-tab-pane label="地址信息">
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="联系人：" prop="link_man">
-                  <el-input v-model.trim="popSettings.one.selectedDataJson.link_man" disabled>
-                    <el-button slot="append" ref="selectOne" icon="el-icon-search" :disabled="isViewModel" @click="handleModuleDialogClick">
-                      选择
-                    </el-button>
-                  </el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="电话：" prop="phone">
-                  <el-input v-model.trim="popSettings.one.selectedDataJson.phone" disabled />
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="邮编：" prop="postal_code">
-                  <el-input v-model.trim="popSettings.one.selectedDataJson.postal_code" disabled />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="默认地址：" prop="is_default">
-                  <el-switch
-                    v-model="popSettings.one.selectedDataJson.is_default"
+                <el-form-item
+                  label="法定代表人："
+                  prop="juridical_name"
+                >
+                  <el-input
+                    v-model.trim="dataJson.tempJson.juridical_name"
+                    clearable
+                    show-word-limit
+                    :maxlength="dataJson.inputSettings.maxLength.juridical_name"
+                    :placeholder="isPlaceholderShow('请输入')"
+                    :disabled="isViewModel"
                   />
                 </el-form-item>
               </el-col>
@@ -128,30 +106,224 @@
 
             <el-row>
               <el-col :span="12">
-                <el-form-item label="省市区：" prop="cascader_text">
-                  <el-input v-model.trim="popSettings.one.selectedDataJson.cascader_text" disabled />
+                <el-form-item
+                  label="注册资本（万）："
+                  prop="register_capital"
+                >
+                  <el-input-number
+                    v-model.trim="dataJson.tempJson.register_capital"
+                    clearable
+                    show-word-limit
+                    controls-position="right"
+                    :min="0"
+                    :max="1000000"
+                    style="width: 100%"
+                    :placeholder="isPlaceholderShow('请输入')"
+                    :disabled="isViewModel"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="标签：" prop="tag">
-                  <radio-dict v-model="popSettings.one.selectedDataJson.tag" :para="CONSTANTS.DICT_SYS_ADDRESS_TAG_TYPE" disabled />
+                <el-form-item
+                  label="企业类型："
+                  prop="type"
+                >
+                  <select-dict
+                    v-model="dataJson.tempJson.type"
+                    :para="CONSTANTS.DICT_SYS_COMPANY_TYPE"
+                    init-placeholder="请选择企业类型"
+                    :disabled="isViewModel"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
 
-            <el-form-item label="详细地址：" prop="detail_address">
-              <el-input v-model.trim="popSettings.one.selectedDataJson.detail_address" disabled />
+            <el-row>
+              <el-col :span="12">
+                <el-form-item
+                  label="成立日期："
+                  prop="setup_date"
+                >
+                  <el-date-picker
+                    v-model="dataJson.tempJson.setup_date"
+                    value-format="yyyy-MM-dd"
+                    type="date"
+                    clearable
+                    :placeholder="isPlaceholderShow('选择日期')"
+                    style="width: 100%"
+                    :disabled="isViewModel"
+                    @change="handleSetup_dateChange()"
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12" />
+            </el-row>
+            <el-row>
+              <el-col :span="12">
+                <el-form-item
+                  label="营业有效期 ："
+                  prop="end_date"
+                >
+                  <el-date-picker
+                    ref="refEnd_date"
+                    v-model="dataJson.tempJson.end_date"
+                    value-format="yyyy-MM-dd"
+                    type="date"
+                    clearable
+                    :placeholder="isPlaceholderShow('选择日期')"
+                    style="width: 100%"
+                    :disabled="settings.rules_disable.end_date || isViewModel"
+                    @change="handleEnd_dateChange()"
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item
+                  label="营业有效期长期："
+                  prop="long_term"
+                >
+                  <el-switch
+                    v-model="dataJson.tempJson.long_term"
+                    inactive-text="营业有效期"
+                    active-text="长期"
+                    :disabled="isViewModel"
+                    @change="handleLongTermChange"
+                  />
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-form-item
+              label="说明："
+              prop="descr"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.descr"
+                clearable
+                show-word-limit
+                type="textarea"
+                :maxlength="dataJson.inputSettings.maxLength.descr"
+                :placeholder="isPlaceholderShow('请输入')"
+                :disabled="isViewModel"
+              />
+            </el-form-item>
+
+          </el-tab-pane>
+
+          <el-tab-pane label="地址信息">
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item
+                  label="联系人："
+                  prop="link_man"
+                >
+                  <el-input
+                    v-model.trim="popSettings.one.selectedDataJson.link_man"
+                    disabled
+                  >
+                    <el-button
+                      slot="append"
+                      ref="selectOne"
+                      icon="el-icon-search"
+                      :disabled="isViewModel"
+                      @click="handleModuleDialogClick"
+                    >
+                      选择
+                    </el-button>
+                  </el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item
+                  label="电话："
+                  prop="phone"
+                >
+                  <el-input
+                    v-model.trim="popSettings.one.selectedDataJson.phone"
+                    disabled
+                  />
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12">
+                <el-form-item
+                  label="邮编："
+                  prop="postal_code"
+                >
+                  <el-input
+                    v-model.trim="popSettings.one.selectedDataJson.postal_code"
+                    disabled
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item
+                  label="默认地址："
+                  prop="is_default"
+                >
+                  <el-switch v-model="popSettings.one.selectedDataJson.is_default" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item
+                  label="省市区："
+                  prop="cascader_text"
+                >
+                  <el-input
+                    v-model.trim="popSettings.one.selectedDataJson.cascader_text"
+                    disabled
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item
+                  label="标签："
+                  prop="tag"
+                >
+                  <radio-dict
+                    v-model="popSettings.one.selectedDataJson.tag"
+                    :para="CONSTANTS.DICT_SYS_ADDRESS_TAG_TYPE"
+                    disabled
+                  />
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-form-item
+              label="详细地址："
+              prop="detail_address"
+            >
+              <el-input
+                v-model.trim="popSettings.one.selectedDataJson.detail_address"
+                disabled
+              />
             </el-form-item>
 
             <el-row v-show="settings.dialogStatus === PARAMETERS.STATUS_UPDATE || isViewModel">
               <el-col :span="12">
-                <el-form-item label="更新人：" prop="u_name">
-                  <el-input v-model.trim="dataJson.tempJson.u_name" disabled />
+                <el-form-item
+                  label="更新人："
+                  prop="u_name"
+                >
+                  <el-input
+                    v-model.trim="dataJson.tempJson.u_name"
+                    disabled
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="更新时间：" prop="u_time">
-                  <el-input v-model.trim="dataJson.tempJson.u_time" disabled />
+                <el-form-item
+                  label="更新时间："
+                  prop="u_time"
+                >
+                  <el-input
+                    v-model.trim="dataJson.tempJson.u_time"
+                    disabled
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -160,15 +332,45 @@
         </el-tabs>
 
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-divider />
         <div class="floatLeft">
-          <el-button v-show="!isViewModel" type="danger" :disabled="settings.loading || settings.btnDisabledStatus.disabledReset" @click="doReset()">重置</el-button>
+          <el-button
+            v-show="!isViewModel"
+            type="danger"
+            :disabled="settings.loading || settings.btnDisabledStatus.disabledReset"
+            @click="doReset()"
+          >重置</el-button>
         </div>
-        <el-button plain :disabled="settings.loading" @click="handleCancel()">取消</el-button>
-        <el-button v-show="settings.btnShowStatus.showInsert" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert " @click="doInsert()">确定</el-button>
-        <el-button v-show="settings.btnShowStatus.showUpdate && !isViewModel" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate " @click="doUpdate()">确定</el-button>
-        <el-button v-show="settings.btnShowStatus.showCopyInsert" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledCopyInsert " @click="doCopyInsert()">确定</el-button>
+        <el-button
+          plain
+          :disabled="settings.loading"
+          @click="handleCancel()"
+        >取消</el-button>
+        <el-button
+          v-show="settings.btnShowStatus.showInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert "
+          @click="doInsert()"
+        >确定</el-button>
+        <el-button
+          v-show="settings.btnShowStatus.showUpdate && !isViewModel"
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate "
+          @click="doUpdate()"
+        >确定</el-button>
+        <el-button
+          v-show="settings.btnShowStatus.showCopyInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledCopyInsert "
+          @click="doCopyInsert()"
+        >确定</el-button>
       </div>
     </el-dialog>
 
@@ -182,15 +384,15 @@
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
@@ -227,7 +429,7 @@ export default {
       default: constants_para.STATUS_VIEW
     }
   },
-  data() {
+  data () {
     return {
       // 监听器
       watch: {
@@ -315,17 +517,17 @@ export default {
   },
   computed: {
     // 是否为更新模式
-    isUpdateModel() {
+    isUpdateModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_INSERT || this.settings.dialogStatus === this.PARAMETERS.STATUS_COPY_INSERT) {
         return false
       } else {
         return true
       }
     },
-    listenVisible() {
+    listenVisible () {
       return this.visible
     },
-    isViewModel() {
+    isViewModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_VIEW) {
         return true
       } else {
@@ -336,17 +538,17 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     this.init()
   },
-  mounted() {
+  mounted () {
   },
-  destroyed() {
+  destroyed () {
     this.unWatch()
   },
   methods: {
     // 初始化处理
-    init() {
+    init () {
       this.initButtonShowStatus()
       this.initButtonDisabledStatus()
       switch (this.dialogStatus) {
@@ -371,20 +573,20 @@ export default {
       this.setWatch()
       this.settings.loading = false
     },
-    initTempJsonOriginal() {
+    initTempJsonOriginal () {
       // 单条数据 json的，初始化原始数据
       this.dataJson.tempJsonOriginal = this.$options.data.call(this).dataJson.tempJsonOriginal
     },
-    initButtonShowStatus() {
+    initButtonShowStatus () {
       // 初始化按钮状态：默认都隐藏
       this.settings.btnShowStatus = this.$options.data.call(this).settings.btnShowStatus
     },
-    initButtonDisabledStatus() {
+    initButtonDisabledStatus () {
       // 按钮状态初始化：默认不可用
       this.settings.btnDisabledStatus = this.$options.data.call(this).settings.btnDisabledStatus
     },
     // 新增时的初始化
-    initInsertModel() {
+    initInsertModel () {
       // 数据初始化
       this.initTempJsonOriginal()
       this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
@@ -396,7 +598,7 @@ export default {
       })
     },
     // 复制新增时的初始化
-    async initCopyInsertModel() {
+    async initCopyInsertModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJson.code = ''
@@ -411,7 +613,7 @@ export default {
       })
     },
     // 修改时的初始化
-    async initUpdateModel() {
+    async initUpdateModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       var _address_data = await this.getAddressDataByid()
@@ -425,14 +627,14 @@ export default {
       })
     },
     // 查看时的初始化
-    async initViewModel() {
+    async initViewModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       var _address_data = await this.getAddressDataByid()
       this.popSettings.one.selectedDataJson = deepCopy(_address_data)
     },
     // Placeholder设置
-    isPlaceholderShow(val) {
+    isPlaceholderShow (val) {
       if (this.isViewModel) {
         return ''
       } else {
@@ -440,11 +642,11 @@ export default {
       }
     },
     // 取消按钮
-    handleCancel() {
+    handleCancel () {
       this.$emit('closeMeCancel')
     },
     // 设置监听器
-    setWatch() {
+    setWatch () {
       this.unWatch()
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_tempJson = this.$watch('dataJson.tempJson', (newVal, oldVal) => {
@@ -452,8 +654,7 @@ export default {
         this.settings.btnDisabledStatus.disabledInsert = false
         this.settings.btnDisabledStatus.disabledUpdate = false
         this.settings.btnDisabledStatus.disabledCopyInsert = false
-      },
-      { deep: true }
+      }, { deep: true }
       )
       // 监听地址簿的返回
       this.watch.unwatch_address = this.$watch('popSettings.one.selectedDataJson', (newVal, oldVal) => {
@@ -465,7 +666,7 @@ export default {
       }
       )
     },
-    unWatch() {
+    unWatch () {
       if (this.watch.unwatch_tempJson) {
         this.watch.unwatch_tempJson()
       }
@@ -474,7 +675,7 @@ export default {
       }
     },
     // 重置按钮
-    doReset() {
+    doReset () {
       switch (this.settings.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
           // 数据初始化
@@ -516,7 +717,7 @@ export default {
       })
     },
     // 插入逻辑
-    doInsert() {
+    doInsert () {
       // 开始综合验证
       this.doValidateByTabs()
       this.$refs['dataSubmitForm'].validate((valid) => {
@@ -534,7 +735,7 @@ export default {
       })
     },
     // 更新逻辑
-    doUpdate() {
+    doUpdate () {
       // 开始综合验证
       this.doValidateByTabs()
       this.$refs['dataSubmitForm'].validate((valid) => {
@@ -553,7 +754,7 @@ export default {
       })
     },
     // 复制新增逻辑
-    doCopyInsert() {
+    doCopyInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           const tempData = deepCopy(this.dataJson.tempJson)
@@ -571,42 +772,42 @@ export default {
     },
     // --------------地址簿 弹出查询框：--------------
     // 选择or重置按钮的初始化
-    initAddressSelectButton() {
+    initAddressSelectButton () {
       this.$nextTick(() => {
         this.$refs.selectOne.$el.parentElement.className = 'el-input-group__append el-input-group__append_select'
       })
     },
-    handleModuleDialogClick() {
+    handleModuleDialogClick () {
       // 选择按钮
       this.popSettings.one.visible = true
     },
     // 关闭对话框：确定
-    handleAddressCloseOk(val) {
+    handleAddressCloseOk (val) {
       this.popSettings.one.selectedDataJson = val
       this.popSettings.one.visible = false
     },
     // 关闭对话框：取消
-    handleAddressCloseCancel() {
+    handleAddressCloseCancel () {
       this.popSettings.one.visible = false
     },
     // 关闭dialog
-    handleClose(done) {
+    handleClose (done) {
       this.unWatch()
       done()
     },
     // -------------------不同的页签，标签进行的验证------------------
     // 所有的数据开始validate
-    doValidateAllRules() {
+    doValidateAllRules () {
       this.settings.rules = { ...this.settings.rulesOne }
       // this.$refs['dataSubmitForm'].rules = this.settings.rules
     },
     // 设置验证rules
-    setRules() {
+    setRules () {
       this.settings.rules = this.settings.rulesOne
       // this.$refs['dataSubmitForm'].rules = this.settings.rules
     },
     // 开始综合验证
-    doValidateByTabs() {
+    doValidateByTabs () {
       this.setRules()
       this.$refs['dataSubmitForm'].validate((valid, validateItems) => {
         if (valid === false) {
@@ -622,7 +823,7 @@ export default {
       this.doValidateAllRules()
     },
     // reset所有验证
-    doResetValidate() {
+    doResetValidate () {
       this.settings.badge.countOne = 0
       this.settings.badge.countTwo = 0
       this.$nextTick(() => {
@@ -631,7 +832,7 @@ export default {
       })
     },
     // 营业有效期长期
-    handleLongTermChange(val) {
+    handleLongTermChange (val) {
       if (val) {
         // 营业有效期 不可用
         this.settings.rules_disable.end_date = true
@@ -643,7 +844,7 @@ export default {
     },
     // -------------------验证部分------------------
     // 营业有效期需要大于成立日期
-    validateSetup_date(rule, value, callback) {
+    validateSetup_date (rule, value, callback) {
       const _data = Date.parse(value)
       if (!isNaN(Date.parse(value))) {
         if (_data > Date.parse(this.dataJson.tempJson.end_date)) {
@@ -653,7 +854,7 @@ export default {
         return callback()
       }
     },
-    validateEnd_date(rule, value, callback) {
+    validateEnd_date (rule, value, callback) {
       const _data = Date.parse(value)
       if (!isNaN(Date.parse(value))) {
         if (_data <= Date.parse(this.dataJson.tempJson.setup_date)) {
@@ -662,15 +863,15 @@ export default {
         return callback()
       }
     },
-    handleSetup_dateChange() {
+    handleSetup_dateChange () {
       this.$refs.dataSubmitForm.validateField('setup_date')
       this.$refs.dataSubmitForm.validateField('end_date')
     },
-    handleEnd_dateChange() {
+    handleEnd_dateChange () {
       this.$refs.dataSubmitForm.validateField('setup_date')
       this.$refs.dataSubmitForm.validateField('end_date')
     },
-    async getAddressDataByid() {
+    async getAddressDataByid () {
       return await getDataByIdApi({ id: this.dataJson.tempJson.address_id }).then(response => {
         return response.data
       })

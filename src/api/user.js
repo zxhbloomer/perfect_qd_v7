@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 // update by zxh
-export function loginApi(data) {
+export function loginApi (data) {
   return request({
     url: '/api/v1/user/token/get',
     method: 'post',
@@ -9,7 +9,7 @@ export function loginApi(data) {
   })
 }
 
-export function getUserInfoApi(token) {
+export function getUserInfoApi (token) {
   return request({
     url: '/api/v1/user/info',
     method: 'get',
@@ -17,14 +17,14 @@ export function getUserInfoApi(token) {
   })
 }
 
-export function logout() {
+export function logout () {
   return request({
     url: '/api/v1/user/logout',
     method: 'post'
   })
 }
 
-export function getUserBeanByIdApi(data) {
+export function getUserBeanByIdApi (data) {
   return request({
     url: '/api/v1/user/list',
     method: 'post',
@@ -32,7 +32,7 @@ export function getUserBeanByIdApi(data) {
   })
 }
 
-export function getUsrPsdStringApi(data) {
+export function getUsrPsdStringApi (data) {
   return request({
     url: '/api/v1/user/getpsd',
     method: 'post',
@@ -40,7 +40,7 @@ export function getUsrPsdStringApi(data) {
   })
 }
 
-export function getPermissionAndTopNavApi(pathOrIndex, type) {
+export function getPermissionAndTopNavApi (pathOrIndex, type) {
   return request({
     url: '/api/v1/user/permiss_topnav',
     method: 'post',

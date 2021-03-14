@@ -288,9 +288,11 @@ export default {
       this.$confirm('查看该员工详情，需要关闭当前页面，请注意保存！', '确认信息', {
       }).then(() => {
         // 通知路由，打开组织机构页面
-        this.$router.push({
-          name: this.PROGRAMS.P_STAFF, params: { name: val }
-        })
+        this.$router.push(
+          {
+            name: this.PROGRAMS.P_STAFF, params: { name: val }
+          }
+        )
         this.handleCancel()
       }).catch(action => {
       })

@@ -20,7 +20,12 @@
         autocomplete="on"
         label-position="left"
       >
-        <el-tooltip v-model="dataJson.capsTooltip" content="Caps lock is On" placement="right" manual>
+        <el-tooltip
+          v-model="dataJson.capsTooltip"
+          content="Caps lock is On"
+          placement="right"
+          manual
+        >
           <el-form-item prop="password">
             <span class="svg-container">
               <svg-icon icon-class="password" />
@@ -37,7 +42,10 @@
               @keyup.native="checkCapslock"
               @blur="dataJson.capsTooltip = false"
             />
-            <span class="show-pwd" @click="showPwd">
+            <span
+              class="show-pwd"
+              @click="showPwd"
+            >
               <svg-icon :icon-class="dataJson.passwordType === 'password' ? 'eye' : 'eye-open'" />
             </span>
           </el-form-item>
@@ -45,10 +53,19 @@
 
       </el-form>
     </div>
-    <div slot="footer" class="dialog-footer">
+    <div
+      slot="footer"
+      class="dialog-footer"
+    >
       <el-divider />
-      <el-button plain @click="handleDoCancel()">取消</el-button>
-      <el-button :disabled="dataJson.settings.btnDisabledStatus.disabledOk" @click="handleDoOk()">确定</el-button>
+      <el-button
+        plain
+        @click="handleDoCancel()"
+      >取消</el-button>
+      <el-button
+        :disabled="dataJson.settings.btnDisabledStatus.disabledOk"
+        @click="handleDoOk()"
+      >确定</el-button>
     </div>
   </el-dialog>
 </template>
@@ -69,7 +86,7 @@
       // height: 47px;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px ;
+        box-shadow: 0 0 0px 1000px;
       }
     }
   }
@@ -84,7 +101,6 @@
 </style>
 
 <style lang="scss" scoped>
-
 .login-container {
   min-height: 100%;
   width: 100%;
@@ -154,7 +170,7 @@ import { getUsrPsdStringApi } from '@/api/user'
 
 export default {
   name: 'COM000010',
-  components: { },
+  components: {},
   directives: { elDragDialog },
   props: {
     // 页面是否显示参数
@@ -163,7 +179,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         loginForm: {
@@ -186,7 +202,7 @@ export default {
     }
   },
   computed: {
-    listenVisible() {
+    listenVisible () {
       return this.visible
     }
   },
@@ -194,7 +210,7 @@ export default {
   watch: {
     // 监听页面上面是否有选择
     'dataJson.loginForm.password': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal === undefined || newVal === null || JSON.stringify(newVal) === '{}') {
           this.dataJson.settings.btnDisabledStatus.disabledOk = true
         } else {
@@ -205,7 +221,7 @@ export default {
     },
     // 监听页面是否打开
     listenVisible: {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal) {
           this.init()
           // dialog打开后初始化
@@ -217,16 +233,16 @@ export default {
       immediate: true
     }
   },
-  created() {
+  created () {
     // 设置当前打开的页面
   },
   methods: {
-    init() {
+    init () {
       this.dataJson.loginForm.password = ''
       this.dataJson.loginForm.encodePsd = ''
       this.dataJson.passwordType = 'password'
     },
-    checkCapslock({ shiftKey, key } = {}) {
+    checkCapslock ({ shiftKey, key } = {}) {
       if (key && key.length === 1) {
         if (shiftKey && (key >= 'a' && key <= 'z') || !shiftKey && (key >= 'A' && key <= 'Z')) {
           this.dataJson.capsTooltip = true
@@ -238,7 +254,7 @@ export default {
         this.dataJson.capsTooltip = false
       }
     },
-    showPwd() {
+    showPwd () {
       if (this.dataJson.passwordType === 'password') {
         this.dataJson.passwordType = ''
       } else {
@@ -249,7 +265,7 @@ export default {
       })
     },
     // 确定
-    handleDoOk() {
+    handleDoOk () {
       this.$refs['refLoginForm'].validate((valid) => {
         if (valid) {
           this.getUsrPsdString()
@@ -260,19 +276,19 @@ export default {
       })
     },
     // 取消
-    handleDoCancel() {
+    handleDoCancel () {
       this.$store.dispatch('popUpSearchDialog/program', { programId: 'COM000010', status: 'closed' })
       this.$store.dispatch('popUpSearchDialog/selectedDataJson', null)
       this.$emit('closeMeCancel')
     },
-    validatePassword(rule, value, callback) {
+    validatePassword (rule, value, callback) {
       if (value.length < 6) {
         callback(new Error('密码长度不能小于6位'))
       } else {
         callback()
       }
     },
-    getUsrPsdString() {
+    getUsrPsdString () {
       getUsrPsdStringApi({ pwd: this.dataJson.loginForm.password }).then(response => {
         this.dataJson.loginForm.password = response.data
       })

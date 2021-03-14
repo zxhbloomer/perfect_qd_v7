@@ -14,10 +14,10 @@ const mutations = {
 }
 
 const actions = {
-  program({ commit }, data) {
+  program ({ commit }, data) {
     commit('SET_PROGRAM', data)
   },
-  selectedDataJson({ commit }, data) {
+  selectedDataJson ({ commit }, data) {
     commit('SET_SELECTED_DATA_JSON', data)
   }
 }

@@ -2,7 +2,7 @@ import { warn } from './util/warn'
 import store from '@/store'
 
 // 获取关闭参数
-function getCloseArgs(args) {
+function getCloseArgs (args) {
   args = Array.from(args)
 
   const argsLen = args.length
@@ -35,7 +35,7 @@ export default {
   computed: {
   },
   methods: {
-    clickRouter(obj) {
+    clickRouter (obj) {
       // 根据点击的页签，设置激活的顶部导航栏
       store.dispatch('permission/setTopNavActiveIndex', obj.topNavIndex)
     },
@@ -46,13 +46,13 @@ export default {
      * @param {Boolean} [isReplace = false] 是否 replace 方式替换当前路由
      * @param {Boolean} [refresh = true] 是否全新打开
      */
-    open(path, isReplace = false, refresh = true) {
+    open (path, isReplace = false, refresh = true) {
       if (refresh) this.refresh(path, false)
       this.$router[isReplace ? 'replace' : 'push'](path)
     },
 
     // 移除 tab 项
-    async removeTab(id, force = false) {
+    async removeTab (id, force = false) {
       const { items } = this
       const idx = items.findIndex(item => item.id === id)
 
@@ -81,7 +81,7 @@ export default {
      * @param {location} to 关闭后跳转的地址，为 null 则不跳转
      * @param {Boolean} [refresh = false] 是否全新打开跳转地址
      */
-    async close() {
+    async close () {
       // 解析参数
       let {
         id,
@@ -138,7 +138,7 @@ export default {
     },
 
     // 通过页签 id 关闭页签
-    async closeTab(id = this.activeTabId, to, force = false) {
+    async closeTab (id = this.activeTabId, to, force = false) {
       this.close({ id, to, force })
     },
 
@@ -148,7 +148,7 @@ export default {
      * @param {Boolean} [match = true] 是否匹配 target 完整路径
      * @param {Boolean} [force = true] 是否强制刷新
      */
-    refresh(path, match = true, force = true) {
+    refresh (path, match = true, force = true) {
       if (path) {
         const id = this.getIdByPath(path, match)
         if (id) {
@@ -160,7 +160,7 @@ export default {
     },
 
     // 刷新指定页签
-    async refreshTab(id = this.activeTabId, force = false) {
+    async refreshTab (id = this.activeTabId, force = false) {
       try {
         if (!force) await this.pageLeavePromise(id, 'refresh')
         this.$alive.remove(id)
@@ -174,7 +174,7 @@ export default {
      * 刷新所有页签
      * @param {Boolean} [force = false] 是否强制刷新，如果强制则忽略页面 beforePageLeave
      */
-    async refreshAll(force = false) {
+    async refreshAll (force = false) {
       const { cache } = this.$alive
       for (const id in cache) {
         try {
@@ -191,7 +191,7 @@ export default {
      * 重置 RouterTab 到默认状态，关闭所有页签并清理缓存页签数据
      * @param {location} [to = this.defaultPath] 重置后跳转页面
      */
-    reset(to = this.defaultPath) {
+    reset (to = this.defaultPath) {
       // 遍历删除缓存
       this.items.forEach(({ id }) => this.$alive.remove(id))
 

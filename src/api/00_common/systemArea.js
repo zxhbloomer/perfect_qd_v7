@@ -4,7 +4,7 @@ import request from '@/utils/request'
  * 查询逻辑：省
  * @param {*} data
  */
-export function getProvincerListApi(query) {
+export function getProvincerListApi (query) {
   return request({
     url: '/api/v1/common/areas/province/list',
     method: 'post',
@@ -16,7 +16,7 @@ export function getProvincerListApi(query) {
  * 查询逻辑：市
  * @param {*} data
  */
-export function getCityListApi(query) {
+export function getCityListApi (query) {
   return request({
     url: '/api/v1/common/areas/city/list',
     method: 'post',
@@ -28,7 +28,7 @@ export function getCityListApi(query) {
  * 查询逻辑：区
  * @param {*} data
  */
-export function getAreaListApi(query) {
+export function getAreaListApi (query) {
   return request({
     url: '/api/v1/common/areas/area/list',
     method: 'post',
@@ -40,7 +40,7 @@ export function getAreaListApi(query) {
  * 查询逻辑：级联
  * @param {*} data
  */
-export function getAreasCascaderApi(query) {
+export function getAreasCascaderApi (query) {
   return request({
     url: '/api/v1/common/areas/area/casca',
     method: 'post',

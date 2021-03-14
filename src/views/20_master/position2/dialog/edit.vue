@@ -30,10 +30,11 @@
         :closable="false"
       />
       <br>
+
       <el-row>
         <el-col :span="12">
           <el-form-item
-            label="集团编号："
+            label="岗位编号："
             prop="code"
           >
             <el-input
@@ -49,38 +50,40 @@
         </el-col>
         <el-col :span="12">
           <el-form-item
-            label="集团名称："
+            label="岗位名称："
             prop="name"
           >
             <el-input
-              ref="refFocusTwo"
+              ref="refUpdateTwo"
               v-model.trim="dataJson.tempJson.name"
               clearable
               show-word-limit
               :maxlength="dataJson.inputSettings.maxLength.name"
-              :disabled="isViewModel"
               :placeholder="isPlaceholderShow('请输入')"
+              :disabled="isViewModel"
             />
           </el-form-item>
         </el-col>
       </el-row>
+
       <el-row>
         <el-col :span="12">
           <el-form-item
-            label="集团简称："
+            label="岗位简称："
             prop="simple_name"
           >
             <el-input
               v-model.trim="dataJson.tempJson.simple_name"
               clearable
               show-word-limit
-              :maxlength="dataJson.inputSettings.maxLength.simple_name"
-              :disabled="isViewModel"
+              :maxlength="dataJson.inputSettings.maxLength.code"
               :placeholder="isPlaceholderShow('请输入')"
+              :disabled="isViewModel"
             />
           </el-form-item>
         </el-col>
       </el-row>
+
       <el-form-item
         label="说明："
         prop="descr"
@@ -91,11 +94,11 @@
           type="textarea"
           show-word-limit
           :maxlength="dataJson.inputSettings.maxLength.descr"
-          :disabled="isViewModel"
           :placeholder="isPlaceholderShow('请输入')"
+          :disabled="isViewModel"
         />
       </el-form-item>
-      <el-row v-show="settings.dialogStatus === PARAMETERS.STATUS_UPDATE || isViewModel">
+      <el-row v-show="dialogStatus === PARAMETERS.STATUS_UPDATE || isViewModel">
         <el-col :span="12">
           <el-form-item
             label="更新人："
@@ -146,7 +149,7 @@
         @click="doInsert()"
       >确定</el-button>
       <el-button
-        v-show="settings.btnShowStatus.showUpdate && !isViewModel"
+        v-show="settings.btnShowStatus.showUpdate"
         plain
         type="primary"
         :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate "
@@ -179,7 +182,7 @@
 
 import constants_para from '@/common/constants/constants_para'
 import elDragDialog from '@/directive/el-drag-dialog'
-import { updateApi, insertApi } from '@/api/20_master/group/group'
+import { updateApi, insertApi } from '@/api/20_master/position/position'
 import deepCopy from 'deep-copy'
 
 export default {
@@ -247,13 +250,16 @@ export default {
           disabledUpdate: true,
           disabledCopyInsert: true
         },
+        // 重置按钮点击后
+        btnResetStatus: false,
         // 以下为pop的内容：数据弹出框
         selection: [],
         dialogStatus: this.dialogStatus,
         // pop的check内容
         rules: {
-          name: [{ required: true, message: '请输入集团名称', trigger: 'change' }],
-          simple_name: [{ required: true, message: '请输入集团简称', trigger: 'change' }]
+          name: [{ required: true, message: '请输入岗位名称', trigger: 'change' }],
+          // code: [{ required: true, message: '请输入岗位编号', trigger: 'change' }],
+          simple_name: [{ required: true, message: '请输入岗位简称', trigger: 'change' }]
         }
       }
     }
@@ -284,11 +290,7 @@ export default {
   created () {
     this.init()
   },
-  mounted () {
-  },
-  destroyed () {
-    this.unWatch()
-  },
+  mounted () { },
   methods: {
     // 初始化处理
     init () {
@@ -341,30 +343,42 @@ export default {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJson.code = ''
-      this.dataJson.tempJsonOriginal = deepCopy(this.data)
+      this.dataJson.tempJsonOriginal = Object.assign({}, this.data)
       // 设置按钮
       this.settings.btnShowStatus.showCopyInsert = true
       // 控件focus
       this.$nextTick(() => {
-        this.$refs['refFocusTwo'].focus()
+        this.$refs['refUpdateTwo'].focus()
       })
     },
     // 修改时的初始化
     initUpdateModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
-      this.dataJson.tempJsonOriginal = deepCopy(this.data)
+      this.dataJson.tempJsonOriginal = Object.assign({}, this.data)
       // 设置按钮
       this.settings.btnShowStatus.showUpdate = true
       // 控件focus
       this.$nextTick(() => {
-        this.$refs['refFocusTwo'].focus()
+        this.$refs['refUpdateTwo'].focus()
       })
     },
     // 查看时的初始化
     initViewModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
+    },
+    // Placeholder设置
+    isPlaceholderShow (val) {
+      if (this.isViewModel) {
+        return ''
+      } else {
+        return val
+      }
+    },
+    // 取消按钮
+    handleCancel () {
+      this.$emit('closeMeCancel')
     },
     // 设置监听器
     setWatch () {
@@ -383,25 +397,13 @@ export default {
         this.watch.unwatch_tempJson()
       }
     },
-    // Placeholder设置
-    isPlaceholderShow (val) {
-      if (this.isViewModel) {
-        return ''
-      } else {
-        return val
-      }
-    },
-    // 取消按钮
-    handleCancel () {
-      this.$emit('closeMeCancel')
-    },
     // 重置按钮
     doReset () {
+      this.settings.btnResetStatus = true
       switch (this.settings.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
           // 数据初始化
-          // this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
-          this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
+          this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
           // 设置控件焦点focus
           this.$nextTick(() => {
             this.$refs['refFocusOne'].focus()
@@ -409,18 +411,16 @@ export default {
           break
         case this.PARAMETERS.STATUS_COPY_INSERT:
           // 数据初始化
-          // this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
-          this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
+          this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
           this.dataJson.tempJson.code = ''
           // 设置控件焦点focus
           this.$nextTick(() => {
-            this.$refs['refFocusTwo'].focus()
+            this.$refs['refUpdateTwo'].focus()
           })
           break
         default:
           // 数据初始化
-          // this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
-          this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
+          this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
           // 设置控件焦点focus
           this.$nextTick(() => {
             this.$refs['refFocusOne'].focus()
@@ -440,8 +440,7 @@ export default {
     doInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
-          // const tempData = Object.assign({}, this.dataJson.tempJson)
-          const tempData = deepCopy(this.dataJson.tempJson)
+          const tempData = Object.assign({}, this.dataJson.tempJson)
           this.settings.loading = true
           insertApi(tempData).then((_data) => {
             this.$emit('closeMeOk', { return_flag: true, data: _data })
@@ -457,12 +456,10 @@ export default {
     doUpdate () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
-          // const tempData = Object.assign({}, this.dataJson.tempJson)
-          const tempData = deepCopy(this.dataJson.tempJson)
+          const tempData = Object.assign({}, this.dataJson.tempJson)
           this.settings.loading = true
           updateApi(tempData).then((_data) => {
-            // this.dataJson.tempJson = Object.assign({}, _data.data)
-            this.dataJson.tempJson = deepCopy(_data.data)
+            this.dataJson.tempJson = Object.assign({}, _data.data)
             this.$emit('closeMeOk', { return_flag: true, data: _data })
           }, (_error) => {
             this.$emit('closeMeOk', { return_flag: false, error: _error })
@@ -476,12 +473,10 @@ export default {
     doCopyInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
-          // const tempData = Object.assign({}, this.dataJson.tempJson)
-          const tempData = deepCopy(this.dataJson.tempJson)
+          const tempData = Object.assign({}, this.dataJson.tempJson)
           this.settings.loading = true
           insertApi(tempData).then((_data) => {
-            // this.dataJson.tempJson = Object.assign({}, _data.data)
-            this.dataJson.tempJson = deepCopy(_data.data)
+            this.dataJson.tempJson = Object.assign({}, _data.data)
             this.$emit('closeMeOk', { return_flag: true, data: _data })
           }, (_error) => {
             this.$emit('closeMeOk', { return_flag: false, error: _error })
@@ -494,3 +489,4 @@ export default {
   }
 }
 </script>
+

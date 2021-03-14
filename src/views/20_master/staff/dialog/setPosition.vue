@@ -23,13 +23,27 @@
       class="floatRight"
     >
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.position_name" clearable placeholder="岗位名称" />
+        <el-input
+          v-model.trim="dataJson.searchForm.position_name"
+          clearable
+          placeholder="岗位名称"
+        />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-search"
+          @click="handleSearch"
+        >查询</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-popover:popover type="primary" plain icon="el-icon-zoom-in">高级查询</el-button>
+        <el-button
+          v-popover:popover
+          type="primary"
+          plain
+          icon="el-icon-zoom-in"
+        >高级查询</el-button>
       </el-form-item>
     </el-form>
 
@@ -47,31 +61,68 @@
         class="floatRight"
       >
         <el-form-item label="">
-          <el-input v-model.trim="dataJson.searchForm.group_name" clearable placeholder="集团名称" />
+          <el-input
+            v-model.trim="dataJson.searchForm.group_name"
+            clearable
+            placeholder="集团名称"
+          />
         </el-form-item>
         <el-form-item label="">
-          <el-input v-model.trim="dataJson.searchForm.company_name" clearable placeholder="企业名称" />
+          <el-input
+            v-model.trim="dataJson.searchForm.company_name"
+            clearable
+            placeholder="企业名称"
+          />
         </el-form-item>
         <el-form-item label="">
-          <el-input v-model.trim="dataJson.searchForm.dept_name" clearable placeholder="部门名称" />
+          <el-input
+            v-model.trim="dataJson.searchForm.dept_name"
+            clearable
+            placeholder="部门名称"
+          />
         </el-form-item>
         <el-divider />
         <div style="text-align: right; margin: 0">
-          <el-button type="text" @click="doResetSearch()">重置</el-button>
-          <el-button type="primary" @click="handleSearch">提交</el-button>
+          <el-button
+            type="text"
+            @click="doResetSearch()"
+          >重置</el-button>
+          <el-button
+            type="primary"
+            @click="handleSearch"
+          >提交</el-button>
         </div>
       </el-form>
     </el-popover>
 
-    <el-tabs type="card" class="floatLeft" @tab-click="handleTabsClick">
+    <el-tabs
+      type="card"
+      class="floatLeft"
+      @tab-click="handleTabsClick"
+    >
       <el-tab-pane>
-        <template slot="label">全部岗位<el-badge :value="dataJson.tabs.count.all" type="danger" /></template>
+        <template slot="label">全部岗位
+          <el-badge
+            :value="dataJson.tabs.count.all"
+            type="danger"
+          />
+        </template>
       </el-tab-pane>
       <el-tab-pane>
-        <template slot="label">已设置岗位<el-badge :value="dataJson.tabs.count.settled" type="danger" /></template>
+        <template slot="label">已设置岗位
+          <el-badge
+            :value="dataJson.tabs.count.settled"
+            type="danger"
+          />
+        </template>
       </el-tab-pane>
       <el-tab-pane>
-        <template slot="label">未设置岗位<el-badge :value="dataJson.tabs.count.unsettled" type="danger" /></template>
+        <template slot="label">未设置岗位
+          <el-badge
+            :value="dataJson.tabs.count.unsettled"
+            type="danger"
+          />
+        </template>
       </el-tab-pane>
     </el-tabs>
     <el-table
@@ -91,12 +142,54 @@
       @current-change="handleCurrentChange"
       @row-click="handleRowClick"
     >
-      <el-table-column type="index" width="45" label="No" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="group_full_simple_name" label="集团" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="80" :sort-orders="settings.sortOrders" prop="company_simple_name" label="企业" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="80" :sort-orders="settings.sortOrders" prop="dept_full_simple_name" label="部门" />
-      <el-table-column header-align="center" show-overflow-tooltip sortable="custom" min-width="100" :sort-orders="settings.sortOrders" prop="name" label="岗位" />
-      <el-table-column header-align="center" align="center" min-width="50" :sort-orders="settings.sortOrders" label="删除">
+      <el-table-column
+        type="index"
+        width="45"
+        label="No"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="group_full_simple_name"
+        label="集团"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="80"
+        :sort-orders="settings.sortOrders"
+        prop="company_simple_name"
+        label="企业"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="80"
+        :sort-orders="settings.sortOrders"
+        prop="dept_full_simple_name"
+        label="部门"
+      />
+      <el-table-column
+        header-align="center"
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="100"
+        :sort-orders="settings.sortOrders"
+        prop="name"
+        label="岗位"
+      />
+      <el-table-column
+        header-align="center"
+        align="center"
+        min-width="50"
+        :sort-orders="settings.sortOrders"
+        label="删除"
+      >
         <template v-slot:header>
           <span>
             设置
@@ -107,15 +200,22 @@
             >
               <div slot="content">
                 岗位设置状态提示：<br>
-                绿色：已设置  <br>
+                绿色：已设置 <br>
                 红色：未设置
               </div>
-              <svg-icon icon-class="perfect-icon-question1_btn" style="margin-left: 5px" />
+              <svg-icon
+                icon-class="perfect-icon-question1_btn"
+                style="margin-left: 5px"
+              />
             </el-tooltip>
           </span>
         </template>
         <template v-slot="scope">
-          <el-tooltip :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' " placement="top" :open-delay="500">
+          <el-tooltip
+            :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' "
+            placement="top"
+            :open-delay="500"
+          >
             <el-switch
               v-model="scope.row.settled"
               active-color="#13ce66"
@@ -129,21 +229,33 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="minusPaging" :total="dataJson.paging.total" :page.sync="dataJson.paging.current" :limit.sync="dataJson.paging.size" @pagination="getDataList" />
-    <div slot="footer" class="dialog-footer">
+    <pagination
+      ref="minusPaging"
+      :total="dataJson.paging.total"
+      :page.sync="dataJson.paging.current"
+      :limit.sync="dataJson.paging.size"
+      @pagination="getDataList"
+    />
+    <div
+      slot="footer"
+      class="dialog-footer"
+    >
       <el-divider />
-      <el-button plain @click="handleDoCancel()">关闭</el-button>
+      <el-button
+        plain
+        @click="handleDoCancel()"
+      >关闭</el-button>
     </div>
   </el-dialog>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
 </style>
 
 <script>
@@ -166,7 +278,7 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -204,22 +316,22 @@ export default {
     }
   },
   computed: {
-    listenVisible() {
+    listenVisible () {
       return this.visible
     }
   },
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     this.initShow()
   },
   methods: {
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
     },
-    getDataList() {
+    getDataList () {
       // 查询逻辑
       this.settings.loading = true
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
@@ -237,17 +349,17 @@ export default {
       })
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.dataJson.searchForm.pageCondition.sort = column.prop
@@ -256,11 +368,11 @@ export default {
       }
       this.getDataList()
     },
-    handleSearch() {
+    handleSearch () {
       this.getDataList()
     },
     // tabs点击事件
-    handleTabsClick(tab, event) {
+    handleTabsClick (tab, event) {
       if (this.dataJson.tabs.active_tabs_index === tab.index) {
         return
       }
@@ -269,11 +381,11 @@ export default {
       this.initShow()
     },
     // 关闭
-    handleDoCancel() {
+    handleDoCancel () {
       this.$emit('closeMeCancel')
     },
     // 设置岗位or取消岗位
-    handlePositionSettled(row) {
+    handlePositionSettled (row) {
       let _message = ''
       const _value = row.settled
       const selectionJson = { 'id': this.data.id, 'position_id': row.id, 'position_settled': row.settled }

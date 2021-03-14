@@ -10,7 +10,7 @@ const mutations = {
 }
 
 const actions = {
-  setIsDo({ commit }, data) {
+  setIsDo ({ commit }, data) {
     commit('SET_IS_DO', data)
   }
 }

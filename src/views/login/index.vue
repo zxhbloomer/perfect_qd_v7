@@ -1,6 +1,13 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      autocomplete="on"
+      label-position="left"
+    >
 
       <div class="title-container">
         <h3 class="title">登&#8195;&#8195;录</h3>
@@ -29,7 +36,12 @@
         />
       </el-form-item>
 
-      <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
+      <el-tooltip
+        v-model="capsTooltip"
+        content="Caps lock is On"
+        placement="right"
+        manual
+      >
         <el-form-item prop="password">
           <span class="svg-container">
             <svg-icon icon-class="password" />
@@ -47,7 +59,10 @@
             @blur="capsTooltip = false"
             @keyup.enter.native="handleLogin"
           />
-          <span class="show-pwd" @click="showPwd">
+          <span
+            class="show-pwd"
+            @click="showPwd"
+          >
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span>
         </el-form-item>
@@ -66,16 +81,31 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="imageCode">
-          <img :src="codeImg" class="floatRight" alt="验证码" title="点击换一张" @click="updateCode">
+          <img
+            :src="codeImg"
+            class="floatRight"
+            alt="验证码"
+            title="点击换一张"
+            @click="updateCode"
+          >
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width:100%;margin-bottom:30px;"
+        @click.native.prevent="handleLogin"
+      >登录</el-button>
       <el-divider class="el-form-item" />
 
       <p class="create-account-callout mt-3">
-        <el-link><router-link :to="password_reset_href">忘记密码</router-link></el-link>
-        <el-link class="floatRight"><router-link :to="signup_href">免费注册</router-link></el-link>
+        <el-link>
+          <router-link :to="password_reset_href">忘记密码</router-link>
+        </el-link>
+        <el-link class="floatRight">
+          <router-link :to="signup_href">免费注册</router-link>
+        </el-link>
       </p>
     </el-form>
   </div>
@@ -88,7 +118,7 @@ import { validUsername } from '@/utils/validate'
 export default {
   name: 'Login',
   // components: { SocialSign },
-  data() {
+  data () {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
         callback(new Error('请输入正确的用户名'))
@@ -133,7 +163,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         const query = route.query
         if (query) {
           this.redirect = query.redirect
@@ -144,14 +174,14 @@ export default {
     },
     // 输入信息是否有变更监控，如果有变化则情况错误信息
     'loginForm': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         this.checkJson.errorMsg = ''
       },
       deep: true
     },
     // 错误信息
     'checkJson.errorMsg': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal === undefined) {
           return
         }
@@ -166,7 +196,7 @@ export default {
     },
     // loading
     'loading': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         switch (newVal) {
           case true:
             this.showLoading('正在验证登录，请稍后...')
@@ -178,31 +208,31 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     // window.addEventListener('storage', this.afterQRScan)
     // 获取验证码
     this.getImageCode()
   },
-  mounted() {
+  mounted () {
     if (this.loginForm.username === '') {
       this.$refs.username.focus()
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus()
     }
   },
-  destroyed() {
+  destroyed () {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
     // 获取验证码
-    getImageCode() {
+    getImageCode () {
       this.codeImg = `${process.env.VUE_APP_BASE_API}/api/v1/imagecode?=${Math.random()}`
     },
-    updateCode() {
+    updateCode () {
       // 获取验证码
       this.getImageCode()
     },
-    checkCapslock({ shiftKey, key } = {}) {
+    checkCapslock ({ shiftKey, key } = {}) {
       if (key && key.length === 1) {
         if (shiftKey && (key >= 'a' && key <= 'z') || !shiftKey && (key >= 'A' && key <= 'Z')) {
           this.capsTooltip = true
@@ -214,7 +244,7 @@ export default {
         this.capsTooltip = false
       }
     },
-    showPwd() {
+    showPwd () {
       if (this.passwordType === 'password') {
         this.passwordType = ''
       } else {
@@ -224,7 +254,7 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
+    handleLogin () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
@@ -250,7 +280,7 @@ export default {
         }
       })
     },
-    getOtherQuery(query) {
+    getOtherQuery (query) {
       return Object.keys(query).reduce((acc, cur) => {
         if (cur !== 'redirect') {
           acc[cur] = query[cur]
@@ -258,10 +288,10 @@ export default {
         return acc
       }, {})
     },
-    handleClose() {
+    handleClose () {
       this.checkJson.errorStatus = ''
     },
-    handleSignUp() {
+    handleSignUp () {
       alert(111)
     }
   }
@@ -269,9 +299,8 @@ export default {
 </script>
 
 <style lang="scss">
-
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -314,14 +343,13 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-
 .floatRight {
   float: right;
 }
 
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .login-container {
   min-height: 100%;

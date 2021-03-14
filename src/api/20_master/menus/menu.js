@@ -4,7 +4,7 @@ import request from '@/utils/request'
  * 查询逻辑
  * @param {*} data
  */
-export function getListApi(query) {
+export function getListApi (query) {
   return request({
     url: '/api/v1/menus/list',
     method: 'post',
@@ -16,7 +16,7 @@ export function getListApi(query) {
  * 查询逻辑：级联
  * @param {*} data
  */
-export function getCascaderListApi(query) {
+export function getCascaderListApi (query) {
   return request({
     url: '/api/v1/menus/cascader/list',
     method: 'post',
@@ -28,7 +28,7 @@ export function getCascaderListApi(query) {
  * 更新api
  * @param {*} data
  */
-export function updateApi(data) {
+export function updateApi (data) {
   return request({
     url: '/api/v1/menus/save',
     method: 'post',
@@ -40,7 +40,7 @@ export function updateApi(data) {
  * 保存重定向数据
  * @param {*} data
  */
-export function saveRedirectApi(data) {
+export function saveRedirectApi (data) {
   return request({
     url: '/api/v1/menus/redirect/save',
     method: 'post',
@@ -52,7 +52,7 @@ export function saveRedirectApi(data) {
  * 新增菜单组
  * @param {*} data
  */
-export function addMenuGroupApi(data) {
+export function addMenuGroupApi (data) {
   return request({
     url: '/api/v1/menus/addmenugroup',
     method: 'post',
@@ -64,7 +64,7 @@ export function addMenuGroupApi(data) {
  * 新增子结点
  * @param {*} data
  */
-export function addTopNavApi(data) {
+export function addTopNavApi (data) {
   return request({
     url: '/api/v1/menus/addtopnav',
     method: 'post',
@@ -76,7 +76,7 @@ export function addTopNavApi(data) {
  * 新增子结点
  * @param {*} data
  */
-export function addSubNodeApi(data) {
+export function addSubNodeApi (data) {
   return request({
     url: '/api/v1/menus/addsubnode',
     method: 'post',
@@ -88,7 +88,7 @@ export function addSubNodeApi(data) {
  * 新增菜单组
  * @param {*} data
  */
-export function addSubMenuApi(data) {
+export function addSubMenuApi (data) {
   return request({
     url: '/api/v1/menus/addsubmenu',
     method: 'post',
@@ -100,7 +100,7 @@ export function addSubMenuApi(data) {
  * 物理删除选择数据
  * @param {*} data
  */
-export function realDeleteSelectionApi(data) {
+export function realDeleteSelectionApi (data) {
   return request({
     url: '/api/v1/menus/realdelete',
     method: 'post',
@@ -112,7 +112,7 @@ export function realDeleteSelectionApi(data) {
  * 组织架构主表数据更新保存，拖拽后，全量更
  * @param {*} data
  */
-export function dragsaveApi(data) {
+export function dragsaveApi (data) {
   return request({
     url: '/api/v1/menus/dragsave',
     method: 'post',

@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function searchUser(name) {
+export function searchUser (name) {
   return request({
     url: '/search/user',
     method: 'get',
@@ -8,7 +8,7 @@ export function searchUser(name) {
   })
 }
 
-export function transactionList(query) {
+export function transactionList (query) {
   return request({
     url: '/transaction/list',
     method: 'get',

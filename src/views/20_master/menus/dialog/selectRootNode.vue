@@ -31,7 +31,11 @@
               { required: true, message: '请选择菜单组!'},
             ]"
           >
-            <el-select ref="refFocus" v-model="dataJson.tempJson" placeholder="请选择">
+            <el-select
+              ref="refFocus"
+              v-model="dataJson.tempJson"
+              placeholder="请选择"
+            >
               <el-option
                 v-for="item in data"
                 :key="item.id"
@@ -42,25 +46,37 @@
           </el-form-item>
         </el-row>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-divider />
-        <el-button plain :disabled="settings.loading" @click="handleCancel()">取消</el-button>
-        <el-button plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledNext " @click="handleNext()">下一步</el-button>
+        <el-button
+          plain
+          :disabled="settings.loading"
+          @click="handleCancel()"
+        >取消</el-button>
+        <el-button
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledNext "
+          @click="handleNext()"
+        >下一步</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
@@ -68,7 +84,7 @@ import constants_para from '@/common/constants/constants_para'
 import elDragDialog from '@/directive/el-drag-dialog'
 
 export default {
-  components: { },
+  components: {},
   directives: { elDragDialog },
   mixins: [],
   props: {
@@ -89,7 +105,7 @@ export default {
       default: constants_para.STATUS_VIEW
     }
   },
-  data() {
+  data () {
     return {
       // 监听器
       watch: {
@@ -137,17 +153,17 @@ export default {
   },
   computed: {
     // 是否为更新模式
-    isUpdateModel() {
+    isUpdateModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_INSERT || this.settings.dialogStatus === this.PARAMETERS.STATUS_COPY_INSERT) {
         return false
       } else {
         return true
       }
     },
-    listenVisible() {
+    listenVisible () {
       return this.visible
     },
-    isViewModel() {
+    isViewModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_VIEW) {
         return true
       } else {
@@ -158,16 +174,16 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     this.init()
   },
-  mounted() {
+  mounted () {
   },
-  destroyed() {
+  destroyed () {
   },
   methods: {
     // 初始化处理
-    init() {
+    init () {
       // 初始化级联数据
       this.initButtonShowStatus()
       this.initButtonDisabledStatus()
@@ -176,16 +192,16 @@ export default {
       this.setWatch()
       this.settings.loading = false
     },
-    initButtonShowStatus() {
+    initButtonShowStatus () {
       // 初始化按钮状态：默认都隐藏
       this.settings.btnShowStatus = this.$options.data.call(this).settings.btnShowStatus
     },
-    initButtonDisabledStatus() {
+    initButtonDisabledStatus () {
       // 按钮状态初始化：默认不可用
       this.settings.btnDisabledStatus = this.$options.data.call(this).settings.btnDisabledStatus
     },
     // 修改时的初始化
-    initData() {
+    initData () {
       // 设置按钮
       this.settings.btnShowStatus.showUpdate = true
       // 控件focus
@@ -194,10 +210,10 @@ export default {
       })
     },
     // 取消按钮
-    handleCancel() {
+    handleCancel () {
       this.$emit('closeMeCancel')
     },
-    handleNext() {
+    handleNext () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           this.$emit('closeMeOk', this.dataJson.tempJson)
@@ -207,16 +223,15 @@ export default {
       })
     },
     // 设置监听器
-    setWatch() {
+    setWatch () {
       this.unWatch()
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_tempJson = this.$watch('dataJson.tempJson', (newVal, oldVal) => {
         this.settings.btnDisabledStatus.disabledNext = false
-      },
-      { deep: true }
+      }, { deep: true }
       )
     },
-    unWatch() {
+    unWatch () {
       if (this.watch.unwatch_tempJson) {
         this.watch.unwatch_tempJson()
       }

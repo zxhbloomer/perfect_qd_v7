@@ -7,7 +7,10 @@
       <el-input v-model.trim="user.email" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submit">Update</el-button>
+      <el-button
+        type="primary"
+        @click="submit"
+      >Update</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -26,7 +29,7 @@ export default {
     }
   },
   methods: {
-    submit() {
+    submit () {
       this.$message({
         message: 'User information has been updated successfully',
         type: 'success',

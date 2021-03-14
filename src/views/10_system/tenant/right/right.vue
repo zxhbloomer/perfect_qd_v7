@@ -8,13 +8,27 @@
       class="floatRight"
     >
       <el-form-item label="">
-        <el-input v-model.trim="dataJson.searchForm.name" clearable placeholder="租户名称" />
+        <el-input
+          v-model.trim="dataJson.searchForm.name"
+          clearable
+          placeholder="租户名称"
+        />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain icon="el-icon-search" @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-search"
+          @click="handleSearch"
+        >查询</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-popover:popover type="primary" plain icon="el-icon-zoom-in">高级查询</el-button>
+        <el-button
+          v-popover:popover
+          type="primary"
+          plain
+          icon="el-icon-zoom-in"
+        >高级查询</el-button>
       </el-form-item>
     </el-form>
 
@@ -30,8 +44,16 @@
         label-position="getLabelPosition()"
         class="floatRight"
       >
-        <el-form-item v-show="false" label="">
-          <el-input v-show="false" v-model.trim="dataJson.searchForm.name" clearable placeholder="名称" />
+        <el-form-item
+          v-show="false"
+          label=""
+        >
+          <el-input
+            v-show="false"
+            v-model.trim="dataJson.searchForm.name"
+            clearable
+            placeholder="名称"
+          />
         </el-form-item>
         <el-form-item label="">
           <el-date-picker
@@ -47,18 +69,53 @@
         </el-form-item>
         <el-divider />
         <div style="text-align: right; margin: 0">
-          <el-button type="text" @click="doResetSearch()">重置</el-button>
-          <el-button type="primary" @click="handleSearch">提交</el-button>
+          <el-button
+            type="text"
+            @click="doResetSearch()"
+          >重置</el-button>
+          <el-button
+            type="primary"
+            @click="handleSearch"
+          >提交</el-button>
         </div>
       </el-form>
     </el-popover>
 
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" :loading="settings.loading" @click="handleInsert">新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showUpdate" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleUpdate">修改</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showCopyInsert" type="primary" icon="el-icon-camera-solid" :loading="settings.loading" @click="handleCopyInsert">复制新增</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showExport" type="primary" icon="el-icon-s-management" :loading="settings.loading" @click="handleExport">导出</el-button>
-      <el-button :disabled="!settings.btnShowStatus.showAdmin" type="primary" icon="el-icon-edit-outline" :loading="settings.loading" @click="handleAdmin">管理员维护</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        :loading="settings.loading"
+        @click="handleInsert"
+      >新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showUpdate"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleUpdate"
+      >修改</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showCopyInsert"
+        type="primary"
+        icon="el-icon-camera-solid"
+        :loading="settings.loading"
+        @click="handleCopyInsert"
+      >复制新增</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showExport"
+        type="primary"
+        icon="el-icon-s-management"
+        :loading="settings.loading"
+        @click="handleExport"
+      >导出</el-button>
+      <el-button
+        :disabled="!settings.btnShowStatus.showAdmin"
+        type="primary"
+        icon="el-icon-edit-outline"
+        :loading="settings.loading"
+        @click="handleAdmin"
+      >管理员维护</el-button>
     </el-button-group>
 
     <el-table
@@ -79,13 +136,57 @@
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="45" prop="id" />
-      <el-table-column type="index" width="45" label="No" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="parent_name" label="父结点名称" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="120" :sort-orders="settings.sortOrders" prop="code" label="租户编码" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="200" :sort-orders="settings.sortOrders" prop="name" label="租户名称" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="simple_name" label="租户简称" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="100" :sort-orders="settings.sortOrders" prop="is_enable" label="启用" :render-header="renderHeaderIsEnabled">
+      <el-table-column
+        type="selection"
+        width="45"
+        prop="id"
+      />
+      <el-table-column
+        type="index"
+        width="45"
+        label="No"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="parent_name"
+        label="父结点名称"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="120"
+        :sort-orders="settings.sortOrders"
+        prop="code"
+        label="租户编码"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="200"
+        :sort-orders="settings.sortOrders"
+        prop="name"
+        label="租户名称"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="simple_name"
+        label="租户简称"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="100"
+        :sort-orders="settings.sortOrders"
+        prop="is_enable"
+        label="启用"
+        :render-header="renderHeaderIsEnabled"
+      >
         <template v-slot="scope">
           <el-switch
             v-model="scope.row.isdel"
@@ -98,9 +199,31 @@
           />
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="enable_time" label="生效日期" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="disable_time" label="失效日期" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="100" :sort-orders="settings.sortOrders" prop="is_freeze" label="冻结" :render-header="renderHeaderIsFreeze">
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="enable_time"
+        label="生效日期"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="disable_time"
+        label="失效日期"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="100"
+        :sort-orders="settings.sortOrders"
+        prop="is_freeze"
+        label="冻结"
+        :render-header="renderHeaderIsFreeze"
+      >
         <template v-slot="scope">
           <el-switch
             v-model="scope.row.isdel"
@@ -113,13 +236,26 @@
           />
         </template>
       </el-table-column>
-      <el-table-column sortable="custom" min-width="180" :sort-orders="settings.sortOrders" show-overflow-tooltip prop="u_time" label="更新时间">
+      <el-table-column
+        sortable="custom"
+        min-width="180"
+        :sort-orders="settings.sortOrders"
+        show-overflow-tooltip
+        prop="u_time"
+        label="更新时间"
+      >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="minusPaging" :total="dataJson.paging.total" :page.sync="dataJson.paging.current" :limit.sync="dataJson.paging.size" @pagination="getDataList" />
+    <pagination
+      ref="minusPaging"
+      :total="dataJson.paging.total"
+      :page.sync="dataJson.paging.current"
+      :limit.sync="dataJson.paging.size"
+      @pagination="getDataList"
+    />
     <!-- pop窗口 数据编辑:新增、修改、步骤窗体-->
     <el-dialog
       v-el-drag-dialog
@@ -148,7 +284,10 @@
         />
         <br>
         <el-row>
-          <el-form-item label="上级租户名称：" prop="parent_name">
+          <el-form-item
+            label="上级租户名称："
+            prop="parent_name"
+          >
             <el-cascader
               ref="refInsertFocus"
               v-model="dataJson.tempJson.parent_name"
@@ -169,34 +308,63 @@
         <br>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="租户编码：" prop="code">
-              <el-input v-model="dataJson.tempJson.code" placeholder="请输入编码不输入则自动生成" />
+            <el-form-item
+              label="租户编码："
+              prop="code"
+            >
+              <el-input
+                v-model="dataJson.tempJson.code"
+                placeholder="请输入编码不输入则自动生成"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="系统编码：" prop="serial_no">
-              <el-input v-model="dataJson.tempJson.serial_no" placeholder="系统自动指定" disabled="" />
+            <el-form-item
+              label="系统编码："
+              prop="serial_no"
+            >
+              <el-input
+                v-model="dataJson.tempJson.serial_no"
+                placeholder="系统自动指定"
+                disabled=""
+              />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="12">
-            <el-form-item label="租户名称：" prop="name">
-              <el-input ref="refUpdateFocus" v-model="dataJson.tempJson.name" placeholder="请输入" />
+            <el-form-item
+              label="租户名称："
+              prop="name"
+            >
+              <el-input
+                ref="refUpdateFocus"
+                v-model="dataJson.tempJson.name"
+                placeholder="请输入"
+              />
             </el-form-item>
 
           </el-col>
           <el-col :span="12">
-            <el-form-item label="租户简称：" prop="simple_name">
-              <el-input v-model="dataJson.tempJson.simple_name" placeholder="请输入" />
+            <el-form-item
+              label="租户简称："
+              prop="simple_name"
+            >
+              <el-input
+                v-model="dataJson.tempJson.simple_name"
+                placeholder="请输入"
+              />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="12">
-            <el-form-item label="生效日期区间：" prop="enable_time_range">
+            <el-form-item
+              label="生效日期区间："
+              prop="enable_time_range"
+            >
               <!-- <el-input v-model="enable_time" placeholder="请选择" /> -->
               <el-date-picker
                 v-model="dataJson.tempJson.enable_time_range"
@@ -214,7 +382,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="是否冻结：" prop="isfreeze">
+            <el-form-item
+              label="是否冻结："
+              prop="isfreeze"
+            >
               <el-switch
                 v-model="dataJson.tempJson.isfreeze"
                 style="display: block"
@@ -228,69 +399,119 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="级次：" prop="level">
-              <el-input v-model="dataJson.tempJson.level" placeholder="系统自动指定" disabled />
+            <el-form-item
+              label="级次："
+              prop="level"
+            >
+              <el-input
+                v-model="dataJson.tempJson.level"
+                placeholder="系统自动指定"
+                disabled
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="排序：" prop="sort">
-              <el-input v-model="dataJson.tempJson.sort" placeholder="系统自动指定" disabled />
+            <el-form-item
+              label="排序："
+              prop="sort"
+            >
+              <el-input
+                v-model="dataJson.tempJson.sort"
+                placeholder="系统自动指定"
+                disabled
+              />
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-form-item label="说明：" prop="templateDescr">
-          <el-input v-model.trim="dataJson.tempJson.descr" type="textarea" placeholder="请输入" />
+        <el-form-item
+          label="说明："
+          prop="templateDescr"
+        >
+          <el-input
+            v-model.trim="dataJson.tempJson.descr"
+            type="textarea"
+            placeholder="请输入"
+          />
         </el-form-item>
 
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-divider />
         <div class="floatLeft">
-          <el-button type="danger" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledReset " @click="doReset()">重置</el-button>
+          <el-button
+            type="danger"
+            :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledReset "
+            @click="doReset()"
+          >重置</el-button>
         </div>
-        <el-button plain :disabled="settings.loading" @click="popSettingsData.dialogFormVisible = false">取消</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showInsert" plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledInsert " @click="doInsert()">确定</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showUpdate" plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledUpdate " @click="doUpdate()">确定</el-button>
-        <el-button v-show="popSettingsData.btnShowStatus.showCopyInsert" plain type="primary" :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledCopyInsert " @click="doCopyInsert()">确定</el-button>
+        <el-button
+          plain
+          :disabled="settings.loading"
+          @click="popSettingsData.dialogFormVisible = false"
+        >取消</el-button>
+        <el-button
+          v-show="popSettingsData.btnShowStatus.showInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledInsert "
+          @click="doInsert()"
+        >确定</el-button>
+        <el-button
+          v-show="popSettingsData.btnShowStatus.showUpdate"
+          plain
+          type="primary"
+          :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledUpdate "
+          @click="doUpdate()"
+        >确定</el-button>
+        <el-button
+          v-show="popSettingsData.btnShowStatus.showCopyInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || popSettingsData.btnDisabledStatus.disabledCopyInsert "
+          @click="doCopyInsert()"
+        >确定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-cascader {
-    width: 100%;
-  }
-  .grid-content {
-    border-radius: 2px;
-    min-height: 36px;
-    margin-bottom: 10px;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .el-alert--info.is-light{
-    background: #eee;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-cascader {
+  width: 100%;
+}
+.grid-content {
+  border-radius: 2px;
+  min-height: 36px;
+  margin-bottom: 10px;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.el-alert--info.is-light {
+  background: #eee;
+}
 </style>
 <style >
-  .buttonSearch{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
-  .buttonReset{
-    color: #FFFFFF;
-    background-color: #F56C6C;
-    border-color: #F56C6C;
-  }
+.buttonSearch {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+.buttonReset {
+  color: #ffffff;
+  background-color: #f56c6c;
+  border-color: #f56c6c;
+}
 </style>
 <script>
 import { getCascaderListApi, getListApi, updateApi, insertApi, exportAllApi, exportSelectionApi } from '@/api/10_system/tenant/tenant'
@@ -308,7 +529,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -361,7 +582,7 @@ export default {
         pickerOptions: {
           shortcuts: [{
             text: '未来一周',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 7)
@@ -369,7 +590,7 @@ export default {
             }
           }, {
             text: '未来一个月',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 30)
@@ -377,7 +598,7 @@ export default {
             }
           }, {
             text: '未来三个月',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 90)
@@ -385,7 +606,7 @@ export default {
             }
           }, {
             text: '未来六个月',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 180)
@@ -393,7 +614,7 @@ export default {
             }
           }, {
             text: '未来一年',
-            onClick(picker) {
+            onClick (picker) {
               const end = new Date()
               const start = new Date()
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 365)
@@ -484,7 +705,7 @@ export default {
     //   immediate: true
     // },
     'dataJson.tempJson.enable_time': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal === undefined || newVal === null || newVal === []) {
           // this.dataJson.tempJson.enable_time = ''
           // this.dataJson.tempJson.disable_time = ''
@@ -501,7 +722,7 @@ export default {
     },
     // 监听页面上面是否有修改，有修改按钮高亮
     'dataJson.tempJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.popSettingsData.btnResetStatus === true) {
           // 点击了重置按钮
           this.popSettingsData.btnDisabledStatus.disabledReset = true
@@ -523,7 +744,7 @@ export default {
     },
     // 弹出窗口初始化，按钮不可用
     'popSettingsData.dialogFormVisible': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.popSettingsData.dialogFormVisible) {
           this.initPopUpStatus()
         }
@@ -531,7 +752,7 @@ export default {
     },
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -540,7 +761,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     // 初始化查询
     this.getDataList()
     this.getCascaderDataList()
@@ -549,16 +770,16 @@ export default {
   },
   methods: {
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -611,7 +832,7 @@ export default {
     //   })
     // },
     // 点击按钮 新增
-    handleInsert() {
+    handleInsert () {
       // 新增
       this.popSettingsData.dialogStatus = 'insert'
       this.$nextTick(() => {
@@ -626,7 +847,7 @@ export default {
       this.popSettingsData.dialogFormVisible = true
     },
     // 点击按钮 更新
-    handleUpdate() {
+    handleUpdate () {
       this.dataJson.tempJson = Object.assign({}, this.dataJson.currentJson)
       if (this.dataJson.tempJson.id === undefined) {
         this.showErrorMsg('请选择一条数据')
@@ -648,7 +869,7 @@ export default {
       })
     },
     // 导出按钮
-    handleExport() {
+    handleExport () {
       // 没有选择任何数据的情况
       if (this.dataJson.multipleSelection.length <= 0) {
         this.$alert('请在表格中选择数据进行导出', '未选择数据错误', {
@@ -678,7 +899,7 @@ export default {
       }
     },
     // 全部数据导出
-    handleExportAllData() {
+    handleExportAllData () {
       // loading
       this.settings.loading = true
       // 开始导出
@@ -688,11 +909,11 @@ export default {
       })
     },
     // 部分数据导出
-    handleExportSelectionData() {
+    handleExportSelectionData () {
       // loading
       this.settings.loading = true
       const selectionJson = []
-      this.dataJson.multipleSelection.forEach(function(value, index, array) {
+      this.dataJson.multipleSelection.forEach(function (value, index, array) {
         selectionJson.push({ 'id': value.id })
       })
       // 开始导出
@@ -702,7 +923,7 @@ export default {
       })
     },
     // 点击按钮 复制新增
-    handleCopyInsert() {
+    handleCopyInsert () {
       this.dataJson.tempJson = Object.assign({}, this.dataJson.currentJson)
       this.dataJson.tempJson.id = undefined
       this.dataJson.tempJson.template_id = undefined
@@ -723,7 +944,7 @@ export default {
         this.$refs['refInsertFocus'].$el.focus()
       })
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.tempJsonOriginal = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
@@ -739,7 +960,7 @@ export default {
         this.settings.btnShowStatus.showAdmin = false
       }
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.dataJson.searchForm.pageCondition.sort = column.prop
@@ -748,7 +969,7 @@ export default {
       }
       this.getDataList()
     },
-    getCascaderDataList() {
+    getCascaderDataList () {
       // 级联查询逻辑
       this.settings.loading = true
       getCascaderListApi().then(response => {
@@ -757,7 +978,7 @@ export default {
         this.settings.loading = false
       })
     },
-    getDataList() {
+    getDataList () {
       this.dataJson.searchForm.pageCondition.current = this.dataJson.paging.current
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
@@ -771,7 +992,7 @@ export default {
       })
     },
     // 更新逻辑
-    doUpdate() {
+    doUpdate () {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -804,11 +1025,11 @@ export default {
       })
     },
     // 重置查询区域
-    doResetSearch() {
+    doResetSearch () {
       this.dataJson.searchForm = this.$options.data.call(this).dataJson.searchForm
     },
     // 重置按钮
-    doReset() {
+    doReset () {
       this.popSettingsData.btnResetStatus = true
       switch (this.popSettingsData.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
@@ -857,7 +1078,7 @@ export default {
       })
     },
     // 插入逻辑
-    doInsert() {
+    doInsert () {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -886,7 +1107,7 @@ export default {
       })
     },
     // 复制新增逻辑
-    doCopyInsert() {
+    doCopyInsert () {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -915,7 +1136,7 @@ export default {
       })
     },
     // 关闭弹出窗口
-    handlCloseDialog() {
+    handlCloseDialog () {
       this.popSettingsData.dialogFormVisible = false
     },
     // 获取row-key
@@ -923,21 +1144,21 @@ export default {
     //   return row.id
     // },
     // table选择框
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.dataJson.multipleSelection = val
     },
     // 弹出框设置初始化
-    initPopUpStatus() {
+    initPopUpStatus () {
       this.popSettingsData.btnDisabledStatus.disabledReset = true
       this.popSettingsData.btnDisabledStatus.disabledInsert = true
       this.popSettingsData.btnDisabledStatus.disabledUpdate = true
       this.popSettingsData.btnDisabledStatus.disabledCopyInsert = true
     },
-    handleCascaderChange(value) {
-      const parent_id = value[value.length - 1 ]
+    handleCascaderChange (value) {
+      const parent_id = value[value.length - 1]
       this.dataJson.tempJson.parent_id = parent_id
     },
-    renderHeaderIsEnabled: function(h, { column }) {
+    renderHeaderIsEnabled: function (h, { column }) {
       return (
         <span>{column.label}
           <el-tooltip
@@ -946,16 +1167,16 @@ export default {
             placement='bottom'
           >
             <div slot='content'>
-            删除状态提示：<br/>
-            绿色：未启用  <br/>
+              删除状态提示：<br />
+            绿色：未启用  <br />
             红色：已启用
             </div>
-            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px'/>
+            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px' />
           </el-tooltip>
         </span>
       )
     },
-    renderHeaderIsFreeze: function(h, { column }) {
+    renderHeaderIsFreeze: function (h, { column }) {
       return (
         <span>{column.label}
           <el-tooltip
@@ -964,16 +1185,16 @@ export default {
             placement='bottom'
           >
             <div slot='content'>
-            删除状态提示：<br/>
-            绿色：未启用  <br/>
+              删除状态提示：<br />
+            绿色：未启用  <br />
             红色：已启用
             </div>
-            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px'/>
+            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px' />
           </el-tooltip>
         </span>
       )
     },
-    dataPickChange(data) {
+    dataPickChange (data) {
       this.dataJson.tempJson.enable_time_range = data
       if (data === null) {
         this.dataJson.tempJson.enable_time = null
@@ -984,7 +1205,7 @@ export default {
       }
     },
     // 管理员维护点击事件
-    handleAdmin() {
+    handleAdmin () {
       alert('TODO:xxx')
     }
   }

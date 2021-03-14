@@ -1,20 +1,25 @@
 <template>
-  <div v-if="value" class="perfect-overlay" :style="myStyle" @click="handleClick" />
+  <div
+    v-if="value"
+    class="perfect-overlay"
+    :style="myStyle"
+    @click="handleClick"
+  />
 </template>
 
 <style scoped>
-  .perfect-overlay {
-    border-radius: inherit;
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: inherit;
-    width: 100%;
-    will-change: opacity ;
- }
+.perfect-overlay {
+  border-radius: inherit;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: inherit;
+  width: 100%;
+  will-change: opacity;
+}
 </style>
 
 <script>
@@ -40,10 +45,10 @@ export default {
     }
   },
   computed: {
-    computedOpacity() {
+    computedOpacity () {
       return Number(this.opacity)
     },
-    myStyle() {
+    myStyle () {
       const style = {
         zIndex: this.zIndex,
         opacity: this.computedOpacity,
@@ -52,10 +57,10 @@ export default {
       return style
     }
   },
-  mounted() {
+  mounted () {
   },
   methods: {
-    handleClick() {
+    handleClick () {
       this.$emit('click')
     }
   }

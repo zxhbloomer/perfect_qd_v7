@@ -210,7 +210,7 @@ export const router_three = [
       },
       {
         path: '/org/position',
-        component: () => import('@/views/20_master/position/position'),
+        component: () => import('@/views/20_master/position2/position'),
         name: 'P00000160', // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
         meta: { title: '岗位信息', icon: 'position' }
       },

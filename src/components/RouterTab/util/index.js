@@ -3,14 +3,14 @@ export const emptyObj = Object.create(null)
 export const emptyArray = []
 
 // 是否定义
-export function isDef(v) {
+export function isDef (v) {
   return v !== undefined && v !== null
 }
 
 // 防抖
-export function debounce(fn, delay = 200) {
+export function debounce (fn, delay = 200) {
   let timeout = null
-  return function() {
+  return function () {
     const context = this
     const args = arguments
     clearTimeout(timeout)

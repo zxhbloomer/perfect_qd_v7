@@ -1,7 +1,7 @@
 import { isDef } from './index'
 
 // 滚动
-export function scrollTo($el, left = 0, top = 0) {
+export function scrollTo ($el, left = 0, top = 0) {
   if ($el.scrollTo) {
     $el.scrollTo({
       left,
@@ -15,7 +15,7 @@ export function scrollTo($el, left = 0, top = 0) {
 }
 
 // 获取第一个子组件
-export function getFirstComponentChild(children) {
+export function getFirstComponentChild (children) {
   if (Array.isArray(children)) {
     for (let i = 0; i < children.length; i++) {
       const c = children[i]
@@ -30,6 +30,6 @@ export function getFirstComponentChild(children) {
 }
 
 // 是否异步占位
-export function isAsyncPlaceholder(node) {
+export function isAsyncPlaceholder (node) {
   return node.isComment && node.asyncFactory
 }

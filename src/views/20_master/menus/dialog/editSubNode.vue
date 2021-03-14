@@ -25,11 +25,18 @@
         label-width="120px"
         status-icon
       >
-        <el-alert title="上级菜单信息" type="info" :closable="false" />
+        <el-alert
+          title="上级菜单信息"
+          type="info"
+          :closable="false"
+        />
         <br>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="上级菜单：" prop="parent_id">
+            <el-form-item
+              label="上级菜单："
+              prop="parent_id"
+            >
               <el-cascader
                 v-model="dataJson.tempJson.depth_id_array"
                 placeholder="请选择"
@@ -44,20 +51,42 @@
           </el-col>
         </el-row>
 
-        <el-alert title="添加子菜单-结点信息" type="info" :closable="false" />
+        <el-alert
+          title="添加子菜单-结点信息"
+          type="info"
+          :closable="false"
+        />
         <br>
 
         <el-row>
           <el-col :span="12">
-            <el-form-item label="结点名称：" prop="name">
-              <el-input ref="refFocus" v-model.trim="dataJson.tempJson.name" clearable show-word-limit />
+            <el-form-item
+              label="结点名称："
+              prop="name"
+            >
+              <el-input
+                ref="refFocus"
+                v-model.trim="dataJson.tempJson.name"
+                clearable
+                show-word-limit
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="icon：" prop="meta_icon">
-              <input-search v-model.trim="dataJson.tempJson.meta_icon" :disabled="isUpdateModel && isViewModel" @onInputSearch="handleSysIconOpen">
+            <el-form-item
+              label="icon："
+              prop="meta_icon"
+            >
+              <input-search
+                v-model.trim="dataJson.tempJson.meta_icon"
+                :disabled="isUpdateModel && isViewModel"
+                @onInputSearch="handleSysIconOpen"
+              >
                 <template slot="prepend">
-                  <svg-icon :icon-class="dataJson.tempJson.meta_icon" :class="dataJson.tempJson.meta_icon" />
+                  <svg-icon
+                    :icon-class="dataJson.tempJson.meta_icon"
+                    :class="dataJson.tempJson.meta_icon"
+                  />
                 </template>
               </input-search>
             </el-form-item>
@@ -66,38 +95,88 @@
 
         <el-row>
           <el-col :span="12">
-            <el-form-item label="请求地址：" prop="path">
-              <el-input v-model.trim="dataJson.tempJson.path" clearable show-word-limit />
+            <el-form-item
+              label="请求地址："
+              prop="path"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.path"
+                clearable
+                show-word-limit
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="菜单类型：" prop="type_name">
-              <el-input v-model.trim="dataJson.tempJson.type_name" disabled clearable show-word-limit />
+            <el-form-item
+              label="菜单类型："
+              prop="type_name"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.type_name"
+                disabled
+                clearable
+                show-word-limit
+              />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row v-show="settings.dialogStatus === PARAMETERS.STATUS_UPDATE || isViewModel">
           <el-col :span="12">
-            <el-form-item label="更新人：" prop="u_name">
-              <el-input v-model.trim="dataJson.tempJson.u_name" disabled />
+            <el-form-item
+              label="更新人："
+              prop="u_name"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.u_name"
+                disabled
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="更新时间：" prop="u_time">
-              <el-input v-model.trim="dataJson.tempJson.u_time" disabled />
+            <el-form-item
+              label="更新时间："
+              prop="u_time"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.u_time"
+                disabled
+              />
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-divider />
         <div class="floatLeft">
-          <el-button type="danger" :disabled="settings.loading || settings.btnDisabledStatus.disabledReset" @click="doReset()">重置</el-button>
+          <el-button
+            type="danger"
+            :disabled="settings.loading || settings.btnDisabledStatus.disabledReset"
+            @click="doReset()"
+          >重置</el-button>
         </div>
-        <el-button plain :disabled="settings.loading" @click="handleCancel()">取消</el-button>
-        <el-button v-show="settings.btnShowStatus.showInsert" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert " @click="doInsert()">确定</el-button>
-        <el-button v-show="settings.btnShowStatus.showUpdate" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate " @click="doUpdate()">确定</el-button>
+        <el-button
+          plain
+          :disabled="settings.loading"
+          @click="handleCancel()"
+        >取消</el-button>
+        <el-button
+          v-show="settings.btnShowStatus.showInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert "
+          @click="doInsert()"
+        >确定</el-button>
+        <el-button
+          v-show="settings.btnShowStatus.showUpdate"
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate "
+          @click="doUpdate()"
+        >确定</el-button>
       </div>
     </el-dialog>
     <sys-icon-dialog
@@ -110,15 +189,15 @@
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
@@ -151,7 +230,7 @@ export default {
       default: constants_para.STATUS_VIEW
     }
   },
-  data() {
+  data () {
     return {
       // 监听器
       watch: {
@@ -219,17 +298,17 @@ export default {
   },
   computed: {
     // 是否为更新模式
-    isUpdateModel() {
+    isUpdateModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_INSERT || this.settings.dialogStatus === this.PARAMETERS.STATUS_COPY_INSERT) {
         return false
       } else {
         return true
       }
     },
-    listenVisible() {
+    listenVisible () {
       return this.visible
     },
-    isViewModel() {
+    isViewModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_VIEW) {
         return true
       } else {
@@ -240,16 +319,16 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     this.init()
   },
-  mounted() {
+  mounted () {
   },
-  destroyed() {
+  destroyed () {
   },
   methods: {
     // 初始化处理
-    init() {
+    init () {
       // 初始化级联数据
       this.getCascaderDataList()
       this.initButtonShowStatus()
@@ -266,20 +345,20 @@ export default {
       this.setWatch()
       this.settings.loading = false
     },
-    initTempJsonOriginal() {
+    initTempJsonOriginal () {
       // 单条数据 json的，初始化原始数据
       this.dataJson.tempJsonOriginal = deepCopy(this.data)
     },
-    initButtonShowStatus() {
+    initButtonShowStatus () {
       // 初始化按钮状态：默认都隐藏
       this.settings.btnShowStatus = this.$options.data.call(this).settings.btnShowStatus
     },
-    initButtonDisabledStatus() {
+    initButtonDisabledStatus () {
       // 按钮状态初始化：默认不可用
       this.settings.btnDisabledStatus = this.$options.data.call(this).settings.btnDisabledStatus
     },
     // 新增时的初始化
-    initInsertModel() {
+    initInsertModel () {
       // 数据初始化
       this.initTempJsonOriginal()
       this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
@@ -308,7 +387,7 @@ export default {
       })
     },
     // 修改时的初始化
-    initUpdateModel() {
+    initUpdateModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJsonOriginal = deepCopy(this.data)
@@ -321,10 +400,10 @@ export default {
       })
     },
     // 取消按钮
-    handleCancel() {
+    handleCancel () {
       this.$emit('closeMeCancel')
     },
-    getCascaderDataList() {
+    getCascaderDataList () {
       // 级联查询逻辑
       this.settings.loading = true
       getCascaderListApi().then(response => {
@@ -334,7 +413,7 @@ export default {
       })
     },
     // 更新逻辑
-    doUpdate() {
+    doUpdate () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -354,7 +433,7 @@ export default {
       })
     },
     // 重置按钮
-    doReset() {
+    doReset () {
       switch (this.settings.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
           // 数据初始化
@@ -383,7 +462,7 @@ export default {
     },
 
     // 设置监听器
-    setWatch() {
+    setWatch () {
       this.unWatch()
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_tempJson = this.$watch('dataJson.tempJson', (newVal, oldVal) => {
@@ -391,18 +470,17 @@ export default {
         this.settings.btnDisabledStatus.disabledInsert = false
         this.settings.btnDisabledStatus.disabledUpdate = false
         this.settings.btnDisabledStatus.disabledCopyInsert = false
-      },
-      { deep: true }
+      }, { deep: true }
       )
     },
-    unWatch() {
+    unWatch () {
       if (this.watch.unwatch_tempJson) {
         this.watch.unwatch_tempJson()
       }
     },
 
     // 插入逻辑
-    doInsert() {
+    doInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -420,19 +498,19 @@ export default {
       })
     },
     // 级联事件
-    handleCascaderChange(val) {
+    handleCascaderChange (val) {
       // 数组中最后一个才是parent_id
       this.dataJson.tempJson.parent_id = val[val.length - 1]
     },
     // ------------------system icon input search start --------------------
-    handleSysIconOpen() {
+    handleSysIconOpen () {
       this.popSettings.two.visible = true
     },
-    handleSysIconCloseOk(val) {
+    handleSysIconCloseOk (val) {
       this.dataJson.tempJson.meta_icon = val
       this.popSettings.two.visible = false
     },
-    handleSysIconCloseCancel() {
+    handleSysIconCloseCancel () {
       this.popSettings.two.visible = false
     }
     // ------------------system icon input search end--------------------

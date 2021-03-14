@@ -5,7 +5,7 @@ import { warn } from './util/warn'
 export default {
   computed: {
     // 语言内容
-    lang() {
+    lang () {
       let lang = this.language
 
       if (typeof lang === 'string') {
@@ -21,7 +21,7 @@ export default {
 
   methods: {
     // 获取国际化内容
-    i18nText(text) {
+    i18nText (text) {
       const { key, params } = this.i18nParse(text)
 
       if (key) {
@@ -42,7 +42,7 @@ export default {
     },
 
     // 解析国际化
-    i18nParse(text) {
+    i18nParse (text) {
       let key
       let params
 

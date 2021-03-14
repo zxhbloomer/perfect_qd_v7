@@ -16,7 +16,11 @@
       width="700px"
       destroy-on-close
     >
-      <div :style="{height: height + 'px'}" style="overflow-y:auto;overflow-x:auto;" class="mytree">
+      <div
+        :style="{height: height + 'px'}"
+        style="overflow-y:auto;overflow-x:auto;"
+        class="mytree"
+      >
         <el-tree
           ref="treeObject"
           :data="dataJson.treeData"
@@ -38,36 +42,65 @@
           @node-drop="handleDrop"
           @current-change="handleCurrentChange"
         >
-          <span slot-scope="{ node, data }" class="custom-tree-node">
+          <span
+            slot-scope="{ node, data }"
+            class="custom-tree-node"
+          >
             <span>
-              <svg-icon v-if="data.meta_icon" :icon-class="data.meta_icon" class="el-icon--right" />
+              <svg-icon
+                v-if="data.meta_icon"
+                :icon-class="data.meta_icon"
+                class="el-icon--right"
+              />
               {{ data.label }}
             </span>
             <span class="menu_png">
-              <em v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_ROOT" class="root">根结点</em>
-              <em v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_TOPNAV" class="top_nav">顶部导航栏</em>
-              <em v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_NODE" class="node">结点</em>
-              <em v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_PAGE" class="page">页面</em>
-              <em v-if="data.is_default" class="default">默认菜单</em>
+              <em
+                v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_ROOT"
+                class="root"
+              >根结点</em>
+              <em
+                v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_TOPNAV"
+                class="top_nav"
+              >顶部导航栏</em>
+              <em
+                v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_NODE"
+                class="node"
+              >结点</em>
+              <em
+                v-if="data.type ===CONSTANTS.DICT_SYS_MENU_TYPE_PAGE"
+                class="page"
+              >页面</em>
+              <em
+                v-if="data.is_default"
+                class="default"
+              >默认菜单</em>
             </span>
           </span>
         </el-tree>
       </div>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-divider />
-        <el-button plain :disabled="settings.loading" @click="handleCancel()">关闭</el-button>
+        <el-button
+          plain
+          :disabled="settings.loading"
+          @click="handleCancel()"
+        >关闭</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
 </style>
 
 <style scoped>
@@ -80,48 +113,48 @@
 }
 
 .leaf {
-    width: 20px;
-    background: #ddd
+  width: 20px;
+  background: #ddd;
 }
 
 .folder {
-    width: 20px;
-    background: #888
+  width: 20px;
+  background: #888;
 }
 
 .custom-tree-container {
-    display: -ms-flexbox;
-    display: flex;
-    margin: -24px
+  display: -ms-flexbox;
+  display: flex;
+  margin: -24px;
 }
 
 .block {
-    -ms-flex: 1;
-    flex: 1;
-    padding: 8px 24px 24px
+  -ms-flex: 1;
+  flex: 1;
+  padding: 8px 24px 24px;
 }
 
-.block>p {
-    text-align: center;
-    margin: 0;
-    line-height: 4
+.block > p {
+  text-align: center;
+  margin: 0;
+  line-height: 4;
 }
 
 .block:first-child {
-    border-right: 1px solid #eff2f6
+  border-right: 1px solid #eff2f6;
 }
 
 .custom-tree-node {
-    -ms-flex: 1;
-    flex: 1;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    font-size: 14px;
-    padding-right: 8px
+  -ms-flex: 1;
+  flex: 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
 }
 .el-tree-node:focus > .el-tree-node__content {
   background-color: transparent !important;
@@ -129,8 +162,8 @@
 </style>
 
 <style lang="scss" scoped>
-.mytree ::v-deep{
-    .el-tree > .el-tree-node:after {
+.mytree ::v-deep {
+  .el-tree > .el-tree-node:after {
     border-top: none;
   }
 
@@ -143,21 +176,21 @@
     padding-left: 2px;
   }
   //结点有间隙，隐藏掉展开按钮就好了,如果觉得空隙没事可以删掉
-  .el-tree-node__expand-icon.is-leaf{
+  .el-tree-node__expand-icon.is-leaf {
     // display: none;
     // color: transparent;
-    border-left:5px solid  ;
-    border-top:5px solid  ;
-    border-bottom:5px solid  ;
+    border-left: 5px solid;
+    border-top: 5px solid;
+    border-bottom: 5px solid;
     // height: 10px;
     // top: 12px;
     // width: 8px;
     // margin-right: 8px;
     // assets使用方法
-    border-image: url('~@/assets/images/hyphen.png') 1 fill  stretch;
+    border-image: url('~@/assets/images/hyphen.png') 1 fill stretch;
   }
-  .el-tree-node__expand-icon.is-leaf.el-icon-caret-right:before{
-    content:""
+  .el-tree-node__expand-icon.is-leaf.el-icon-caret-right:before {
+    content: '';
   }
   .el-tree-node__children {
     padding-left: 20px;
@@ -176,7 +209,7 @@
   }
 
   .el-tree-node:before {
-    content: "";
+    content: '';
     left: 2px;
     position: absolute;
     right: auto;
@@ -184,7 +217,7 @@
   }
 
   .el-tree-node:after {
-    content: "";
+    content: '';
     left: 2px;
     position: absolute;
     right: auto;
@@ -209,26 +242,25 @@
   //   width: 8px;
   // }
 
-  .el-tree>.el-tree-node{
-    min-width:100%;
-    display: inline-block ;
+  .el-tree > .el-tree-node {
+    min-width: 100%;
+    display: inline-block;
   }
 
-  .el-tree-node__content>.el-tree-node__expand-icon {
+  .el-tree-node__content > .el-tree-node__expand-icon {
     // padding: 2px
     padding-left: 2px;
     padding-right: 2px;
   }
 }
-
 </style>
 
 <style >
-  .buttonSearch{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
+.buttonSearch {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
 </style>
 
 <script>
@@ -239,7 +271,7 @@ import constants_para from '@/common/constants/constants_para'
 import '@/styles/menu_png.scss'
 
 export default {
-  components: { },
+  components: {},
   directives: { elDragDialog },
   props: {
     height: {
@@ -263,7 +295,7 @@ export default {
       default: constants_para.STATUS_VIEW
     }
   },
-  data() {
+  data () {
     return {
       // 监听器
       watch: {
@@ -304,13 +336,13 @@ export default {
   },
   computed: {
     // 是否为更新模式
-    listenVisible() {
+    listenVisible () {
       return this.visible
     }
   },
   watch: {
     'settings.loading': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         switch (newVal) {
           case true:
             this.showLoading('正在查询，请稍后...')
@@ -322,47 +354,47 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     // 初始化查询
     this.getDataList()
   },
-  mounted() {
+  mounted () {
   },
   methods: {
-    getDataList() {
+    getDataList () {
       // 查询逻辑
       this.settings.loading = true
       this.dataJson.treeData = this.sortData
       this.settings.loading = false
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.tempJsonOriginal = Object.assign({}, row) // copy obj
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
       this.dataJson.currentJson = this.$refs.treeObject.getCurrentNode()
       this.dataJson.currentJson.currentkey = this.$refs.treeObject.getCurrentKey()
     },
-    handleButtonSearch() {
+    handleButtonSearch () {
       // 查询
       this.getDataList()
     },
     // 查询后处理
-    getListAfterProcess() {
+    getListAfterProcess () {
       if (Object.keys(this.dataJson.filterText).length !== 0) {
         this.$nextTick(() => {
           this.$refs.treeObject.filter(this.dataJson.filterText)
         })
       }
     },
-    handleDragStart(node, ev) {
+    handleDragStart (node, ev) {
     },
-    handleDragEnter(draggingNode, dropNode, ev) {
+    handleDragEnter (draggingNode, dropNode, ev) {
     },
-    handleDragLeave(draggingNode, dropNode, ev) {
+    handleDragLeave (draggingNode, dropNode, ev) {
     },
-    handleDragOver(draggingNode, dropNode, ev) {
+    handleDragOver (draggingNode, dropNode, ev) {
     },
-    handleDragEnd(draggingNode, dropNode, dropType, ev) {
+    handleDragEnd (draggingNode, dropNode, dropType, ev) {
     },
     /**
      * 拖拽结束后事件
@@ -371,7 +403,7 @@ export default {
      * dropType:被拖拽结点的放置位置（before、after、inner）
      * ev:event
      */
-    handleDrop(draggingNode, dropNode, dropType, ev) {
+    handleDrop (draggingNode, dropNode, dropType, ev) {
       // 进入结点，作为子结点
       if (dropType === 'inner') {
         // 获取老子的id
@@ -393,7 +425,7 @@ export default {
       }
       this.doDragSave()
     },
-    doDragSave() {
+    doDragSave () {
       this.settings.loading = true
       dragsaveApi(this.dataJson.treeData).then((_data) => {
         this.$notify({
@@ -416,7 +448,7 @@ export default {
         this.settings.loading = false
       })
     },
-    allowDrop(draggingNode, dropNode, type) {
+    allowDrop (draggingNode, dropNode, type) {
       // 不得放到根目录之后，平级
       switch (draggingNode.data.type) {
         // 根结点
@@ -481,7 +513,7 @@ export default {
       return false
     },
     // 允许拖拽的情况
-    allowDrag(draggingNode) {
+    allowDrag (draggingNode) {
       if (isNotEmpty(draggingNode.data.parent_id)) {
         return true
       } else {
@@ -489,7 +521,7 @@ export default {
       }
     },
     // 取消按钮
-    handleCancel() {
+    handleCancel () {
       this.$emit('closeMeCancel')
     }
   }

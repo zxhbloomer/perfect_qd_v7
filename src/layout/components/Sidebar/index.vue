@@ -1,6 +1,9 @@
 <template>
   <div :class="{'has-logo':showLogo}">
-    <logo v-if="showLogo" :collapse="isCollapse" />
+    <logo
+      v-if="showLogo"
+      :collapse="isCollapse"
+    />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <collapse-transition>
         <div v-show="visible">
@@ -15,7 +18,12 @@
             :default-openeds="openeds"
             mode="vertical"
           >
-            <sidebar-item v-for="route in routers_data" :key="route.id" :item="route" :base-path="route.path" />
+            <sidebar-item
+              v-for="route in routers_data"
+              :key="route.id"
+              :item="route"
+              :base-path="route.path"
+            />
           </el-menu>
         </div>
       </collapse-transition>
@@ -25,17 +33,17 @@
 
 <style>
 .transition-box {
-    margin-bottom: 10px;
-    width: 200px;
-    height: 100px;
-    border-radius: 4px;
-    background-color: #409EFF;
-    text-align: center;
-    color: #fff;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    margin-right: 20px;
-  }
+  margin-bottom: 10px;
+  width: 200px;
+  height: 100px;
+  border-radius: 4px;
+  background-color: #409eff;
+  text-align: center;
+  color: #fff;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  margin-right: 20px;
+}
 </style>
 
 <script>
@@ -48,7 +56,7 @@ import deepCopy from 'deep-copy'
 
 export default {
   components: { SidebarItem, Logo, CollapseTransition },
-  data() {
+  data () {
     return {
       visible: true,
       routers_data: [],
@@ -61,7 +69,7 @@ export default {
       'userPermissionData',
       'sidebar'
     ]),
-    activeMenu() {
+    activeMenu () {
       const route = this.$route
       const { meta, path } = route
       // if set path, the sidebar will highlight the path you set
@@ -70,21 +78,21 @@ export default {
       }
       return path
     },
-    showLogo() {
+    showLogo () {
       // upd by zxh
       // return this.$store.state.settings.sidebarLogo
       return true
     },
-    variables() {
+    variables () {
       return variables
     },
-    isCollapse() {
+    isCollapse () {
       return !this.sidebar.opened
     }
   },
   watch: {
     'permission_menus_routers': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         this.visible = false
         setTimeout(() => {
           this.openeds = this.userPermissionData.nodes_id
@@ -94,7 +102,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.routers_data = deepCopy(this.permission_menus_routers)
     this.openeds = this.userPermissionData.nodes_id
   }

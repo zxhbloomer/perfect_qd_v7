@@ -3,14 +3,14 @@ import { scrollTo } from './util/dom'
 
 // 页签滚动
 export default {
-  data() {
+  data () {
     return {
       hasScroller: false
     }
   },
 
   watch: {
-    async activeTabId() {
+    async activeTabId () {
       if (!this.$el) return
 
       // 激活页签时，如果当前页签不在可视区域，则滚动显示页签
@@ -28,23 +28,23 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.$nextTick(this.adjust)
   },
 
-  mounted() {
+  mounted () {
     // 页面载入和浏览器窗口大小改变时调整Tab滚动显示
     window.addEventListener('resize', this.onResize = debounce(this.adjust))
   },
 
-  destroyed() {
+  destroyed () {
     // 销毁后移除监听事件
     window.removeEventListener('resize', this.onResize)
   },
 
   methods: {
     // Tab滚动
-    tabScroll(direction) {
+    tabScroll (direction) {
       const $tab = this.$el.querySelector('.router-tab-header')
       const $scr = $tab.querySelector('.router-tab-scroll')
       const space = $tab.clientWidth - 110
@@ -53,7 +53,7 @@ export default {
     },
 
     // 调整Tab滚动显示
-    adjust() {
+    adjust () {
       if (!this.$el) return
 
       const $tab = this.$el.querySelector('.router-tab-header')

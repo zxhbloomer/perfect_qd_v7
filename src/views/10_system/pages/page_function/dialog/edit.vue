@@ -33,20 +33,39 @@
         <br>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="页面编号：" prop="page_code">
-              <input-search v-model.trim="dataJson.tempJson.page_code" :disabled="isUpdateModel && isViewModel" @onInputSearch="handlePageOpen" />
+            <el-form-item
+              label="页面编号："
+              prop="page_code"
+            >
+              <input-search
+                v-model.trim="dataJson.tempJson.page_code"
+                :disabled="isUpdateModel && isViewModel"
+                @onInputSearch="handlePageOpen"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="页面名称：" prop="page_name">
-              <el-input v-model.trim="dataJson.tempJson.page_name" disabled />
+            <el-form-item
+              label="页面名称："
+              prop="page_name"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.page_name"
+                disabled
+              />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="页面权限标识：" prop="page_perms">
-              <el-input v-model.trim="dataJson.tempJson.page_perms" disabled />
+            <el-form-item
+              label="页面权限标识："
+              prop="page_perms"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.page_perms"
+                disabled
+              />
             </el-form-item>
           </el-col>
         </el-row>
@@ -58,19 +77,35 @@
         <br>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="按钮编号：" prop="function_code">
-              <input-search v-model.trim="dataJson.tempJson.function_code" :disabled="isUpdateModel && isViewModel" @onInputSearch="handleFunctionOpen" />
+            <el-form-item
+              label="按钮编号："
+              prop="function_code"
+            >
+              <input-search
+                v-model.trim="dataJson.tempJson.function_code"
+                :disabled="isUpdateModel && isViewModel"
+                @onInputSearch="handleFunctionOpen"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="按钮名称：" prop="function_name">
-              <el-input v-model.trim="dataJson.tempJson.function_name" disabled />
+            <el-form-item
+              label="按钮名称："
+              prop="function_name"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.function_name"
+                disabled
+              />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="排序：" prop="sort">
+            <el-form-item
+              label="排序："
+              prop="sort"
+            >
               <el-input v-model.trim="dataJson.tempJson.sort" />
             </el-form-item>
           </el-col>
@@ -81,35 +116,93 @@
           :closable="false"
         />
         <br>
-        <el-form-item label="权限标识：" prop="perms">
-          <el-input v-model.trim="dataJson.tempJson.perms" disabled />
+        <el-form-item
+          label="权限标识："
+          prop="perms"
+        >
+          <el-input
+            v-model.trim="dataJson.tempJson.perms"
+            disabled
+          />
         </el-form-item>
-        <el-form-item label="说明：" prop="descr">
-          <el-input v-model.trim="dataJson.tempJson.descr" clearable show-word-limit type="textarea" :maxlength="dataJson.inputSettings.maxLength.descr" :disabled="isViewModel" />
+        <el-form-item
+          label="说明："
+          prop="descr"
+        >
+          <el-input
+            v-model.trim="dataJson.tempJson.descr"
+            clearable
+            show-word-limit
+            type="textarea"
+            :maxlength="dataJson.inputSettings.maxLength.descr"
+            :disabled="isViewModel"
+          />
         </el-form-item>
 
         <el-row v-show="settings.dialogStatus === PARAMETERS.STATUS_UPDATE">
           <el-col :span="12">
-            <el-form-item label="更新人：" prop="u_name">
-              <el-input v-model.trim="dataJson.tempJson.u_name" disabled />
+            <el-form-item
+              label="更新人："
+              prop="u_name"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.u_name"
+                disabled
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="更新时间：" prop="u_time">
-              <el-input v-model.trim="dataJson.tempJson.u_time" disabled />
+            <el-form-item
+              label="更新时间："
+              prop="u_time"
+            >
+              <el-input
+                v-model.trim="dataJson.tempJson.u_time"
+                disabled
+              />
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-divider />
         <div class="floatLeft">
-          <el-button v-show="!isViewModel" type="danger" :disabled="settings.loading || settings.btnDisabledStatus.disabledReset" @click="doReset()">重置</el-button>
+          <el-button
+            v-show="!isViewModel"
+            type="danger"
+            :disabled="settings.loading || settings.btnDisabledStatus.disabledReset"
+            @click="doReset()"
+          >重置</el-button>
         </div>
-        <el-button plain :disabled="settings.loading" @click="handleCancel()">取消</el-button>
-        <el-button v-show="settings.btnShowStatus.showInsert" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert " @click="doInsert()">确定</el-button>
-        <el-button v-show="settings.btnShowStatus.showUpdate && !isViewModel" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate " @click="doUpdate()">确定</el-button>
-        <el-button v-show="settings.btnShowStatus.showCopyInsert" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledCopyInsert " @click="doCopyInsert()">确定</el-button>
+        <el-button
+          plain
+          :disabled="settings.loading"
+          @click="handleCancel()"
+        >取消</el-button>
+        <el-button
+          v-show="settings.btnShowStatus.showInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert "
+          @click="doInsert()"
+        >确定</el-button>
+        <el-button
+          v-show="settings.btnShowStatus.showUpdate && !isViewModel"
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate "
+          @click="doUpdate()"
+        >确定</el-button>
+        <el-button
+          v-show="settings.btnShowStatus.showCopyInsert"
+          plain
+          type="primary"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledCopyInsert "
+          @click="doCopyInsert()"
+        >确定</el-button>
       </div>
     </el-dialog>
 
@@ -130,18 +223,18 @@
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
-  .el-input.is-disabled::v-deep .el-input__inner {
-    color: #606266 !important;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
+.el-input.is-disabled::v-deep .el-input__inner {
+  color: #606266 !important;
+}
 </style>
 
 <script>
@@ -177,7 +270,7 @@ export default {
       default: constants_para.STATUS_VIEW
     }
   },
-  data() {
+  data () {
     return {
       // 监听器
       watch: {
@@ -263,17 +356,17 @@ export default {
   },
   computed: {
     // 是否为更新模式
-    isUpdateModel() {
+    isUpdateModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_INSERT || this.settings.dialogStatus === this.PARAMETERS.STATUS_COPY_INSERT) {
         return false
       } else {
         return true
       }
     },
-    listenVisible() {
+    listenVisible () {
       return this.visible
     },
-    isViewModel() {
+    isViewModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_VIEW) {
         return true
       } else {
@@ -284,17 +377,17 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     this.init()
   },
-  mounted() {
+  mounted () {
   },
-  destroyed() {
+  destroyed () {
     this.unWatch()
   },
   methods: {
     // 初始化处理
-    init() {
+    init () {
       this.initButtonShowStatus()
       this.initButtonDisabledStatus()
       switch (this.dialogStatus) {
@@ -315,20 +408,20 @@ export default {
       this.setWatch()
       this.settings.loading = false
     },
-    initTempJsonOriginal() {
+    initTempJsonOriginal () {
       // 单条数据 json的，初始化原始数据
       this.dataJson.tempJsonOriginal = this.$options.data.call(this).dataJson.tempJsonOriginal
     },
-    initButtonShowStatus() {
+    initButtonShowStatus () {
       // 初始化按钮状态：默认都隐藏
       this.settings.btnShowStatus = this.$options.data.call(this).settings.btnShowStatus
     },
-    initButtonDisabledStatus() {
+    initButtonDisabledStatus () {
       // 按钮状态初始化：默认不可用
       this.settings.btnDisabledStatus = this.$options.data.call(this).settings.btnDisabledStatus
     },
     // 新增时的初始化
-    initInsertModel() {
+    initInsertModel () {
       // 数据初始化
       this.initTempJsonOriginal()
       this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
@@ -336,7 +429,7 @@ export default {
       this.settings.btnShowStatus.showInsert = true
     },
     // 复制新增时的初始化
-    initCopyInsertModel() {
+    initCopyInsertModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJson.function_id = undefined
@@ -348,7 +441,7 @@ export default {
       this.settings.btnShowStatus.showCopyInsert = true
     },
     // 修改时的初始化
-    initUpdateModel() {
+    initUpdateModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJsonOriginal = deepCopy(this.data)
@@ -356,12 +449,12 @@ export default {
       this.settings.btnShowStatus.showUpdate = true
     },
     // 查看时的初始化
-    initViewModel() {
+    initViewModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
     },
     // 设置监听器
-    setWatch() {
+    setWatch () {
       this.unWatch()
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_tempJson = this.$watch('dataJson.tempJson', (newVal, oldVal) => {
@@ -369,17 +462,16 @@ export default {
         this.settings.btnDisabledStatus.disabledInsert = false
         this.settings.btnDisabledStatus.disabledUpdate = false
         this.settings.btnDisabledStatus.disabledCopyInsert = false
-      },
-      { deep: true }
+      }, { deep: true }
       )
     },
-    unWatch() {
+    unWatch () {
       if (this.watch.unwatch_tempJson) {
         this.watch.unwatch_tempJson()
       }
     },
     // Placeholder设置
-    isPlaceholderShow(val) {
+    isPlaceholderShow (val) {
       if (this.isViewModel) {
         return ''
       } else {
@@ -387,11 +479,11 @@ export default {
       }
     },
     // 取消按钮
-    handleCancel() {
+    handleCancel () {
       this.$emit('closeMeCancel')
     },
     // 重置按钮
-    doReset() {
+    doReset () {
       switch (this.settings.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
           // 数据初始化
@@ -420,7 +512,7 @@ export default {
       })
     },
     // 插入逻辑
-    doInsert() {
+    doInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -437,7 +529,7 @@ export default {
       })
     },
     // 更新逻辑
-    doUpdate() {
+    doUpdate () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -456,7 +548,7 @@ export default {
       })
     },
     // 复制新增逻辑
-    doCopyInsert() {
+    doCopyInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -475,10 +567,10 @@ export default {
       })
     },
     // ------------------页面编辑出框 start--------------------
-    handlePageOpen() {
+    handlePageOpen () {
       this.popSettings.one.visible = true
     },
-    handlePageCloseOk(val) {
+    handlePageCloseOk (val) {
       this.popSettings.one.selectedDataJson = val
       this.dataJson.tempJson.page_id = this.popSettings.one.selectedDataJson.id
       this.dataJson.tempJson.page_code = this.popSettings.one.selectedDataJson.code
@@ -488,15 +580,15 @@ export default {
       this.dataJson.tempJson.perms = this.dataJson.tempJson.page_perms + ':' + this.dataJson.tempJson.function_code
       this.popSettings.one.visible = false
     },
-    handlePageCloseCancel() {
+    handlePageCloseCancel () {
       this.popSettings.one.visible = false
     },
     // ------------------页面编辑出框 end--------------------
     // ------------------按钮出框 start--------------------
-    handleFunctionOpen() {
+    handleFunctionOpen () {
       this.popSettings.two.visible = true
     },
-    handleFunctionCloseOk(val) {
+    handleFunctionCloseOk (val) {
       this.popSettings.two.selectedDataJson = val
       this.dataJson.tempJson.function_id = this.popSettings.two.selectedDataJson.id
       this.dataJson.tempJson.function_code = this.popSettings.two.selectedDataJson.code
@@ -505,7 +597,7 @@ export default {
       this.dataJson.tempJson.perms = this.dataJson.tempJson.page_perms + ':' + this.dataJson.tempJson.function_code
       this.popSettings.two.visible = false
     },
-    handleFunctionCloseCancel() {
+    handleFunctionCloseCancel () {
       this.popSettings.two.visible = false
     }
     // ------------------按钮出框 end--------------------

@@ -4,7 +4,7 @@ import routerPage from '../mixins/routerPage'
 import routes from '../util/routes'
 
 // 安装
-RouterTab.install = function install(Vue, options) {
+RouterTab.install = function install (Vue, options) {
   if (install.installed) return
   install.installed = true
 

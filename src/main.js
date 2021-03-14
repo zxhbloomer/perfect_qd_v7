@@ -39,10 +39,16 @@ import constants_emits from './common/constants/constants_emits'
 import EventProxy from 'vue-event-proxy'
 import global from './common/global/global'
 import ElInputTag from '@/components/40_input/inputtag'
+// 表格vxetable
+import 'xe-utils'
+import VXETable from 'vxe-table'
+import VXETablePluginElement from 'vxe-table-plugin-element'
+import 'vxe-table/lib/style.css'
+
 Vue.use(ElInputTag)
 // 引入组件和样式
 import RouterTab from '@/components/RouterTab/install'
-import ExTable from '@/components/30_table/ExTable'
+// import ExTable from '@/components/30_table/ExTable'
 Vue.use(RouterTab)
 
 Vue.use(commonFunction)
@@ -58,9 +64,13 @@ Vue.use(Element, {
   size: Cookies.get('size') || 'mini' // set element-ui default size
 })
 /** 扩展的table和tablecolumn必须在，element下面，否则没有效果 */
-Vue.use(ExTable, {
-  size: Cookies.get('size') || 'mini' // set element-ui default size
-})
+// Vue.use(ExTable, {
+//   size: Cookies.get('size') || 'mini' // set element-ui default size
+// })
+
+// 表格vxetable
+Vue.use(VXETable)
+VXETable.use(VXETablePluginElement)
 
 // register global utility filters
 Object.keys(filters).forEach(key => {

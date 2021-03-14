@@ -21,53 +21,102 @@
         status-icon
         inline
       >
-        <el-form-item label="用户账号" prop="name1">
+        <el-form-item
+          label="用户账号"
+          prop="name1"
+        >
           <el-input placeholder="用户账号" />
         </el-form-item>
         <el-form-item label="所属用户组">
-          <el-input placeholder="所属用户组" prop="name2" />
+          <el-input
+            placeholder="所属用户组"
+            prop="name2"
+          />
         </el-form-item>
         <el-form-item label="用户类型">
-          <el-input placeholder="用户类型" prop="name2" />
+          <el-input
+            placeholder="用户类型"
+            prop="name2"
+          />
         </el-form-item>
         <el-form-item label="所属组织">
-          <el-input placeholder="所属组织" prop="name2" />
+          <el-input
+            placeholder="所属组织"
+            prop="name2"
+          />
         </el-form-item>
         <el-form-item label="用户实名">
-          <el-input placeholder="用户实名" prop="name2" />
+          <el-input
+            placeholder="用户实名"
+            prop="name2"
+          />
         </el-form-item>
         <el-row>
           <el-form-item label="账号失效日期">
-            <el-input placeholder="账号失效日期" prop="name2" />
+            <el-input
+              placeholder="账号失效日期"
+              prop="name2"
+            />
           </el-form-item>
           <el-form-item label="账号生效日期">
-            <el-input placeholder="账号生效日期" prop="name2" />
+            <el-input
+              placeholder="账号生效日期"
+              prop="name2"
+            />
           </el-form-item>
         </el-row>
         <el-form-item label="密码生效日期">
-          <el-input placeholder="密码生效日期" prop="name2" />
+          <el-input
+            placeholder="密码生效日期"
+            prop="name2"
+          />
         </el-form-item>
         <el-form-item label="密码失效日期">
-          <el-input placeholder="密码失效日期" prop="name2" />
+          <el-input
+            placeholder="密码失效日期"
+            prop="name2"
+          />
         </el-form-item>
         <el-form-item label="电子邮箱">
-          <el-input placeholder="电子邮箱" prop="name2" />
+          <el-input
+            placeholder="电子邮箱"
+            prop="name2"
+          />
         </el-form-item>
         <el-form-item label="手机号码">
-          <el-input placeholder="手机号码" prop="name2" />
+          <el-input
+            placeholder="手机号码"
+            prop="name2"
+          />
         </el-form-item>
         <el-form-item label="办公电话">
-          <el-input placeholder="办公电话" prop="name2" />
+          <el-input
+            placeholder="办公电话"
+            prop="name2"
+          />
         </el-form-item>
         <el-row>
           <el-form-item label="说明">
-            <el-input type="textarea" placeholder="说明" prop="name2" />
+            <el-input
+              type="textarea"
+              placeholder="说明"
+              prop="name2"
+            />
           </el-form-item>
         </el-row>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogStatus==='create'?createData():doUpdateData()">确定</el-button>
-        <el-button type="info" @click="doCloseDialog()">取消</el-button>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          type="primary"
+          @click="dialogStatus==='create'?createData():doUpdateData()"
+        >确定</el-button>
+        <el-button
+          type="info"
+          @click="doCloseDialog()"
+        >取消</el-button>
       </div>
     </el-dialog>
   </div>
@@ -85,14 +134,14 @@ export default {
     // 1:窗口参数
     dialogStatus: {
       type: String,
-      default: () => {}
+      default: () => { }
     },
     dialogVisible: {
       type: Boolean,
-      default: () => {}
+      default: () => { }
     }
   },
-  data() {
+  data () {
     return {
       // 返回值
       'rtnPara': this.paraObject,
@@ -119,18 +168,18 @@ export default {
     }
   },
 
-  created() {
+  created () {
   },
   methods: {
-    createData() {
+    createData () {
       this.$refs['dataForm'].validate((valid) => {
       })
     },
     // 关闭弹出框状态
-    doCloseDialog() {
+    doCloseDialog () {
       this.$emit('setDialogVisible', { dialogVisible: false })
     },
-    doUpdateData() {
+    doUpdateData () {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.currentData)

@@ -9,15 +9,32 @@
       class="floatRight"
     >
       <el-form-item>
-        <el-input v-model="searchForm.role_name" placeholder="权限组名称" />
+        <el-input
+          v-model="searchForm.role_name"
+          placeholder="权限组名称"
+        />
       </el-form-item>
       <el-form-item :size="getSize()">
-        <el-button type="primary" icon="el-icon-search" plain @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          plain
+          @click="handleSearch"
+        >查询</el-button>
       </el-form-item>
     </el-form>
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus-outline" @click="handleCreate">新增</el-button>
-      <el-button :disabled="!btnStatus.doEdit" type="primary" icon="el-icon-edit-outline" @click="handleUpdate">修改</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        @click="handleCreate"
+      >新增</el-button>
+      <el-button
+        :disabled="!btnStatus.doEdit"
+        type="primary"
+        icon="el-icon-edit-outline"
+        @click="handleUpdate"
+      >修改</el-button>
     </el-button-group>
     <el-table
       v-loading="loading"
@@ -34,29 +51,79 @@
       @current-change="handleCurrentChange"
       @sort-change="handleSortChange"
     >
-      <el-table-column type="selection" width="40" />
-      <el-table-column type="index" label="No" />
-      <el-table-column sortable label="层级ID" min-width="120" />
-      <el-table-column sortable label="组织名称" min-width="120" />
-      <el-table-column sortable label="简称" min-width="120" />
-      <el-table-column sortable label="上级组织" min-width="120" />
-      <el-table-column sortable label="状态" min-width="120" />
-      <el-table-column sortable label="启用时间" min-width="120" />
-      <el-table-column sortable label="禁用时间" min-width="120" />
-      <el-table-column sortable label="创建者" min-width="120" />
-      <el-table-column sortable label="创建时间" min-width="120" />
-      <el-table-column sortable label="更新人" min-width="120" />
-      <el-table-column sortable label="更新时间" min-width="120" />
+      <el-table-column
+        type="selection"
+        width="40"
+      />
+      <el-table-column
+        type="index"
+        label="No"
+      />
+      <el-table-column
+        sortable
+        label="层级ID"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="组织名称"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="简称"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="上级组织"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="状态"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="启用时间"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="禁用时间"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="创建者"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="创建时间"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="更新人"
+        min-width="120"
+      />
+      <el-table-column
+        sortable
+        label="更新时间"
+        min-width="120"
+      />
     </el-table>
   </div>
 </template>
 <style scoped>
-  .el-form-item {
-    margin-bottom: 0px !important;
-  }
-  .floatRight {
-    float: right;
-  }
+.el-form-item {
+  margin-bottom: 0px !important;
+}
+.floatRight {
+  float: right;
+}
 </style>
 
 <script>
@@ -76,7 +143,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       // 表格数据
       searchForm: {
@@ -118,47 +185,47 @@ export default {
     }
   },
   watch: {
-    filterText(val) {
+    filterText (val) {
       this.$refs.treeObject.filter(val)
     }
   },
-  created() {
+  created () {
     // 初始化查询
     this.getDataList()
     this.btnStatus.doEdit = false
   },
   methods: {
-    append(data) {
+    append (data) {
       const newChild = { id: 12345, label: 'testtest', children: [] }
       if (!data.children) {
         this.$set(data, 'children', [])
       }
       data.children.push(newChild)
     },
-    remove(node, data) {
+    remove (node, data) {
       const parent = node.parent
       const children = parent.data.children || parent.data
       const index = children.findIndex(d => d.id === data.id)
       children.splice(index, 1)
     },
-    filterNode(value, data) {
+    filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.temp = Object.assign({}, row) // copy obj
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.searchForm.page = 1
       this.getDataList()
     },
-    handleCreate() {
+    handleCreate () {
       // 新增
       this.searchForm.page = 1
       this.getDataList()
     },
-    handleRowUpdate(row) {
+    handleRowUpdate (row) {
       // 修改
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = this.PARAMETERS.STATUS_UPDATE
@@ -167,7 +234,7 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
-    handleUpdate() {
+    handleUpdate () {
       if (this.temp.id === undefined) {
         this.showErrorMsg('请选择一条数据')
         return
@@ -180,7 +247,7 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.temp = Object.assign({}, row) // copy obj
       if (this.temp.id !== undefined) {
         this.btnStatus.doEdit = true
@@ -188,7 +255,7 @@ export default {
         this.btnStatus.doEdit = false
       }
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.searchForm.sort = column.prop
@@ -197,14 +264,14 @@ export default {
       }
       this.getDataList()
     },
-    resetTemp() {
+    resetTemp () {
       this.temp = {
         id: undefined,
         create_dt: '',
         role_name: ''
       }
     },
-    getDataList() {
+    getDataList () {
       // 查询逻辑
       this.loading = true
       getList(this.searchForm).then(response => {
@@ -213,7 +280,7 @@ export default {
         this.loading = false
       })
     },
-    updateData() {
+    updateData () {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)

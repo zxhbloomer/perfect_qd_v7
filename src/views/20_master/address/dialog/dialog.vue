@@ -14,11 +14,24 @@
     destroy-on-close
     top="5vh"
   >
-    <current-dialog ref="dialogRef" :me-dialog-status="visible" @rowDbClick="handleRowDbClick" />
-    <div slot="footer" class="dialog-footer">
+    <current-dialog
+      ref="dialogRef"
+      :me-dialog-status="visible"
+      @rowDbClick="handleRowDbClick"
+    />
+    <div
+      slot="footer"
+      class="dialog-footer"
+    >
       <el-divider />
-      <el-button plain @click="handleDoCancel()">取消</el-button>
-      <el-button :disabled="dataJson.settings.btnDisabledStatus.disabledOk" @click="handleDoOk()">确定</el-button>
+      <el-button
+        plain
+        @click="handleDoCancel()"
+      >取消</el-button>
+      <el-button
+        :disabled="dataJson.settings.btnDisabledStatus.disabledOk"
+        @click="handleDoOk()"
+      >确定</el-button>
     </div>
   </el-dialog>
 </template>
@@ -37,7 +50,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 页面设置json
@@ -51,10 +64,10 @@ export default {
     }
   },
   computed: {
-    listenSelectedDataJson() {
+    listenSelectedDataJson () {
       return this.$store.getters.selectedDataJson
     },
-    listenVisible() {
+    listenVisible () {
       return this.visible
     }
   },
@@ -62,7 +75,7 @@ export default {
   watch: {
     // 监听页面上面是否有选择
     listenSelectedDataJson: {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal === undefined || newVal === null || JSON.stringify(newVal) === '{}') {
           this.dataJson.settings.btnDisabledStatus.disabledOk = true
         } else {
@@ -74,7 +87,7 @@ export default {
     },
     // 监听页面是否打开
     listenVisible: {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal) {
           // dialog打开后初始化
           this.$nextTick(() => {
@@ -87,20 +100,20 @@ export default {
       immediate: true
     }
   },
-  created() {
+  created () {
     // 设置dialog的返回
     this.$store.dispatch('popUpSearchDialog/selectedDataJson', null)
   },
   methods: {
-    handleRowDbClick(val) {
+    handleRowDbClick (val) {
       this.$emit('closeMeOk', this.$store.getters.selectedDataJson)
     },
     // 确定
-    handleDoOk() {
+    handleDoOk () {
       this.$emit('closeMeOk', this.$store.getters.selectedDataJson)
     },
     // 取消
-    handleDoCancel() {
+    handleDoCancel () {
       this.$emit('closeMeCancel')
     }
   }

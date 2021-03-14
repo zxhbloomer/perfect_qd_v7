@@ -4,7 +4,7 @@ import request from '@/utils/request'
  * 查询逻辑
  * @param {*} data
  */
-export function getListApi(query) {
+export function getListApi (query) {
   return request({
     url: '/api/v1/role/list',
     method: 'post',
@@ -16,7 +16,7 @@ export function getListApi(query) {
  * 更新api
  * @param {*} data
  */
-export function updateApi(data) {
+export function updateApi (data) {
   return request({
     url: '/api/v1/role/save',
     method: 'post',
@@ -28,7 +28,7 @@ export function updateApi(data) {
  * 插入api
  * @param {*} data
  */
-export function insertApi(data) {
+export function insertApi (data) {
   return request({
     url: '/api/v1/role/insert',
     method: 'post',
@@ -40,7 +40,7 @@ export function insertApi(data) {
  * 导出逻辑，全部导出
  * @param {*} data
  */
-export function exportAllApi(data) {
+export function exportAllApi (data) {
   return request({
     url: '/api/v1/role/export_all',
     method: 'post',
@@ -53,7 +53,7 @@ export function exportAllApi(data) {
  * 导出逻辑，部分导出
  * @param {*} data
  */
-export function exportSelectionApi(data) {
+export function exportSelectionApi (data) {
   return request({
     url: '/api/v1/role/export_selection',
     method: 'post',
@@ -66,7 +66,7 @@ export function exportSelectionApi(data) {
  * 导入逻辑
  * @param {*} data
  */
-export function importExcelApi(data) {
+export function importExcelApi (data) {
   return request({
     url: '/api/v1/role/import',
     method: 'post',
@@ -78,7 +78,7 @@ export function importExcelApi(data) {
  * 删除逻辑
  * @param {*} data
  */
-export function deleteApi(data) {
+export function deleteApi (data) {
   return request({
     url: '/api/v1/role/delete',
     method: 'post',
@@ -90,7 +90,7 @@ export function deleteApi(data) {
  * 启用逻辑
  * @param {*} data
  */
-export function enableApi(data) {
+export function enableApi (data) {
   return request({
     url: '/api/v1/role/enable',
     method: 'post',

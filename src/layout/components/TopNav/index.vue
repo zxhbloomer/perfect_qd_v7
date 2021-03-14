@@ -7,9 +7,16 @@
         :default-active="activeIndex"
         @select="handleSelect"
       >
-        <el-menu-item v-for="(item,index) in permission_topNav" :key="index" :index="item.index">
+        <el-menu-item
+          v-for="(item,index) in permission_topNav"
+          :key="index"
+          :index="item.index"
+        >
           <svg-icon :icon-class="item.meta.icon" />
-          <span slot="title" style="margin-left: 8px">{{ item.meta.name }}</span>
+          <span
+            slot="title"
+            style="margin-left: 8px"
+          >{{ item.meta.name }}</span>
         </el-menu-item>
       </el-menu>
     </template>
@@ -17,26 +24,26 @@
 </template>
 
 <style scoped>
-  .topnav {
-    background-color: transparent;
-    float: left
-  }
-  .el-menu > .el-menu-item {
-    display: inline-block;
-    line-height: 50px;
-    height: 50px;
-    color: #fff;
-    vertical-align: middle;
-    border-bottom: none;
-  }
-  .el-menu>.el-menu-item.is-active {
-    color: #fff!important;
-    background-color: rgba(0, 0, 0, 0.2)!important;
-  }
-  .el-menu>.el-menu-item:hover {
-    color: #fff!important;
-    background-color: rgba(0,0,0,.1)!important
-  }
+.topnav {
+  background-color: transparent;
+  float: left;
+}
+.el-menu > .el-menu-item {
+  display: inline-block;
+  line-height: 50px;
+  height: 50px;
+  color: #fff;
+  vertical-align: middle;
+  border-bottom: none;
+}
+.el-menu > .el-menu-item.is-active {
+  color: #fff !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+.el-menu > .el-menu-item:hover {
+  color: #fff !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
 </style>
 
 <script>
@@ -45,7 +52,7 @@ import store from '@/store'
 import router, { resetRouter } from '@/router'
 
 export default {
-  data() {
+  data () {
     return {
       // 监听器
       watch: {
@@ -62,12 +69,12 @@ export default {
   },
   watch: {
   },
-  created() {
+  created () {
     this.activeIndex = this.permission_topNav_activeIndex === '-1' ? '1' : this.permission_topNav_activeIndex
   },
   methods: {
     // 设置监听器
-    setWatch() {
+    setWatch () {
       this.unWatch()
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_active_index = this.$watch('permission_topNav_activeIndex', (newVal, oldVal) => {
@@ -78,22 +85,22 @@ export default {
           // 获取路由处理
           const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
             pathOrIndex: this.activeIndex,
-            type: this.PARAMETERS.TOP_NAV_FIND_BY_INDEX })
+            type: this.PARAMETERS.TOP_NAV_FIND_BY_INDEX
+          })
           // 动态添加路由
           router.addRoutes(accessRoutes)
           this.setWatch()
           resolve()
         })
-      },
-      { deep: true }
+      }, { deep: true }
       )
     },
-    unWatch() {
+    unWatch () {
       if (this.watch.unwatch_active_index) {
         this.watch.unwatch_active_index()
       }
     },
-    handleSelect(key, keyPath) {
+    handleSelect (key, keyPath) {
       this.unWatch()
       if (this.permission_topNav[key - 1].index === this.activeIndex) {
         return
@@ -105,7 +112,8 @@ export default {
         // 获取路由处理
         const accessRoutes = await store.dispatch('permission/getPermissionAndSetTopNavAction', {
           pathOrIndex: this.permission_topNav[key - 1].index,
-          type: this.PARAMETERS.TOP_NAV_FIND_BY_INDEX })
+          type: this.PARAMETERS.TOP_NAV_FIND_BY_INDEX
+        })
         // 动态添加路由
         router.addRoutes(accessRoutes)
         this.setWatch()

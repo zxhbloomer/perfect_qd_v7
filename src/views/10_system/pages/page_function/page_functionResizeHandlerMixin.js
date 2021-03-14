@@ -1,32 +1,32 @@
 import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/resize-event'
 
 export default {
-  beforeCreate() {
+  beforeCreate () {
     // 设置页面的name 页面id，和router中的name需要一致，作为缓存
     this.$options.name = this.$route.meta.page_code
   },
-  beforeMount() {
+  beforeMount () {
   },
-  mounted() {
+  mounted () {
     this.setUIheight()
     this.$nextTick(() => {
       addResizeListener(window.document.body, this.doResize)
     })
   },
-  created() {
+  created () {
   },
-  updated() {
+  updated () {
     this.setUIheight()
   },
   // 生命周期结束时销毁事件
-  destroyed() {
+  destroyed () {
     if (this.resizeListener) removeResizeListener(window.document.body, this.doResize)
   },
   methods: {
-    doResize() {
+    doResize () {
       this.setUIheight()
     },
-    setUIheight() {
+    setUIheight () {
       try {
         // 定义高度
         const elementHeight = document.documentElement.clientHeight - 85

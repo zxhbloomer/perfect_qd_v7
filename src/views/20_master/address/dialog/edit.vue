@@ -32,24 +32,58 @@
       <br>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="联系人：" prop="link_man">
-            <el-input ref="refFocusOne" v-model.trim="dataJson.tempJson.link_man" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.link_man" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
+          <el-form-item
+            label="联系人："
+            prop="link_man"
+          >
+            <el-input
+              ref="refFocusOne"
+              v-model.trim="dataJson.tempJson.link_man"
+              clearable
+              show-word-limit
+              :maxlength="dataJson.inputSettings.maxLength.link_man"
+              :placeholder="isPlaceholderShow('请输入')"
+              :disabled="isViewModel"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="电话：" prop="phone">
-            <el-input v-model.trim="dataJson.tempJson.phone" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.phone" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
+          <el-form-item
+            label="电话："
+            prop="phone"
+          >
+            <el-input
+              v-model.trim="dataJson.tempJson.phone"
+              clearable
+              show-word-limit
+              :maxlength="dataJson.inputSettings.maxLength.phone"
+              :placeholder="isPlaceholderShow('请输入')"
+              :disabled="isViewModel"
+            />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="邮编：" prop="postal_code">
-            <el-input v-model.trim="dataJson.tempJson.postal_code" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.postal_code" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
+          <el-form-item
+            label="邮编："
+            prop="postal_code"
+          >
+            <el-input
+              v-model.trim="dataJson.tempJson.postal_code"
+              clearable
+              show-word-limit
+              :maxlength="dataJson.inputSettings.maxLength.postal_code"
+              :placeholder="isPlaceholderShow('请输入')"
+              :disabled="isViewModel"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="默认地址：" prop="is_default">
+          <el-form-item
+            label="默认地址："
+            prop="is_default"
+          >
             <el-switch
               v-model="dataJson.tempJson.is_default"
               :disabled="isViewModel"
@@ -57,7 +91,10 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="省市区：" prop="cascader_areas">
+      <el-form-item
+        label="省市区："
+        prop="cascader_areas"
+      >
         <el-cascader
           ref="refCascader"
           v-model="dataJson.tempJson.cascader_areas"
@@ -70,48 +107,108 @@
           @change="handleCascaderChange"
         />
       </el-form-item>
-      <el-form-item label="详细地址：" prop="detail_address">
-        <el-input v-model.trim="dataJson.tempJson.detail_address" clearable show-word-limit :maxlength="dataJson.inputSettings.maxLength.detail_address" :placeholder="isPlaceholderShow('请输入')" :disabled="isViewModel" />
+      <el-form-item
+        label="详细地址："
+        prop="detail_address"
+      >
+        <el-input
+          v-model.trim="dataJson.tempJson.detail_address"
+          clearable
+          show-word-limit
+          :maxlength="dataJson.inputSettings.maxLength.detail_address"
+          :placeholder="isPlaceholderShow('请输入')"
+          :disabled="isViewModel"
+        />
       </el-form-item>
-      <el-form-item label="标签：" prop="tag">
-        <radio-dict v-model="dataJson.tempJson.tag" :para="CONSTANTS.DICT_SYS_ADDRESS_TAG_TYPE" :disabled="isViewModel" @change="handleRadioDictChange" />
+      <el-form-item
+        label="标签："
+        prop="tag"
+      >
+        <radio-dict
+          v-model="dataJson.tempJson.tag"
+          :para="CONSTANTS.DICT_SYS_ADDRESS_TAG_TYPE"
+          :disabled="isViewModel"
+          @change="handleRadioDictChange"
+        />
       </el-form-item>
       <el-row v-show="settings.dialogStatus === PARAMETERS.STATUS_UPDATE">
         <el-col :span="12">
-          <el-form-item label="更新人：" prop="u_name">
-            <el-input v-model.trim="dataJson.tempJson.u_name" disabled />
+          <el-form-item
+            label="更新人："
+            prop="u_name"
+          >
+            <el-input
+              v-model.trim="dataJson.tempJson.u_name"
+              disabled
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="更新时间：" prop="u_time">
-            <el-input v-model.trim="dataJson.tempJson.u_time" disabled />
+          <el-form-item
+            label="更新时间："
+            prop="u_time"
+          >
+            <el-input
+              v-model.trim="dataJson.tempJson.u_time"
+              disabled
+            />
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <div
+      slot="footer"
+      class="dialog-footer"
+    >
       <el-divider />
       <div class="floatLeft">
-        <el-button v-show="!isViewModel" type="danger" :disabled="settings.loading || settings.btnDisabledStatus.disabledReset" @click="doReset()">重置</el-button>
+        <el-button
+          v-show="!isViewModel"
+          type="danger"
+          :disabled="settings.loading || settings.btnDisabledStatus.disabledReset"
+          @click="doReset()"
+        >重置</el-button>
       </div>
-      <el-button plain :disabled="settings.loading" @click="handleCancel()">取消</el-button>
-      <el-button v-show="settings.btnShowStatus.showInsert" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert " @click="doInsert()">确定</el-button>
-      <el-button v-show="settings.btnShowStatus.showUpdate" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate " @click="doUpdate()">确定</el-button>
-      <el-button v-show="settings.btnShowStatus.showCopyInsert" plain type="primary" :disabled="settings.loading || settings.btnDisabledStatus.disabledCopyInsert " @click="doCopyInsert()">确定</el-button>
+      <el-button
+        plain
+        :disabled="settings.loading"
+        @click="handleCancel()"
+      >取消</el-button>
+      <el-button
+        v-show="settings.btnShowStatus.showInsert"
+        plain
+        type="primary"
+        :disabled="settings.loading || settings.btnDisabledStatus.disabledInsert "
+        @click="doInsert()"
+      >确定</el-button>
+      <el-button
+        v-show="settings.btnShowStatus.showUpdate"
+        plain
+        type="primary"
+        :disabled="settings.loading || settings.btnDisabledStatus.disabledUpdate "
+        @click="doUpdate()"
+      >确定</el-button>
+      <el-button
+        v-show="settings.btnShowStatus.showCopyInsert"
+        plain
+        type="primary"
+        :disabled="settings.loading || settings.btnDisabledStatus.disabledCopyInsert "
+        @click="doCopyInsert()"
+      >确定</el-button>
     </div>
   </el-dialog>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
@@ -146,13 +243,13 @@ export default {
       default: constants_para.STATUS_VIEW
     }
   },
-  data() {
+  data () {
     const that = this
     return {
       // 三级
       areas_props: {
         lazy: true,
-        lazyLoad(node, resolve) {
+        lazyLoad (node, resolve) {
           const { value, level } = node
           switch (level) {
             case 0:
@@ -259,23 +356,24 @@ export default {
         rules: {
           link_man: [{ required: true, message: '请输入联系人', trigger: 'change' }],
           cascader_areas: [{ required: true, message: '请输入省市区', trigger: 'change' }],
-          detail_address: [{ required: true, message: '详细地址', trigger: 'change' }] }
+          detail_address: [{ required: true, message: '详细地址', trigger: 'change' }]
+        }
       }
     }
   },
   computed: {
     // 是否为更新模式
-    isUpdateModel() {
+    isUpdateModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_INSERT || this.settings.dialogStatus === this.PARAMETERS.STATUS_COPY_INSERT) {
         return false
       } else {
         return true
       }
     },
-    listenVisible() {
+    listenVisible () {
       return this.visible
     },
-    isViewModel() {
+    isViewModel () {
       if (this.settings.dialogStatus === this.PARAMETERS.STATUS_VIEW) {
         return true
       } else {
@@ -286,16 +384,16 @@ export default {
   // 监听器
   watch: {
   },
-  created() {
+  created () {
     this.init()
   },
-  mounted() {
+  mounted () {
   },
-  destroyed() {
+  destroyed () {
     this.unWatch()
   },
   methods: {
-    setWatch() {
+    setWatch () {
       this.unWatch()
       // 监听页面上面是否有修改，有修改按钮高亮
       this.watch.unwatch_tempJson = this.$watch('dataJson.tempJson', (newVal, oldVal) => {
@@ -303,17 +401,16 @@ export default {
         this.settings.btnDisabledStatus.disabledInsert = false
         this.settings.btnDisabledStatus.disabledUpdate = false
         this.settings.btnDisabledStatus.disabledCopyInsert = false
-      },
-      { deep: true }
+      }, { deep: true }
       )
     },
-    unWatch() {
+    unWatch () {
       if (this.watch.unwatch_tempJson) {
         this.watch.unwatch_tempJson()
       }
     },
     // 初始化处理
-    init() {
+    init () {
       this.initButtonShowStatus()
       this.initButtonDisabledStatus()
       switch (this.dialogStatus) {
@@ -336,20 +433,20 @@ export default {
       this.setWatch()
       this.settings.loading = false
     },
-    initTempJsonOriginal() {
+    initTempJsonOriginal () {
       // 单条数据 json的，初始化原始数据
       this.dataJson.tempJsonOriginal = this.$options.data.call(this).dataJson.tempJsonOriginal
     },
-    initButtonShowStatus() {
+    initButtonShowStatus () {
       // 初始化按钮状态：默认都隐藏
       this.settings.btnShowStatus = this.$options.data.call(this).settings.btnShowStatus
     },
-    initButtonDisabledStatus() {
+    initButtonDisabledStatus () {
       // 按钮状态初始化：默认不可用
       this.settings.btnDisabledStatus = this.$options.data.call(this).settings.btnDisabledStatus
     },
     // 新增时的初始化
-    initInsertModel() {
+    initInsertModel () {
       // 数据初始化
       this.initTempJsonOriginal()
       this.dataJson.tempJson = deepCopy(this.dataJson.tempJsonOriginal)
@@ -361,7 +458,7 @@ export default {
       })
     },
     // 复制新增时的初始化
-    initCopyInsertModel() {
+    initCopyInsertModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJson.code = ''
@@ -374,7 +471,7 @@ export default {
       })
     },
     // 修改时的初始化
-    initUpdateModel() {
+    initUpdateModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
       this.dataJson.tempJsonOriginal = deepCopy(this.data)
@@ -386,12 +483,12 @@ export default {
       })
     },
     // 查看时的初始化
-    initViewModel() {
+    initViewModel () {
       // 数据初始化
       this.dataJson.tempJson = deepCopy(this.data)
     },
     // Placeholder设置
-    isPlaceholderShow(val) {
+    isPlaceholderShow (val) {
       if (this.isViewModel) {
         return ''
       } else {
@@ -399,11 +496,11 @@ export default {
       }
     },
     // 取消按钮
-    handleCancel() {
+    handleCancel () {
       this.$emit('closeMeCancel')
     },
     // 重置按钮
-    doReset() {
+    doReset () {
       switch (this.settings.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
           // 数据初始化
@@ -444,7 +541,7 @@ export default {
       })
     },
     // 插入逻辑
-    doInsert() {
+    doInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -461,7 +558,7 @@ export default {
       })
     },
     // 更新逻辑
-    doUpdate() {
+    doUpdate () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -480,7 +577,7 @@ export default {
       })
     },
     // 复制新增逻辑
-    doCopyInsert() {
+    doCopyInsert () {
       this.$refs['dataSubmitForm'].validate((valid) => {
         if (valid) {
           // const tempData = Object.assign({}, this.dataJson.tempJson)
@@ -498,7 +595,7 @@ export default {
         }
       })
     },
-    getCascaderDataList() {
+    getCascaderDataList () {
       // 级联查询逻辑
       this.settings.loading = true
       getAreasCascaderApi().then(response => {
@@ -508,13 +605,13 @@ export default {
       })
     },
     // 级联事件
-    handleCascaderChange(val) {
+    handleCascaderChange (val) {
       this.dataJson.tempJson.cascader_text = this.$refs.refCascader.presentText
       this.dataJson.tempJson.province_code = val[0]
       this.dataJson.tempJson.city_code = val[1]
       this.dataJson.tempJson.area_code = val[2]
     },
-    handleRadioDictChange(val) {
+    handleRadioDictChange (val) {
       this.dataJson.tempJson.tag = val
     }
   }

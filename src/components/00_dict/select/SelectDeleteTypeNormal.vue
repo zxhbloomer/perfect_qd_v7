@@ -28,7 +28,7 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 资源类型下拉选项json
@@ -46,21 +46,21 @@ export default {
   watch: {
 
   },
-  created() {
+  created () {
     // 初始化查询
     this.init()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
 
   },
   methods: {
     // 初始化
-    init() {
+    init () {
       this.dataJson.settings.loading = true
       this.getRemoteData()
     },
-    getRemoteData() {
+    getRemoteData () {
       getDeleteTypeNormalApi().then((_data) => {
         this.dataJson.selectOptions = _data.data
         this.dataJson.settings.loading = false

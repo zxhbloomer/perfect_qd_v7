@@ -6,9 +6,18 @@
       class="filterInput"
       placeholder="输入关键字进行过滤"
     >
-      <el-button slot="append" ref="buttonSearch" icon="el-icon-search" class="buttonSearch" @click="handleButtonSearch" />
+      <el-button
+        slot="append"
+        ref="buttonSearch"
+        icon="el-icon-search"
+        class="buttonSearch"
+        @click="handleButtonSearch"
+      />
     </el-input>
-    <div :style="{height: height + 'px'}" class="mytree">
+    <div
+      :style="{height: height + 'px'}"
+      class="mytree"
+    >
       <el-tree
         ref="treeObject"
         :data="dataJson.treeData"
@@ -21,7 +30,10 @@
         default-expand-all
         class="tree"
       >
-        <span slot-scope="{ node, data }" class="custom-tree-node">
+        <span
+          slot-scope="{ node, data }"
+          class="custom-tree-node"
+        >
           <span>{{ node.label }}</span>
           <span>
             <el-dropdown
@@ -78,48 +90,48 @@
 }
 
 .leaf {
-    width: 20px;
-    background: #ddd
+  width: 20px;
+  background: #ddd;
 }
 
 .folder {
-    width: 20px;
-    background: #888
+  width: 20px;
+  background: #888;
 }
 
 .custom-tree-container {
-    display: -ms-flexbox;
-    display: flex;
-    margin: -24px
+  display: -ms-flexbox;
+  display: flex;
+  margin: -24px;
 }
 
 .block {
-    -ms-flex: 1;
-    flex: 1;
-    padding: 8px 24px 24px
+  -ms-flex: 1;
+  flex: 1;
+  padding: 8px 24px 24px;
 }
 
-.block>p {
-    text-align: center;
-    margin: 0;
-    line-height: 4
+.block > p {
+  text-align: center;
+  margin: 0;
+  line-height: 4;
 }
 
 .block:first-child {
-    border-right: 1px solid #eff2f6
+  border-right: 1px solid #eff2f6;
 }
 
 .custom-tree-node {
-    -ms-flex: 1;
-    flex: 1;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    font-size: 14px;
-    padding-right: 8px
+  -ms-flex: 1;
+  flex: 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
 }
 
 .el-tree-node:focus > .el-tree-node__content {
@@ -128,11 +140,11 @@
 </style>
 
 <style >
-  .buttonSearch{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
+.buttonSearch {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
 </style>
 
 <script>
@@ -147,7 +159,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         filterText: '',
@@ -167,30 +179,30 @@ export default {
   },
   watch: {
     'dataJson.filterText': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         this.$refs.treeObject.filter(newVal)
       }
     }
   },
-  created() {
+  created () {
     // 初始化查询
     this.getDataList()
   },
-  mounted() {
+  mounted () {
     this.initSearchButton()
   },
   methods: {
     // 选择or重置按钮的初始化
-    initSearchButton() {
+    initSearchButton () {
       this.$nextTick(() => {
         this.$refs.buttonSearch.$el.parentElement.className = ' buttonSearch ' + this.$refs.buttonSearch.$el.parentElement.className
       })
     },
-    filterNode(value, data) {
+    filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
-    getDataList() {
+    getDataList () {
       // 查询逻辑
       this.settings.loading = true
       getTreeListApi(this.dataJson.searchForm).then(response => {
@@ -201,23 +213,23 @@ export default {
       })
     },
     // 兄弟组件发过来的调用请求
-    handleDataChange() {
+    handleDataChange () {
       // 查询
       this.getDataList()
     },
-    handleButtonSearch() {
+    handleButtonSearch () {
       // 查询
       this.getDataList()
     },
     // 查询后处理
-    getListAfterProcess() {
+    getListAfterProcess () {
       if (Object.keys(this.dataJson.filterText).length !== 0) {
         this.$nextTick(() => {
           this.$refs.treeObject.filter(this.dataJson.filterText)
         })
       }
     },
-    remove(val) {
+    remove (val) {
       alert(val)
     }
   }

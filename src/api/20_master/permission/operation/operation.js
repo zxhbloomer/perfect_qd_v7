@@ -4,7 +4,7 @@ import request from '@/utils/request'
    * 获取操作清单
    * @param {*} data
    */
-export function getOperationListApi(data) {
+export function getOperationListApi (data) {
   return request({
     url: '/api/v1/permission/operation/dept/list',
     method: 'post',
@@ -28,7 +28,7 @@ export function getOperationListApi(data) {
    * 保存选中的权限
    * @param {*} data
    */
-export function savePermissionApi(data) {
+export function savePermissionApi (data) {
   return request({
     url: '/api/v1/permission/operation/dept/save',
     method: 'post',

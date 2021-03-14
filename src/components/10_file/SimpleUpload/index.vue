@@ -11,10 +11,19 @@
     :disabled="settings.loadingStatus"
     :accept="accept"
   >
-    <el-button type="primary" :loading="settings.loadingStatus">
-      <i v-show="!settings.loadingStatus" class="el-icon-upload el-icon--right " />
+    <el-button
+      type="primary"
+      :loading="settings.loadingStatus"
+    >
+      <i
+        v-show="!settings.loadingStatus"
+        class="el-icon-upload el-icon--right "
+      />
       上传
-      <i v-show="settings.uploadOK" class="el-icon-check" />
+      <i
+        v-show="settings.uploadOK"
+        class="el-icon-check"
+      />
     </el-button>
   </el-upload>
 </template>
@@ -30,7 +39,7 @@ export default {
       default: '.xls,.xlsx'
     }
   },
-  data() {
+  data () {
     return {
       settings: {
         duration: 4000,
@@ -45,12 +54,12 @@ export default {
   },
   methods: {
     // 获取通用的上传文件地址
-    getActionUrl() {
+    getActionUrl () {
       const _url = '/api/v1/file/upload'
       return _url
     },
     // 提交
-    uploadRequest(f) {
+    uploadRequest (f) {
       this.settings.loading = true
       const param = new FormData() // 创建form对象
       param.append('file', f.file)// 通过append向form对象添加数据
@@ -85,22 +94,22 @@ export default {
         // })
       })
     },
-    handleUploadFileSuccess(_response, _file, _fileList) {
+    handleUploadFileSuccess (_response, _file, _fileList) {
       this.settings.loadingStatus = false
       this.settings.uploadOK = true
       this.$emit('upload-success', { response: _response, file: _file, fileList: _fileList })
     },
-    handleUploadFileError(_err, _file, _fileList) {
+    handleUploadFileError (_err, _file, _fileList) {
       this.settings.loadingStatus = false
       this.settings.uploadOK = false
       this.$emit('upload-error', { err: _err, file: _file, fileList: _fileList })
     },
-    handleUploadProcess(event, file, fileList) {
+    handleUploadProcess (event, file, fileList) {
       this.settings.loadingStatus = true
       this.settings.uploadOK = false
       this.dataJson.percent = file.percentage.toFixed(0)
     },
-    handleBeforeUpload(file) {
+    handleBeforeUpload (file) {
       this.settings.loadingStatus = true
       this.settings.uploadOK = false
     }

@@ -2,13 +2,13 @@ import { emptyObj } from './util'
 
 // 页面离开
 export default {
-  created() {
+  created () {
     this.$router.beforeEach(this.routerPageLeaveGuard)
   },
 
   methods: {
     // 页面离开导航守卫
-    routerPageLeaveGuard(to, from, next) {
+    routerPageLeaveGuard (to, from, next) {
       if (this._isDestroyed) {
         const hooks = this.$router.beforeHooks
         const idx = hooks.indexOf(this.routerPageLeaveGuard)
@@ -34,7 +34,7 @@ export default {
     },
 
     // 页面离开Promise
-    pageLeavePromise(id, type) {
+    pageLeavePromise (id, type) {
       return new Promise((resolve, reject) => {
         const tab = this.items.find(item => item.id === id) // 当前页签
         const { vm } = this.$alive.cache[id] || emptyObj // 缓存数据

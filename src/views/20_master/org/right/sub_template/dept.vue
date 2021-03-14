@@ -21,31 +21,123 @@
       @selection-change="handleSelectionChange"
     >
       <!-- <el-table-column type="selection" width="45" prop="id" /> -->
-      <el-table-column type="index" width="45" label="No" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="280" :sort-orders="settings.sortOrders" prop="group_full_simple_name" label="集团信息" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="company_simple_name" label="企业信息" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="200" :sort-orders="settings.sortOrders" prop="parent_dept_simple_name" label="上级部门" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="name" label="部门名称">
+      <el-table-column
+        type="index"
+        width="45"
+        label="No"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="280"
+        :sort-orders="settings.sortOrders"
+        prop="group_full_simple_name"
+        label="集团信息"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="company_simple_name"
+        label="企业信息"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="200"
+        :sort-orders="settings.sortOrders"
+        prop="parent_dept_simple_name"
+        label="上级部门"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="name"
+        label="部门名称"
+      >
         <template v-slot="scope">
-          <el-link style="float: right" type="primary" @click="handleView(scope.row)"><i class="el-icon-info" /></el-link>
+          <el-link
+            style="float: right"
+            type="primary"
+            @click="handleView(scope.row)"
+          ><i class="el-icon-info" /></el-link>
           <span> {{ scope.row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="simple_name" label="部门简称" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="230" :sort-orders="settings.sortOrders" prop="code" label="部门编号">
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="simple_name"
+        label="部门简称"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="230"
+        :sort-orders="settings.sortOrders"
+        prop="code"
+        label="部门编号"
+      >
         <template v-slot="scope">
           <el-button-group style="float: right">
-            <el-button type="primary" icon="el-icon-edit" style="padding:4px 4px; " @click="handleEdit(scope.row)" />
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              style="padding:4px 4px; "
+              @click="handleEdit(scope.row)"
+            />
           </el-button-group>
           {{ scope.row.code }}
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="handler_id_name" label="部门主管" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="sub_handler_id_name" label="部门副主管" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="leader_id_name" label="上级主管领导" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="150" :sort-orders="settings.sortOrders" prop="leader_id_name" label="上级分管领导" />
-      <el-table-column show-overflow-tooltip min-width="150" prop="descr" label="说明" />
-      <el-table-column min-width="100" :sort-orders="settings.sortOrders" label="删除">
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="handler_id_name"
+        label="部门主管"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="sub_handler_id_name"
+        label="部门副主管"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="leader_id_name"
+        label="上级主管领导"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="150"
+        :sort-orders="settings.sortOrders"
+        prop="leader_id_name"
+        label="上级分管领导"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="150"
+        prop="descr"
+        label="说明"
+      />
+      <el-table-column
+        min-width="100"
+        :sort-orders="settings.sortOrders"
+        label="删除"
+      >
         <template v-slot:header>
           <span>
             删除
@@ -56,15 +148,22 @@
             >
               <div slot="content">
                 删除状态提示：<br>
-                绿色：未删除  <br>
+                绿色：未删除 <br>
                 红色：已删除
               </div>
-              <svg-icon icon-class="perfect-icon-question1_btn" style="margin-left: 5px" />
+              <svg-icon
+                icon-class="perfect-icon-question1_btn"
+                style="margin-left: 5px"
+              />
             </el-tooltip>
           </span>
         </template>
         <template v-slot="scope">
-          <el-tooltip :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' " placement="top" :open-delay="500">
+          <el-tooltip
+            :content="scope.row.is_del === 'false' ? '删除状态：已删除' : '删除状态：未删除' "
+            placement="top"
+            :open-delay="500"
+          >
             <el-switch
               v-model="scope.row.is_del"
               active-color="#ff4949"
@@ -78,14 +177,34 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="100" :sort-orders="settings.sortOrders" prop="u_name" label="更新人" />
-      <el-table-column show-overflow-tooltip sortable="custom" min-width="200" :sort-orders="settings.sortOrders" prop="u_time" label="更新时间">
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="100"
+        :sort-orders="settings.sortOrders"
+        prop="u_name"
+        label="更新人"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        sortable="custom"
+        min-width="200"
+        :sort-orders="settings.sortOrders"
+        prop="u_time"
+        label="更新时间"
+      >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="minusPaging" :total="dataJson.paging.total" :page.sync="dataJson.paging.current" :limit.sync="dataJson.paging.size" @pagination="getDataList" />
+    <pagination
+      ref="minusPaging"
+      :total="dataJson.paging.total"
+      :page.sync="dataJson.paging.current"
+      :limit.sync="dataJson.paging.size"
+      @pagination="getDataList"
+    />
 
     <edit-dialog
       v-if="popSettings.one.visible"
@@ -101,15 +220,15 @@
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
 </style>
 
 <script>
@@ -120,7 +239,7 @@ import deepCopy from 'deep-copy'
 
 export default {
   components: { Pagination, editDialog },
-  directives: { },
+  directives: {},
   mixins: [],
   props: {
     height: {
@@ -128,7 +247,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -181,7 +300,7 @@ export default {
   watch: {
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -190,11 +309,11 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.$options.name = this.PROGRAMS.P_ORG_RIGHT_DEPT
     this.initShow()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
     this.$on(this.EMITS.EMIT_ORG_CHANGE, _data => {
       this.dataJson.searchForm.condition = _data
@@ -202,24 +321,24 @@ export default {
     })
   },
   methods: {
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
     // 行双点击，仅在dialog中有效
-    handleRowDbClick(row) {
+    handleRowDbClick (row) {
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -228,7 +347,7 @@ export default {
       this.dataJson.multipleSelection = []
       this.$refs.multipleTable.clearSelection()
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
 
@@ -240,7 +359,7 @@ export default {
         this.settings.btnShowStatus.showCopyInsert = false
       }
     },
-    handleSortChange(column) {
+    handleSortChange (column) {
       // 服务器端排序
       if (column.order === 'ascending') {
         this.dataJson.searchForm.pageCondition.sort = column.prop
@@ -249,7 +368,7 @@ export default {
       }
       this.getDataList()
     },
-    getDataList(val) {
+    getDataList (val) {
       // 通知兄弟组件
       this.$off(this.EMITS.EMIT_ORG_LOADING)
       this.$emit(this.EMITS.EMIT_ORG_LOADING)
@@ -257,7 +376,10 @@ export default {
       this.dataJson.searchForm.pageCondition.size = this.dataJson.paging.size
       // 查询逻辑
       this.settings.loading = true
-      const condition = { ...this.dataJson.searchForm.condition, ...{ pageCondition: this.dataJson.searchForm.pageCondition }}
+      const condition = {
+        ...this.dataJson.searchForm.condition,
+        ...{ pageCondition: this.dataJson.searchForm.pageCondition }
+      }
       getDeptListApi(condition).then(response => {
         this.dataJson.listData = response.data.records
         this.dataJson.paging = response.data
@@ -270,33 +392,33 @@ export default {
       })
     },
     // 关闭弹出窗口
-    handlCloseDialog() {
+    handlCloseDialog () {
       this.popSettingsImport.dialogFormVisible = false
       this.popSettingsData.dialogFormVisible = false
     },
     // 获取row-key
-    getRowKeys(row) {
+    getRowKeys (row) {
       return row.id
     },
     // table选择框
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.dataJson.multipleSelection = val
     },
 
     // --------------弹出查询框：开始--------------
-    handleEdit(val) {
+    handleEdit (val) {
       this.popSettings.one.props.data = Object.assign({}, val)
       // 更新
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_UPDATE
       this.popSettings.one.visible = true
     },
-    handleView(val) {
+    handleView (val) {
       this.popSettings.one.props.data = Object.assign({}, val)
       // 更新
       this.popSettings.one.props.dialogStatus = this.PARAMETERS.STATUS_VIEW
       this.popSettings.one.visible = true
     },
-    handleCloseDialogOneOk(val) {
+    handleCloseDialogOneOk (val) {
       // 通知兄弟组件
       this.$off(this.EMITS.EMIT_ORG_LEFT)
       this.$emit(this.EMITS.EMIT_ORG_LEFT)
@@ -315,11 +437,11 @@ export default {
           break
       }
     },
-    handleCloseDialogOneCancel() {
+    handleCloseDialogOneCancel () {
       this.popSettings.one.visible = false
     },
     // 处理插入回调
-    doInsertModelCallBack(val) {
+    doInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -341,7 +463,7 @@ export default {
       }
     },
     // 处理复制新增回调
-    doCopyInsertModelCallBack(val) {
+    doCopyInsertModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 
@@ -365,7 +487,7 @@ export default {
       }
     },
     // 处理更新回调
-    doUpdateModelCallBack(val) {
+    doUpdateModelCallBack (val) {
       if (val.return_flag) {
         this.popSettings.one.visible = false
 

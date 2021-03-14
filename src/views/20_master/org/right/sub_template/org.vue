@@ -21,18 +21,52 @@
       @current-change="handleCurrentChange"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="index" width="45" label="No" />
-      <el-table-column show-overflow-tooltip min-width="250" prop="name" label="组织机构名称" />
-      <el-table-column show-overflow-tooltip min-width="150" prop="simple_name" label="组织机构简称" />
+      <el-table-column
+        type="index"
+        width="45"
+        label="No"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="250"
+        prop="name"
+        label="组织机构名称"
+      />
+      <el-table-column
+        show-overflow-tooltip
+        min-width="150"
+        prop="simple_name"
+        label="组织机构简称"
+      />
       <!-- <el-table-column show-overflow-tooltip min-width="250" prop="code" label="组织机构编码" /> -->
-      <el-table-column show-overflow-tooltip min-width="60" prop="type_text" label="分类">
+      <el-table-column
+        show-overflow-tooltip
+        min-width="60"
+        prop="type_text"
+        label="分类"
+      >
         <template v-slot="scope">
           <span class="org_png">
-            <em v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_TENANT" class="tenant">租户</em>
-            <em v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_GROUP" class="group">集团</em>
-            <em v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_COMPANY" class="company">企业</em>
-            <em v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT" class="dept">部门</em>
-            <em v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_POSITION" class="position">岗位</em>
+            <em
+              v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_TENANT"
+              class="tenant"
+            >租户</em>
+            <em
+              v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_GROUP"
+              class="group"
+            >集团</em>
+            <em
+              v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_COMPANY"
+              class="company"
+            >企业</em>
+            <em
+              v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_DEPT"
+              class="dept"
+            >部门</em>
+            <em
+              v-if="scope.row.type === CONSTANTS.DICT_ORG_SETTING_TYPE_POSITION"
+              class="position"
+            >岗位</em>
           </span>
         </template>
       </el-table-column>
@@ -45,47 +79,59 @@
           <span>）</span>
         </template>
       </el-table-column> -->
-      <el-table-column min-width="180" show-overflow-tooltip prop="u_time" label="更新时间">
+      <el-table-column
+        min-width="180"
+        show-overflow-tooltip
+        prop="u_time"
+        label="更新时间"
+      >
         <template v-slot="scope">
           {{ formatDateTime(scope.row.u_time) }}
         </template>
       </el-table-column>
     </el-table>
 
-    <iframe id="refIframe" ref="refIframe" scrolling="no" frameborder="0" style="display:none" name="refIframe">x</iframe>
+    <iframe
+      id="refIframe"
+      ref="refIframe"
+      scrolling="no"
+      frameborder="0"
+      style="display:none"
+      name="refIframe"
+    >x</iframe>
   </div>
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-select {
-    width: 100%;
-  }
-  .grid-content {
-    border-radius: 2px;
-    min-height: 36px;
-    margin-bottom: 10px;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-select {
+  width: 100%;
+}
+.grid-content {
+  border-radius: 2px;
+  min-height: 36px;
+  margin-bottom: 10px;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
 </style>
 <style >
-  .el-input-group__append_select{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
-  .el-input-group__append_reset{
-    color: #FFFFFF;
-    background-color: #F56C6C;
-    border-color: #F56C6C;
-  }
+.el-input-group__append_select {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+.el-input-group__append_reset {
+  color: #ffffff;
+  background-color: #f56c6c;
+  border-color: #f56c6c;
+}
 </style>
 
 <script>
@@ -96,7 +142,7 @@ import '@/styles/org_png.scss'
 
 export default {
   // name: 'P00000173', // 页面id，和router中的name需要一致，作为缓存
-  components: { },
+  components: {},
   directives: { elDragDialog },
   mixins: [],
   props: {
@@ -105,7 +151,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 级联选择器数据
@@ -240,7 +286,7 @@ export default {
   },
   computed: {
     // 是否为新增菜单组
-    isNewMenuGroup() {
+    isNewMenuGroup () {
       if (this.popSettingsData.dialogStatus === 'insert') {
         return true
       } else {
@@ -248,7 +294,7 @@ export default {
       }
     },
     // 是否为新增子菜单
-    isNewMenu() {
+    isNewMenu () {
       if (this.popSettingsData.dialogStatus === 'copyInsert') {
         return true
       } else {
@@ -256,7 +302,7 @@ export default {
       }
     },
     // 是否为修改
-    isChangeModel() {
+    isChangeModel () {
       if (this.popSettingsData.dialogStatus === this.PARAMETERS.STATUS_UPDATE) {
         return true
       } else {
@@ -264,7 +310,7 @@ export default {
       }
     },
     // 是否为根结点
-    isRootNode() {
+    isRootNode () {
       if (this.dataJson.tempJson.type === null || this.dataJson.tempJson.type === '') {
         return true
       } else {
@@ -272,7 +318,7 @@ export default {
       }
     },
     // 是否为目录结点
-    isCONTENTSNode() {
+    isCONTENTSNode () {
       if (this.dataJson.tempJson.type === this.CONSTANTS.DICT_SYS_MODULE_TYPE_CONTENTS) {
         return true
       } else {
@@ -280,7 +326,7 @@ export default {
       }
     },
     // 是否为菜单结点
-    isMENUNode() {
+    isMENUNode () {
       if (this.dataJson.tempJson.type === this.CONSTANTS.DICT_SYS_MODULE_TYPE_MENU) {
         return true
       } else {
@@ -292,7 +338,7 @@ export default {
   watch: {
     // 监听页面上面是否有修改，有修改按钮高亮
     'dataJson.tempJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.popSettingsData.btnResetStatus === true) {
           // 点击了重置按钮
           this.popSettingsData.btnDisabledStatus.disabledReset = true
@@ -312,7 +358,7 @@ export default {
     },
     // 弹出窗口初始化，按钮不可用
     'popSettingsData.dialogFormVisible': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.popSettingsData.dialogFormVisible) {
           this.popSettingsData.btnDisabledStatus.disabledReset = true
           this.popSettingsData.btnDisabledStatus.disabledInsert = true
@@ -323,7 +369,7 @@ export default {
     },
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -333,7 +379,7 @@ export default {
     },
     // 当前行的选中
     'dataJson.currentJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.dataJson.currentJson.id !== undefined) {
           // this.settings.btnShowStatus.doInsert = true
           this.settings.btnShowStatus.showUpdate = true
@@ -349,7 +395,7 @@ export default {
       deep: true
     },
     'popSettingsData.searchDialogDataTwo.selectedDataJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal === {}) {
           this.dataJson.tempJson.type = null
           this.dataJson.tempJson.name = null
@@ -374,19 +420,19 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     // 作为独立页面，通过route路由打开时
     this.$options.name = this.$route.meta.page_code
     this.initShow()
   },
-  mounted() {
+  mounted () {
     // 描绘完成
     this.$on(this.EMITS.EMIT_ORG_CHANGE, _data => {
       this.getDataList(_data)
     })
   },
   methods: {
-    initTempJsonOriginal() {
+    initTempJsonOriginal () {
       // 单条数据 json的，初始化原始数据
       this.dataJson.tempJsonOriginal =
       {
@@ -397,34 +443,34 @@ export default {
         dbversion: 0
       }
     },
-    initShow() {
+    initShow () {
       // 初始化查询
       this.getDataList()
       // 数据初始化
       this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
     },
     // 下拉选项控件事件
-    handleSelectChange(val) {
+    handleSelectChange (val) {
     },
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
     // 行双点击，仅在dialog中有效
-    handleRowDbClick(row) {
+    handleRowDbClick (row) {
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
       this.dataJson.rowIndex = this.getRowIndex(row)
       if (this.meDialogSetting.dialogStatus) {
         this.$emit('rowDbClick', this.dataJson.tempJson)
       }
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.dataJson.searchForm.pageCondition.current = 1
       this.dataJson.paging.current = 1
@@ -434,7 +480,7 @@ export default {
       this.$refs.multipleTable.clearSelection()
       this.dataJson.currentJson.id = undefined
     },
-    handleRowUpdate(row, _rowIndex) {
+    handleRowUpdate (row, _rowIndex) {
       // 修改
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
       this.dataJson.rowIndex = _rowIndex
@@ -444,7 +490,7 @@ export default {
         this.$refs['dataSubmitForm'].clearValidate()
       })
     },
-    handleCurrentChange(row) {
+    handleCurrentChange (row) {
       this.dataJson.currentJson = Object.assign({}, row) // copy obj
       this.dataJson.currentJson.index = this.getRowIndex(row)
       this.dataJson.tempJsonOriginal = Object.assign({}, row) // copy obj
@@ -452,7 +498,7 @@ export default {
       // 设置dialog的返回
       this.$store.dispatch('popUpSearchDialog/selectedDataJson', Object.assign({}, row))
     },
-    getDataList(val) {
+    getDataList (val) {
       // 通知兄弟组件
       this.$off(this.EMITS.EMIT_ORG_LOADING)
       this.$emit(this.EMITS.EMIT_ORG_LOADING)
@@ -473,11 +519,11 @@ export default {
       })
     },
     // 重置查询区域
-    doResetSearch() {
+    doResetSearch () {
       this.dataJson.searchForm = this.$options.data.call(this).dataJson.searchForm
     },
     // 重置按钮
-    doReset() {
+    doReset () {
       this.popSettingsData.btnResetStatus = true
       switch (this.popSettingsData.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
@@ -506,22 +552,22 @@ export default {
       })
     },
     // 关闭弹出窗口
-    handlCloseDialog() {
+    handlCloseDialog () {
       this.popSettingsImport.dialogFormVisible = false
       this.popSettingsData.dialogFormVisible = false
     },
     // 获取row-key
-    getRowKeys(row) {
+    getRowKeys (row) {
       return row.id
     },
     // table选择框
-    handleSelectionChange(arr) {
-      arr.forEach(function(val, index, arr) {
+    handleSelectionChange (arr) {
+      arr.forEach(function (val, index, arr) {
         // console.log(val, index, arr)
       })
       this.dataJson.multipleSelection = arr
     },
-    renderHeaderIsDel: function(h, { column }) {
+    renderHeaderIsDel: function (h, { column }) {
       return (
         <span>{column.label}
           <el-tooltip
@@ -530,11 +576,11 @@ export default {
             placement='bottom'
           >
             <div slot='content'>
-            可见状态提示：<br/>
-            绿色：可见  <br/>
+              可见状态提示：<br />
+            绿色：可见  <br />
             红色：不可见
             </div>
-            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px'/>
+            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px' />
           </el-tooltip>
         </span>
       )
@@ -543,7 +589,7 @@ export default {
 
     // --------------弹出查询框：模块页面--------------
     // 选择or重置按钮的初始化
-    initModuleSelectButton() {
+    initModuleSelectButton () {
       this.$nextTick(() => {
         this.$refs.selectOne.$el.parentElement.className = 'el-input-group__append el-input-group__append_select'
       })
@@ -551,7 +597,7 @@ export default {
       this.popSettingsData.searchDialogDataTwo.selectOrResetName = '选择'
       this.popSettingsData.searchDialogDataTwo.selectOrResetIcon = 'el-icon-search'
     },
-    handleModuleDialogClick() {
+    handleModuleDialogClick () {
       if (this.popSettingsData.searchDialogDataTwo.selectOrReset === false) {
         // 选择按钮
         this.popSettingsData.searchDialogDataTwo.dialogVisible = true
@@ -561,22 +607,22 @@ export default {
       }
     },
     // 关闭对话框：确定
-    handleModuleCloseOk(val) {
+    handleModuleCloseOk (val) {
       this.popSettingsData.searchDialogDataTwo.selectedDataJson = val
       this.popSettingsData.searchDialogDataTwo.dialogVisible = false
       this.initSelectOrResectButton()
     },
     // 关闭对话框：取消
-    handleModuletCloseCancel() {
+    handleModuletCloseCancel () {
       this.popSettingsData.searchDialogDataTwo.dialogVisible = false
     },
     // 级联事件
-    handleCascaderChange(val) {
+    handleCascaderChange (val) {
       // 数组中最后一个才是parent_id
       this.dataJson.tempJson.parent_id = val[val.length - 1]
     },
     // 删除按钮
-    handleRealyDelete() {
+    handleRealyDelete () {
       // 没有选择任何数据的情况
       if (this.dataJson.tempJson.id === undefined) {
         this.showErrorMsg('请选择一条数据')

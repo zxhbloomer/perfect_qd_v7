@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getList(query) {
+export function getList (query) {
   return request({
     url: '/sys/org/list',
     method: 'post',
@@ -8,7 +8,7 @@ export function getList(query) {
   })
 }
 
-export function updateData(data) {
+export function updateData (data) {
   return request({
     url: '/sys/org/update',
     method: 'post',

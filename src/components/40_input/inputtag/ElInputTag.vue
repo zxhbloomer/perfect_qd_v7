@@ -47,26 +47,26 @@ export default {
       default: 'mini'
     }
   },
-  data() {
+  data () {
     return {
       newTag: '',
       innerTags: [...this.value]
     }
   },
   watch: {
-    value() {
+    value () {
       this.innerTags = [...this.value]
     }
   },
   methods: {
-    foucusTagInput() {
+    foucusTagInput () {
       if (this.readOnly || !this.$el.querySelector('.tag-input')) {
         return
       } else {
         this.$el.querySelector('.tag-input').focus()
       }
     },
-    addNew(e) {
+    addNew (e) {
       if (e && (!this.addTagOnKeys.includes(e.keyCode)) && (e.type !== 'blur')) {
         return
       }
@@ -91,7 +91,7 @@ export default {
         this.newTag = ''
       }
     },
-    addTag(tag) {
+    addTag (tag) {
       tag = tag.trim()
       if (tag && !this.innerTags.includes(tag)) {
         this.innerTags.push(tag)
@@ -99,18 +99,18 @@ export default {
       }
       return false
     },
-    remove(index) {
+    remove (index) {
       this.innerTags.splice(index, 1)
       this.tagChange()
     },
-    removeLastTag() {
+    removeLastTag () {
       if (this.newTag) {
         return
       }
       this.innerTags.pop()
       this.tagChange()
     },
-    tagChange() {
+    tagChange () {
       this.$emit('input', this.innerTags)
     }
   }
@@ -118,44 +118,44 @@ export default {
 </script>
 
 <style scoped>
-  .input-tag-wrapper {
-    position: relative;
-    font-size: 14px;
-    background-color: #fff;
-    background-image: none;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    box-sizing: border-box;
-    color: #606266;
-    display: inline-block;
-    outline: none;
-    padding: 0 10px 0 5px;
-    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-    width: 100%;
-  }
+.input-tag-wrapper {
+  position: relative;
+  font-size: 14px;
+  background-color: #fff;
+  background-image: none;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  box-sizing: border-box;
+  color: #606266;
+  display: inline-block;
+  outline: none;
+  padding: 0 10px 0 5px;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  width: 100%;
+}
 
-  .el-tag {
-    margin-right: 4px;
-  }
-  .tag-input {
-    background: transparent;
-    border: 0;
-    font-size: 14px;
-    height: 40px;
-    outline: none;
-    padding-left: 0;
-    width: 100px;
-  }
-  .el-input-tag--mini{
-    height: 28px;
-    line-height: 28px;
-  }
-  .el-input-tag--small{
-    height: 32px;
-    line-height: 32px;
-  }
-  .el-input-tag--medium{
-    height: 36px;
-    line-height: 36px;
-  }
+.el-tag {
+  margin-right: 4px;
+}
+.tag-input {
+  background: transparent;
+  border: 0;
+  font-size: 14px;
+  height: 40px;
+  outline: none;
+  padding-left: 0;
+  width: 100px;
+}
+.el-input-tag--mini {
+  height: 28px;
+  line-height: 28px;
+}
+.el-input-tag--small {
+  height: 32px;
+  line-height: 32px;
+}
+.el-input-tag--medium {
+  height: 36px;
+  line-height: 36px;
+}
 </style>

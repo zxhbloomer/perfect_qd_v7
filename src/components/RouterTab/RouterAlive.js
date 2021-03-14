@@ -7,7 +7,7 @@ export default {
   name: 'RouterAlive',
   mixins: [rule],
 
-  created() {
+  created () {
     Object.assign(this, {
       cache: Object.create(null),
       lastRoute: this.$route
@@ -15,13 +15,13 @@ export default {
   },
 
   // 销毁后清理缓存
-  destroyed() {
+  destroyed () {
     this.removeAll()
     this.cache = null
     this.lastRoute = null
   },
 
-  render() {
+  render () {
     const slot = this.$slots.default
     const vnode = getFirstComponentChild(slot)
     const vmOpts = vnode && vnode.componentOptions
@@ -107,7 +107,7 @@ export default {
 
   methods: {
     // 设置缓存项
-    set(key, item) {
+    set (key, item) {
       const { cache } = this
       const origin = cache[key]
 
@@ -122,12 +122,12 @@ export default {
     },
 
     // 获取缓存项
-    get(key) {
+    get (key) {
       return this.cache[key]
     },
 
     // 删除缓存项
-    remove(key) {
+    remove (key) {
       const { cache } = this
       const item = this.get(key)
 
@@ -139,7 +139,7 @@ export default {
     },
 
     // 清理所有缓存
-    removeAll() {
+    removeAll () {
       const { cache } = this
 
       for (const i in cache) {

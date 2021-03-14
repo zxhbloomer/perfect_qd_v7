@@ -1,28 +1,75 @@
 <template>
   <div>
-    <el-tabs v-model="settings.tabs.activeName" @tab-click="handleTabsClick">
-      <el-tab-pane name="org" :style="{height: height + 'px'}" style="overflow-y:auto;overflow-x:hidden;">
-        <template slot="label">组织机构<el-badge v-show="dataJson.listData.orgs_count>0" :value="dataJson.listData.orgs_count" type="danger" /></template>
+    <el-tabs
+      v-model="settings.tabs.activeName"
+      @tab-click="handleTabsClick"
+    >
+      <el-tab-pane
+        name="org"
+        :style="{height: height + 'px'}"
+        style="overflow-y:auto;overflow-x:hidden;"
+      >
+        <template slot="label">组织机构
+          <el-badge
+            v-show="dataJson.listData.orgs_count>0"
+            :value="dataJson.listData.orgs_count"
+            type="danger"
+          />
+        </template>
         <org-template :height="height" />
       </el-tab-pane>
-      <el-tab-pane name="group" :style="{height: height + 'px'}" style="overflow-y:auto;overflow-x:hidden;">
-        <template slot="label">集团信息<el-badge v-show="dataJson.listData.group_count>0" :value="dataJson.listData.group_count" type="danger" /></template>
+      <el-tab-pane
+        name="group"
+        :style="{height: height + 'px'}"
+        style="overflow-y:auto;overflow-x:hidden;"
+      >
+        <template slot="label">集团信息
+          <el-badge
+            v-show="dataJson.listData.group_count>0"
+            :value="dataJson.listData.group_count"
+            type="danger"
+          />
+        </template>
         <group-template :height="height - 42" />
       </el-tab-pane>
       <el-tab-pane>
-        <template slot="label">企业信息<el-badge v-show="dataJson.listData.company_count>0" :value="dataJson.listData.company_count" type="danger" /></template>
+        <template slot="label">企业信息
+          <el-badge
+            v-show="dataJson.listData.company_count>0"
+            :value="dataJson.listData.company_count"
+            type="danger"
+          />
+        </template>
         <company-template :height="height - 42" />
       </el-tab-pane>
       <el-tab-pane>
-        <template slot="label">部门信息<el-badge v-show="dataJson.listData.dept_count>0" :value="dataJson.listData.dept_count" type="danger" /></template>
+        <template slot="label">部门信息
+          <el-badge
+            v-show="dataJson.listData.dept_count>0"
+            :value="dataJson.listData.dept_count"
+            type="danger"
+          />
+        </template>
         <dept-template :height="height - 42" />
       </el-tab-pane>
       <el-tab-pane>
-        <template slot="label">岗位信息<el-badge v-show="dataJson.listData.position_count>0" :value="dataJson.listData.position_count" type="danger" /></template>
+        <template slot="label">岗位信息
+          <el-badge
+            v-show="dataJson.listData.position_count>0"
+            :value="dataJson.listData.position_count"
+            type="danger"
+          />
+        </template>
         <position-template :height="height - 42" />
       </el-tab-pane>
       <el-tab-pane>
-        <template slot="label">员工信息<el-badge v-show="dataJson.listData.staff_count>0" :value="dataJson.listData.staff_count" type="danger" /></template>
+        <template slot="label">员工信息
+          <el-badge
+            v-show="dataJson.listData.staff_count>0"
+            :value="dataJson.listData.staff_count"
+            type="danger"
+          />
+        </template>
         <staff-template :height="height - 57" />
       </el-tab-pane>
     </el-tabs>
@@ -31,44 +78,44 @@
 </template>
 
 <style scoped>
-  .floatRight {
-    float: right;
-  }
-  .floatLeft {
-    float: left;
-  }
-  .el-form-item .el-cascader {
-    width: 100%;
-  }
-  .grid-content {
-    border-radius: 2px;
-    min-height: 36px;
-    margin-bottom: 10px;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .el-alert--info.is-light{
-    background: #eee;
-  }
-  .corner {
-    position: absolute;
-    top: 0px;
-    border: 0;
-    right: 0;
-  }
+.floatRight {
+  float: right;
+}
+.floatLeft {
+  float: left;
+}
+.el-form-item .el-cascader {
+  width: 100%;
+}
+.grid-content {
+  border-radius: 2px;
+  min-height: 36px;
+  margin-bottom: 10px;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.el-alert--info.is-light {
+  background: #eee;
+}
+.corner {
+  position: absolute;
+  top: 0px;
+  border: 0;
+  right: 0;
+}
 </style>
 <style >
-  .buttonSearch{
-    color: #FFFFFF;
-    background-color: #1890ff;
-    border-color: #1890ff;
-  }
-  .buttonReset{
-    color: #FFFFFF;
-    background-color: #F56C6C;
-    border-color: #F56C6C;
-  }
+.buttonSearch {
+  color: #ffffff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+.buttonReset {
+  color: #ffffff;
+  background-color: #f56c6c;
+  border-color: #f56c6c;
+}
 </style>
 <script>
 import { getAllOrgDataCountApi } from '@/api/20_master/org/org'
@@ -91,7 +138,7 @@ export default {
       default: 200
     }
   },
-  data() {
+  data () {
     return {
       dataJson: {
         // 查询使用的json
@@ -246,7 +293,7 @@ export default {
     //   immediate: true
     // },
     'dataJson.tempJson.enable_time': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal === undefined || newVal === null || newVal === []) {
           // this.dataJson.tempJson.enable_time = ''
           // this.dataJson.tempJson.disable_time = ''
@@ -263,7 +310,7 @@ export default {
     },
     // 监听页面上面是否有修改，有修改按钮高亮
     'dataJson.tempJson': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.popSettingsData.btnResetStatus === true) {
           // 点击了重置按钮
           this.popSettingsData.btnDisabledStatus.disabledReset = true
@@ -285,7 +332,7 @@ export default {
     },
     // 弹出窗口初始化，按钮不可用
     'popSettingsData.dialogFormVisible': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (this.popSettingsData.dialogFormVisible) {
           this.initPopUpStatus()
         }
@@ -293,7 +340,7 @@ export default {
     },
     // 选中的数据，使得导出按钮可用，否则就不可使用
     'dataJson.multipleSelection': {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal.length > 0) {
           this.settings.btnShowStatus.showExport = true
         } else {
@@ -302,7 +349,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     // 描绘完成
     this.$on(this.EMITS.EMIT_ORG_CHANGE, _data => {
       this.dataJson.leftTreeData = _data
@@ -313,30 +360,30 @@ export default {
       this.getDataList(this.dataJson.leftTreeData)
     })
   },
-  created() {
+  created () {
     this.popSettingsData.searchDialogDataOne.dialogVisible = true
     // 数据初始化
     this.dataJson.tempJson = Object.assign({}, this.dataJson.tempJsonOriginal)
   },
   methods: {
     // 获取行索引
-    getRowIndex(row) {
+    getRowIndex (row) {
       const _index = this.dataJson.listData.lastIndexOf(row)
       return _index
     },
     // 行点击
-    handleRowClick(row) {
+    handleRowClick (row) {
       this.dataJson.tempJson = Object.assign({}, row) // copy obj
       this.dataJson.rowIndex = this.getRowIndex(row)
     },
-    handleSearch() {
+    handleSearch () {
       // 查询
       this.getDataList()
       // 清空选择
       this.dataJson.multipleSelection = []
       this.$refs.multipleTable.clearSelection()
     },
-    getDataList(val) {
+    getDataList (val) {
       // 通知兄弟组件
       this.$off(this.EMITS.EMIT_ORG_LOADING)
       this.$emit(this.EMITS.EMIT_ORG_LOADING)
@@ -354,7 +401,7 @@ export default {
       })
     },
     // 重置按钮
-    doReset() {
+    doReset () {
       this.popSettingsData.btnResetStatus = true
       switch (this.popSettingsData.dialogStatus) {
         case this.PARAMETERS.STATUS_UPDATE:
@@ -403,7 +450,7 @@ export default {
       })
     },
     // 关闭弹出窗口
-    handlCloseDialog() {
+    handlCloseDialog () {
       this.popSettingsData.dialogFormVisible = false
     },
     // 获取row-key
@@ -411,21 +458,21 @@ export default {
     //   return row.id
     // },
     // table选择框
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.dataJson.multipleSelection = val
     },
     // 弹出框设置初始化
-    initPopUpStatus() {
+    initPopUpStatus () {
       this.popSettingsData.btnDisabledStatus.disabledReset = true
       this.popSettingsData.btnDisabledStatus.disabledInsert = true
       this.popSettingsData.btnDisabledStatus.disabledUpdate = true
       this.popSettingsData.btnDisabledStatus.disabledCopyInsert = true
     },
-    handleCascaderChange(value) {
-      const parent_id = value[value.length - 1 ]
+    handleCascaderChange (value) {
+      const parent_id = value[value.length - 1]
       this.dataJson.tempJson.parent_id = parent_id
     },
-    renderHeaderIsEnabled: function(h, { column }) {
+    renderHeaderIsEnabled: function (h, { column }) {
       return (
         <span>{column.label}
           <el-tooltip
@@ -434,16 +481,16 @@ export default {
             placement='bottom'
           >
             <div slot='content'>
-            删除状态提示：<br/>
-            绿色：未启用  <br/>
+              删除状态提示：<br />
+            绿色：未启用  <br />
             红色：已启用
             </div>
-            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px'/>
+            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px' />
           </el-tooltip>
         </span>
       )
     },
-    renderHeaderIsFreeze: function(h, { column }) {
+    renderHeaderIsFreeze: function (h, { column }) {
       return (
         <span>{column.label}
           <el-tooltip
@@ -452,16 +499,16 @@ export default {
             placement='bottom'
           >
             <div slot='content'>
-            删除状态提示：<br/>
-            绿色：未启用  <br/>
+              删除状态提示：<br />
+            绿色：未启用  <br />
             红色：已启用
             </div>
-            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px'/>
+            <svg-icon icon-class='perfect-icon-question1_btn' style='margin-left: 5px' />
           </el-tooltip>
         </span>
       )
     },
-    dataPickChange(data) {
+    dataPickChange (data) {
       this.dataJson.tempJson.enable_time_range = data
       if (data === null) {
         this.dataJson.tempJson.enable_time = null
@@ -472,10 +519,10 @@ export default {
       }
     },
     // 管理员维护点击事件
-    handleAdmin() {
+    handleAdmin () {
       alert('TODO:xxx')
     },
-    handleTabsClick(tab, event) {
+    handleTabsClick (tab, event) {
       // console.log(tab, event)
     }
   }

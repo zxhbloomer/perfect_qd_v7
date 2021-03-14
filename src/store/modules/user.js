@@ -35,7 +35,7 @@ const mutations = {
 
 const actions = {
   // user login
-  loginAction({ commit }, userInfo) {
+  loginAction ({ commit }, userInfo) {
     const { username, password, imageCode } = userInfo
     return new Promise((resolve, reject) => {
       loginApi({ username: username.trim(), password: password, imageCode: imageCode.trim() }).then(response => {
@@ -51,7 +51,7 @@ const actions = {
   },
 
   // get user info
-  getUserInfoAction({ commit, state }, _data) {
+  getUserInfoAction ({ commit, state }, _data) {
     return new Promise((resolve, reject) => {
       getUserInfoApi(state.token).then(response => {
         const { data } = response
@@ -79,7 +79,7 @@ const actions = {
   },
 
   // user logout
-  logout({ commit, state }) {
+  logout ({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         commit('SET_TOKEN', '')
@@ -95,7 +95,7 @@ const actions = {
   },
 
   // remove token
-  resetToken({ commit }) {
+  resetToken ({ commit }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
@@ -105,7 +105,7 @@ const actions = {
   },
 
   // 动态改变权限
-  changeRoles({ commit, dispatch }, role) {
+  changeRoles ({ commit, dispatch }, role) {
     return new Promise(async resolve => {
       const token = role + '-token'
 

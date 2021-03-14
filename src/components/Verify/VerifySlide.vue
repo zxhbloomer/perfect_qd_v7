@@ -23,7 +23,11 @@
                  background: 'url(' + imgUrl +')',
                  'background-size' : setSize.imgWidth + ' '+ setSize.imgHeight}"
       >
-        <div v-show="showRefresh" class="verify-refresh" @click="refresh"><i class="iconfont icon-refresh" />
+        <div
+          v-show="showRefresh"
+          class="verify-refresh"
+          @click="refresh"
+        ><i class="iconfont icon-refresh" />
         </div>
         <div
           class="verify-gap"
@@ -39,12 +43,18 @@
                height: barSize.height,
                'line-height':barSize.height}"
     >
-      <span class="verify-msg" v-text="text" />
+      <span
+        class="verify-msg"
+        v-text="text"
+      />
       <div
         class="verify-left-bar"
         :style="{width: (leftBarWidth!==undefined)?leftBarWidth: barSize.height, height: barSize.height, 'border-color': leftBarBorderColor, transaction: transitionWidth}"
       >
-        <span class="verify-msg" v-text="finishText" />
+        <span
+          class="verify-msg"
+          v-text="finishText"
+        />
         <div
           class="verify-move-block"
           :style="{width: barSize.height, height: barSize.height, 'background-color': moveBlockBackgroundColor, left: moveBlockLeft, transition: transitionLeft}"
@@ -109,13 +119,13 @@ export default {
     // },
     imgName: {
       type: Array,
-      default() {
+      default () {
         return ['350x150', '350x450']
       }
     },
     imgSize: {
       type: Object,
-      default() {
+      default () {
         return {
           width: '400px',
           height: '200px'
@@ -124,7 +134,7 @@ export default {
     },
     blockSize: {
       type: Object,
-      default() {
+      default () {
         return {
           width: '50px',
           height: '50px'
@@ -133,7 +143,7 @@ export default {
     },
     barSize: {
       type: Object,
-      default() {
+      default () {
         return {
           width: '400px',
           height: '40px'
@@ -141,7 +151,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       imgRand: 0,
       text: '',
@@ -172,10 +182,10 @@ export default {
     }
   },
   computed: {
-    barArea() {
+    barArea () {
       return this.$el.querySelector('.verify-bar-area')
     },
-    resetSize() {
+    resetSize () {
       return resetSize
     }
   },
@@ -183,19 +193,19 @@ export default {
     // type变化则全面刷新
     type: {
       immediate: true,
-      handler() {
+      handler () {
         this.init()
       }
     }
   },
-  mounted() {
+  mounted () {
     // 禁止拖拽
-    this.$el.onselectstart = function() {
+    this.$el.onselectstart = function () {
       return false
     }
   },
   methods: {
-    init() {
+    init () {
       this.text = this.explain
       this.imgRand = Math.floor(Math.random() * this.imgName.length)			// 随机的背景图片
       this.imgUrl = require('@/assets/images/' + this.imgName[this.imgRand])
@@ -213,39 +223,39 @@ export default {
 
       var _this = this
 
-      window.removeEventListener('touchmove', function(e) {
+      window.removeEventListener('touchmove', function (e) {
         _this.move(e)
       })
-      window.removeEventListener('mousemove', function(e) {
-        _this.move(e)
-      })
-
-      // 鼠标松开
-      window.removeEventListener('touchend', function() {
-        _this.end()
-      })
-      window.removeEventListener('mouseup', function() {
-        _this.end()
-      })
-
-      window.addEventListener('touchmove', function(e) {
-        _this.move(e)
-      })
-      window.addEventListener('mousemove', function(e) {
+      window.removeEventListener('mousemove', function (e) {
         _this.move(e)
       })
 
       // 鼠标松开
-      window.addEventListener('touchend', function() {
+      window.removeEventListener('touchend', function () {
         _this.end()
       })
-      window.addEventListener('mouseup', function() {
+      window.removeEventListener('mouseup', function () {
+        _this.end()
+      })
+
+      window.addEventListener('touchmove', function (e) {
+        _this.move(e)
+      })
+      window.addEventListener('mousemove', function (e) {
+        _this.move(e)
+      })
+
+      // 鼠标松开
+      window.addEventListener('touchend', function () {
+        _this.end()
+      })
+      window.addEventListener('mouseup', function () {
         _this.end()
       })
     },
 
     // 鼠标按下
-    start: function(e) {
+    start: function (e) {
       if (this.isEnd === false) {
         this.text = ''
         this.moveBlockBackgroundColor = '#337ab7'
@@ -256,7 +266,7 @@ export default {
       }
     },
     // 鼠标移动
-    move: function(e) {
+    move: function (e) {
       if (this.status && this.isEnd === false) {
         //                    if (this.mode == 'pop') {
         //                        this.showImage = true
@@ -294,7 +304,7 @@ export default {
     },
 
     // 鼠标松开
-    end: function() {
+    end: function () {
       var _this = this
 
       //                判断是否重合
@@ -302,7 +312,7 @@ export default {
         if (this.type !== '1') {		// 图片滑动
           var vOffset = parseInt(this.vOffset)
           if (parseInt(this.left) >= (parseInt((this.moveBlockLeft || '').replace('px', '')) - vOffset) &&
-                            parseInt(this.left) <= (parseInt((this.moveBlockLeft || '').replace('px', '')) + vOffset)) {
+            parseInt(this.left) <= (parseInt((this.moveBlockLeft || '').replace('px', '')) + vOffset)) {
             this.moveBlockBackgroundColor = '#5cb85c'
             //                            this.htmlDoms.left_bar.css({'border-color': '#5cb85c', 'background-color': '#fff'});
             this.leftBarBorderColor = '#5cb85c'
@@ -317,7 +327,7 @@ export default {
             this.iconColor = '#fff'
             this.iconClass = 'icon-close'
 
-            setTimeout(function() {
+            setTimeout(function () {
               _this.refresh()
             }, 400)
 
@@ -346,7 +356,7 @@ export default {
             this.iconClass = 'icon-close'
             this.isEnd = true
 
-            setTimeout(function() {
+            setTimeout(function () {
               _this.finishText = ''
               _this.refresh()
               _this.isEnd = false
@@ -361,7 +371,7 @@ export default {
     },
 
     // 随机出生点位
-    randSet: function() {
+    randSet: function () {
       var rand1 = Math.floor(Math.random() * 9 + 1)
       var rand2 = Math.floor(Math.random() * 9 + 1)
       var top = rand1 * parseInt(this.setSize.imgHeight) / 15 + parseInt(this.setSize.imgHeight) * 0.1
@@ -371,7 +381,7 @@ export default {
       this.left = left
     },
 
-    refresh: function() {
+    refresh: function () {
       this.showRefresh = true
       this.finishText = ''
 
@@ -403,7 +413,7 @@ export default {
     },
 
     // 获取left值
-    getLeft: function(node) {
+    getLeft: function (node) {
       let leftValue = 0
       while (node) {
         leftValue += node.offsetLeft
