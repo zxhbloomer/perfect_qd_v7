@@ -124,6 +124,7 @@
       stripe
       border
       fit
+      auto-resize
       highlight-current-row
       :default-sort="{prop: 'u_time', order: 'descending'}"
       style="width: 100%"
@@ -137,7 +138,7 @@
         v-if="!meDialogStatus"
         type="checkbox"
         width="45"
-        prop="id"
+        field="id"
       />
       <vxe-table-column
         type="seq"
@@ -148,44 +149,44 @@
         v-if="!meDialogStatus"
         show-overflow-tooltip
         sortable
-        min-width="280"
-        prop="group_full_simple_name"
+        min-width="auto"
+        field="group_full_simple_name"
         title="集团信息"
       />
       <vxe-table-column
         v-if="!meDialogStatus"
         show-overflow-tooltip
         sortable
-        min-width="150"
-        prop="company_simple_name"
+        min-width="auto"
+        field="company_simple_name"
         title="企业信息"
       />
       <vxe-table-column
         v-if="!meDialogStatus"
         show-overflow-tooltip
         sortable
-        min-width="180"
-        prop="dept_full_simple_name"
+        min-width="auto"
+        field="dept_full_simple_name"
         title="部门信息"
       />
       <vxe-table-column
         sortable
-        prop="name"
+        field="name"
         title="岗位名称"
         :auto-fit="true"
-        min-width="180"
+        min-width="auto"
       />
       <vxe-table-column
         show-overflow-tooltip
         sortable
-        min-width="120"
-        prop="simple_name"
+        min-width="auto"
+        field="simple_name"
         title="岗位简称"
       />
       <vxe-table-column
         show-overflow-tooltip
-        min-width="130"
-        prop=""
+        min-width="auto"
+        field=""
         title="操作"
       >
         <template v-slot="scope">
@@ -210,8 +211,8 @@
       <vxe-table-column
         show-overflow-tooltip
         sortable
-        min-width="150"
-        prop="code"
+        min-width="auto"
+        field="code"
         title="岗位编号"
       />
       <vxe-table-column
@@ -260,15 +261,15 @@
       <vxe-table-column
         show-overflow-tooltip
         sortable
-        min-width="100"
-        prop="u_name"
+        min-width="auto"
+        field="u_name"
         title="更新人"
       />
       <vxe-table-column
         show-overflow-tooltip
         sortable
-        min-width="180"
-        prop="u_time"
+        min-width="auto"
+        field="u_time"
         title="更新时间"
       >
         <template v-slot="scope">
