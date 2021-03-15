@@ -53,7 +53,9 @@ export default {
   // },
   methods: {
     updateAutoWidth () {
-      if (!this.autoFit) return
+      if (!this.autoFit) {
+        return
+      }
       const cellWrapperClass = this.fitHeader ? `.${this.columnId}` : `td.${this.columnId}`
 
       let cells = window.document.querySelectorAll(`${cellWrapperClass} .${this.fitByClass}`)
@@ -67,13 +69,16 @@ export default {
       const autoMinWidth = max(map(cells, item => item.getBoundingClientRect().width)) + this.fitGap + 1
 
       if (this.autoWidth !== autoMinWidth) {
-        this.autoWidth = autoMinWidth
+        // 如果自适应行间距变小，则忽略
+        if (this.autoWidth >= autoMinWidth) {
+          return
+        } else {
+          this.autoWidth = autoMinWidth
+        }
       }
     }
   },
-  updated () {
-  },
   mounted () {
-    this.$nextTick(this.updateAutoWidth)
+    // this.$nextTick(this.updateAutoWidth)
   }
 }

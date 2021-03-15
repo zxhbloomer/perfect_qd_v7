@@ -44,13 +44,18 @@ export default {
     this.setColumnsSize($table, page_code, table_type)
     $table.doLayout()
   },
-  updated () {
+  beforeUpdate () {
     if (isNotEmpty(this.data)) {
-      this.$children[8].updateAutoWidth()
+      console.log(this.data)
+      // 表格自适应
+      this.$children.forEach(element => {
+        if (element.autoFit) {
+          element.updateAutoWidth()
+        }
+      })
     }
   },
   methods: {
-
     // 设置表格上的列宽度，如果有数据
     saveColumnsSize (table_obj, page_code, column) {
       // 获取当前列的index

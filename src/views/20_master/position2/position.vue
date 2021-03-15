@@ -140,14 +140,20 @@
         prop="id"
       />
       <el-table-column
-        type="index"
-        width="45"
         label="No"
-      />
+        type="index"
+        width="50"
+        align="center"
+      >
+        <template v-slot="scope">
+          <span>{{ (dataJson.searchForm.pageCondition.current - 1) * dataJson.searchForm.pageCondition.size + scope.$index + 1 }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         v-if="!meDialogStatus"
-        show-overflow-tooltip
         sortable="custom"
+        auto-fit
+        fit-header
         min-width="280"
         :sort-orders="settings.sortOrders"
         prop="group_full_simple_name"
@@ -155,8 +161,9 @@
       />
       <el-table-column
         v-if="!meDialogStatus"
-        show-overflow-tooltip
         sortable="custom"
+        auto-fit
+        fit-header
         min-width="150"
         :sort-orders="settings.sortOrders"
         prop="company_simple_name"
@@ -164,8 +171,9 @@
       />
       <el-table-column
         v-if="!meDialogStatus"
-        show-overflow-tooltip
         sortable="custom"
+        auto-fit
+        fit-header
         min-width="180"
         :sort-orders="settings.sortOrders"
         prop="dept_full_simple_name"
@@ -173,22 +181,24 @@
       />
       <el-table-column
         sortable="custom"
+        auto-fit
+        fit-header
         min-width="120"
         :sort-orders="settings.sortOrders"
         prop="name"
         label="岗位名称"
-        :auto-fit="true"
       />
       <el-table-column
-        show-overflow-tooltip
         sortable="custom"
-        min-width="120"
+        auto-fit
+        fit-header
         :sort-orders="settings.sortOrders"
         prop="simple_name"
         label="岗位简称"
       />
       <el-table-column
-        show-overflow-tooltip
+        auto-fit
+        fit-header
         min-width="130"
         prop=""
         label="操作"
@@ -213,14 +223,17 @@
         </template>
       </el-table-column>
       <el-table-column
-        :auto-fit="true"
-        sortable="custom"
+        auto-fit
+        fit-header
         min-width="150"
+        sortable="custom"
         :sort-orders="settings.sortOrders"
         prop="code"
         label="岗位编号"
       />
       <el-table-column
+        auto-fit
+        fit-header
         min-width="70"
         :sort-orders="settings.sortOrders"
         label="删除"
@@ -265,16 +278,18 @@
         </template>
       </el-table-column>
       <el-table-column
-        show-overflow-tooltip
         sortable="custom"
+        auto-fit
+        fit-header
         min-width="100"
         :sort-orders="settings.sortOrders"
         prop="u_name"
         label="更新人"
       />
       <el-table-column
-        show-overflow-tooltip
         sortable="custom"
+        auto-fit
+        fit-header
         min-width="180"
         :sort-orders="settings.sortOrders"
         prop="u_time"

@@ -143,6 +143,7 @@
         type="index"
         width="45"
         label="No"
+        align="center"
       />
       <el-table-column
         v-if="!meDialogStatus"
