@@ -44,15 +44,27 @@ export default {
     this.setColumnsSize($table, page_code, table_type)
     $table.doLayout()
   },
-  beforeUpdate () {
-    if (isNotEmpty(this.data)) {
-      console.log(this.data)
-      // 表格自适应
-      this.$children.forEach(element => {
-        if (element.autoFit) {
-          element.updateAutoWidth()
+  computed: {
+    // table数据
+    values () {
+      const data = this.data
+      return data
+    }
+  },
+  watch: {
+    values: {
+      handler (newVal, oldVal) {
+        if (isNotEmpty(this.data)) {
+          this.$nextTick(() => {
+            // 表格自适应
+            this.$children.forEach(element => {
+              if (element.autoFit) {
+                element.updateAutoWidth()
+              }
+            })
+          })
         }
-      })
+      }
     }
   },
   methods: {
