@@ -4,7 +4,7 @@ import request from '@/utils/request'
  * 获取列宽数据
  * @param {*} data
  */
-export function getColumnsSizeApi(query) {
+export function getColumnsSizeApi (query) {
   return request({
     url: '/api/v1/columns/list',
     method: 'post',
@@ -16,7 +16,7 @@ export function getColumnsSizeApi(query) {
  * 保存api
  * @param {*} data
  */
-export function saveColumnsSizeApi(data) {
+export function saveColumnsSizeApi (data) {
   return request({
     url: '/api/v1/columns/save',
     method: 'post',
