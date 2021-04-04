@@ -34,7 +34,7 @@
 </template>
 <script>
 import constants_program from '@/common/constants/constants_program'
-import resizeMixin from '@/mixin/viewResizeHandlerMixin'
+import resizeMixin from './permission_deptResizeHandlerMixin'
 
 export default {
   name: constants_program.P_PERMISSION_DEPT, // 页面id，和router中的name需要一致，作为缓存
