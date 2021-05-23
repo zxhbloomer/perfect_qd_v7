@@ -25,7 +25,6 @@
         </el-button-group>
       </el-form-item>
     </el-form>
-
     <el-table
       v-cloak
       ref="multipleTable"
@@ -47,6 +46,7 @@
       @select-all="handleCheckAllMenu()"
     >
       <el-table-column
+        v-if="dataJson.canEdit"
         ref="column_head_selection"
         type="selection"
         min-width="45"
@@ -54,6 +54,7 @@
         <template v-slot="scope">
           <el-checkbox
             v-model="scope.row.is_enable"
+            :disabled="!dataJson.canEdit"
             @change="handleCheckMenu(scope.row.is_enable, scope.row)"
           />
         </template>
@@ -145,6 +146,7 @@
             >
               <el-checkbox
                 v-model="item.is_enable"
+                :disabled="!dataJson.canEdit"
                 @change="handleCheck(operations.row)"
               >{{ item.name }}</el-checkbox>
             </el-col>
@@ -180,6 +182,7 @@
             <el-checkbox
               v-model="operations.row.check_all"
               :indeterminate="operations.row.indeterminate"
+              :disabled="!dataJson.canEdit"
               @change="handleCheckAllChange(operations.row)"
             />
           </div>
@@ -240,6 +243,10 @@ export default {
     permissionId: {
       type: Number,
       default: null
+    },
+    canEdit: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -264,7 +271,8 @@ export default {
         check_all: {
           checked: false,
           indeterminate: false
-        }
+        },
+        canEdit: this.canEdit
       },
       // 页面设置json
       settings: {

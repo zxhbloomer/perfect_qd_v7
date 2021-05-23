@@ -26,6 +26,7 @@
           :height="height - 102"
           :head-info="dataJson.operation_head_info"
           :permission-id="dataJson.permissionId"
+          :can-edit="dataJson.canEdit"
         />
       </el-tab-pane>
     </el-tabs>
@@ -97,7 +98,8 @@ export default {
           name: ''
         },
         operation_head_info: '',
-        permissionId: null
+        permissionId: null,
+        canEdit: null
       },
       // 页面设置json
       settings: {
@@ -125,6 +127,7 @@ export default {
       this.settings.tabs.activeName = 'edit_permission'
       this.dataJson.operation_head_info = _data.operate_tab_header_info.info
       this.dataJson.permissionId = _data.permission.permissionId
+      this.dataJson.canEdit = true
       this.settings.tabs.is_edit = false
     })
     this.$on(this.EMITS.EMIT_PERMISSION_DEPT_OPERATE_INFO, _data => {
@@ -132,6 +135,7 @@ export default {
       this.settings.tabs.activeName = 'edit_permission'
       this.dataJson.operation_head_info = _data.operate_tab_header_info.info
       this.dataJson.permissionId = _data.permission.permissionId
+      this.dataJson.canEdit = false
       this.settings.tabs.is_edit = false
     })
     // 是否编辑
