@@ -63,7 +63,7 @@
               icon="el-icon-info"
               icon-color="red"
               title="点击确定后跳转到组织机构页面，请注意保存当前数据。"
-              @onConfirm="handleForward"
+              @confirm="handleForward"
             >
               <el-button
                 slot="reference"
@@ -133,7 +133,7 @@
             <el-button
               type="danger"
               @click="doReset()"
-            >重置</el-button>
+            >刷新</el-button>
           </div>
           <el-button
             plain

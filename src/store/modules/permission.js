@@ -75,7 +75,13 @@ const actions = {
     // 设置到vuex中是菜单树
     commit('SET_TOP_NAV_ACTIVE_INDEX', topNavIndex)
   },
-  getPermissionAndSetTopNavAction2 ({ commit }, _data) {
+  /**
+   * 此方法为远程调用api
+   * @param {*} param0
+   * @param {*} _data
+   * @returns
+   */
+  getPermissionAndSetTopNavAction ({ commit }, _data) {
     return new Promise((resolve, reject) => {
       // 获取权限，顶部导航栏，操作权限数据
       getPermissionAndTopNavApi(_data.pathOrIndex, _data.type).then(response => {
@@ -107,6 +113,12 @@ const actions = {
          */
         // 动态读取所有路由中的component，成为对象，没有层级
         deepRecursiveLoadComponent(all_routers)
+        /** 增加404错误跳转，需要加在最后 */
+        all_routers.push({
+          path: '*',
+          redirect: '/404',
+          hidden: true
+        })
         // 设置到异步对象中去
         const convertData = setAsyncRouters(all_routers)
         // 设置根节点跳转的url
@@ -126,7 +138,7 @@ const actions = {
    * @param {*} param0
    * @param {*} _data
    */
-  getPermissionAndSetTopNavAction ({ commit }, _data) {
+  getPermissionAndSetTopNavAction2 ({ commit }, _data) {
     return new Promise(resolve => {
       // TODO 此处修改，调试顶部导航栏
       const _topNavData = topNav
@@ -149,6 +161,7 @@ const actions = {
        *  最后还需要考虑redirect的数据，该数据需要包含到'SET_MENUS_ROUTERS'的vuex中
       */
       var _routers = deepcopy(asyncRoutesAll)
+
       const convertData = convertToOneRouter(_routers)
       const redirect_data = {
         redirect: '/dashboard',

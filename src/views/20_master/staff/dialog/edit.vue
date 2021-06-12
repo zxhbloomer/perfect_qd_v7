@@ -689,7 +689,7 @@
                         icon="el-icon-info"
                         icon-color="red"
                         title="点击确定后跳转到岗位页面，请注意保存当前数据。"
-                        @onConfirm="handlePositionClick(item.position_name)"
+                        @confirm="handlePositionClick(item.position_name)"
                       >
                         <el-tag
                           slot="reference"
